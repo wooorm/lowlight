@@ -1,0 +1,6 @@
+<!-- Well, more like HTML... -->
+<style>
+.foo {
+  color: red;
+}
+</style>

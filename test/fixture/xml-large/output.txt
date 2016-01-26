@@ -1,0 +1,9 @@
+<span class="hljs-meta">&lt;?xml version="1.0"?&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">response</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"ok"</span> <span class="hljs-attr">xml:lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">text</span>&gt;</span>Ok<span class="hljs-tag">&lt;/<span class="hljs-name">text</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">comment</span> <span class="hljs-attr">html_allowed</span>=<span class="hljs-string">"true"</span>/&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">ns1:description</span>&gt;</span>&lt;![CDATA[
+  CDATA is &lt;not&gt; magical.
+  ]]&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">ns1:description</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">a</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">response</span>&gt;</span>

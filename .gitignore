@@ -1,0 +1,7 @@
+.DS_Store
+*.log
+components/
+coverage/
+node_modules/
+lowlight.js
+lowlight.min.js
