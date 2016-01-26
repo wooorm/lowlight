@@ -89,8 +89,8 @@ Parse `value` according to the `language` grammar.
 **Returns**: `Object`:
 
 *   `relevance` (`number`)
-    — Integer representing how sure **low** is that the given code
-    is in the given language;
+    — Integer representing how sure **low** is the given code is in
+    the given language;
 
 *   `language` (`string`) — The given `language`;
 
@@ -111,13 +111,13 @@ Parse `value` by guessing its grammar.
         — Class prefix;
 
     *   `subset` (`Array.<string>?`, optional, defaults to
-        all registered languages.
+        all registered languages.)
         — List of allowed languages.
 
 **Returns**: `Object`:
 
 *   `relevance` (`number`)
-    — Integer representing how sure **low** is that the given code
+    — Integer representing how sure **low** is the given code
     is in the detected language;
 
 *   `language` (`string`) — The given `language`;
