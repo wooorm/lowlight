@@ -313,7 +313,7 @@ test('lowlight(value[, options])', function (t) {
 
         st.equal(
             result.secondBest.language,
-            'hsp',
+            'mipsasm',
             'should return a `secondBest` `language`'
         );
 
@@ -424,8 +424,8 @@ test('fixtures', function (t) {
      * @param {string} directory - File path to directory.
      */
     function subtest(language, name, directory) {
-        var input = read(join(FIXTURES, directory, INPUT), 'utf8');
-        var output = read(join(FIXTURES, directory, OUTPUT), 'utf8');
+        var input = read(join(FIXTURES, directory, INPUT), 'utf8').trim();
+        var output = read(join(FIXTURES, directory, OUTPUT), 'utf8').trim();
 
         input = low.highlight(language, input);
         output = hast.parse(output);
