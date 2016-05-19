@@ -49,10 +49,10 @@ doc.replace(/hljs\.registerLanguage\('(.+?)'/g, function ($0, $1) {
 });
 
 /*
- * Generate.
+ * Write.
  */
 
-var registry = [
+fs.writeFileSync(OUTPUT, [
     '/**',
     ' * @author Titus Wormer',
     ' * @copyright 2016 Titus Wormer',
@@ -81,13 +81,7 @@ var registry = [
     '',
     'module.exports = low;',
     ''
-].join('\n');
-
-/*
- * Write.
- */
-
-fs.writeFileSync(OUTPUT, registry);
+].join('\n'));
 
 /*
  * Report.

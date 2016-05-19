@@ -5,7 +5,6 @@
     "github",
     "lint",
     "usage",
-    "slug",
     "validate-links"
   ],
   "settings": {
