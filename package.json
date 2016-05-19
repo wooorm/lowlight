@@ -22,6 +22,10 @@
   },
   "bugs": "https://github.com/wooorm/lowlight/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "contributors": [
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Shu Uesugi <shu@chibicode.com>"
+  ],
   "dependencies": {
     "highlight.js": "~9.4.0"
   },
