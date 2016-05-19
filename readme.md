@@ -5,7 +5,7 @@ with language auto-detection.  Perfect for [React][], [VDOM][], and
 others.
 
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
-that’s [146 languages][names] (and all 66 themes).
+that’s [155 languages][names] (and all 73 themes).
 
 ## Installation
 

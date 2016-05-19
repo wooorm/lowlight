@@ -23,7 +23,7 @@
   "bugs": "https://github.com/wooorm/lowlight/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "dependencies": {
-    "highlight.js": "^9.3.0"
+    "highlight.js": "~9.4.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
@@ -46,10 +46,11 @@
     "unist-util-visit": "^1.0.0"
   },
   "scripts": {
+    "build-registry": "node script/build-registry",
     "build-md": "remark . --quiet --frail",
     "build-bundle": "browserify index.js --bare -s lowlight > lowlight.js",
     "build-mangle": "esmangle lowlight.js > lowlight.min.js",
-    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "build": "npm run build-registry && npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint-api": "eslint .",
     "lint-style": "jscs --reporter inline .",
     "lint": "npm run lint-api && npm run lint-style",
