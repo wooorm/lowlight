@@ -9,22 +9,19 @@ that’s [155 languages][names] (and all 73 themes).
 
 ## Installation
 
-[npm][npm-install]:
+[npm][]:
 
 ```bash
 npm install lowlight
 ```
 
-**lowlight** is also available for [duo][duo-install], and as an AMD,
-CommonJS, and globals module, [uncompressed and compressed][releases].
-Read more about [usage in the browser][browser].
+[Usage in the browser »][browser].
 
 ## Usage
 
 Dependencies:
 
 ```javascript
-
 var hast = require('hast');
 var low = require('lowlight');
 ```
@@ -32,7 +29,6 @@ var low = require('lowlight');
 Compile:
 
 ```javascript
-
 var ast = low.highlight('js', '"use strict";').value;
 var html = hast.stringify({'type': 'root', 'children': ast});
 ```
@@ -132,7 +128,7 @@ Parse `value` by guessing its grammar.
 
 ### `low.registerLanguage(name, syntax)`
 
-Register a syntax. Useful in the browser or with custom grammars.
+Register a syntax.  Useful in the browser or with custom grammars.
 
 **Parameters**
 
@@ -176,11 +172,7 @@ low.highlight('js', '"use strict";');
 
 [codecov]: https://codecov.io/github/wooorm/lowlight
 
-[npm-install]: https://docs.npmjs.com/cli/install
-
-[duo-install]: http://duojs.org/#getting-started
-
-[releases]: https://github.com/wooorm/lowlight/releases
+[npm]: https://docs.npmjs.com/cli/install
 
 [license]: LICENSE
 

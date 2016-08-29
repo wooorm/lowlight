@@ -32,20 +32,14 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "chalk": "^1.1.1",
-    "eslint": "^2.0.0",
     "esmangle": "^1.0.0",
     "hast": "0.0.2",
-    "istanbul": "^0.4.0",
-    "jscs": "^3.0.0",
-    "jscs-jsdoc": "^2.0.0",
-    "remark": "^4.0.0",
-    "remark-comment-config": "^3.0.0",
-    "remark-github": "^4.0.1",
-    "remark-lint": "^3.0.0",
-    "remark-usage": "^3.0.0",
-    "remark-validate-links": "^3.0.0",
+    "nyc": "^8.1.0",
+    "remark-cli": "^2.0.0",
+    "remark-preset-wooorm": "^1.0.0",
     "tape": "^4.0.0",
-    "unist-util-visit": "^1.0.0"
+    "unist-util-visit": "^1.0.0",
+    "xo": "^0.16.0"
   },
   "scripts": {
     "build-registry": "node script/build-registry",
@@ -53,11 +47,29 @@
     "build-bundle": "browserify index.js --bare -s lowlight > lowlight.js",
     "build-mangle": "esmangle lowlight.js > lowlight.min.js",
     "build": "npm run build-registry && npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint-api": "eslint .",
-    "lint-style": "jscs --reporter inline .",
-    "lint": "npm run lint-api && npm run lint-style",
+    "lint": "xo",
     "test-api": "node test/index.js",
-    "test-coverage": "istanbul cover test/index.js",
+    "test-coverage": "nyc --reporter lcov tape test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "rules": {
+      "max-lines": "off",
+      "max-params": "off"
+    },
+    "ignores": [
+      "lowlight.js"
+    ]
+  },
+  "remarkConfig": {
+    "output": true,
+    "presets": "wooorm"
   }
 }

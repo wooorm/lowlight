@@ -9,11 +9,8 @@
 
 'use strict';
 
-/* eslint-env commonjs */
-
-var low = require('./lib/core.js');
-
-/* jscs:disable maximumLineLength */
+/* Expose. */
+var low = module.exports = require('./lib/core.js');
 
 low.registerLanguage('1c', require('highlight.js/lib/languages/1c'));
 low.registerLanguage('accesslog', require('highlight.js/lib/languages/accesslog'));
@@ -170,9 +167,3 @@ low.registerLanguage('xl', require('highlight.js/lib/languages/xl'));
 low.registerLanguage('xquery', require('highlight.js/lib/languages/xquery'));
 low.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'));
 low.registerLanguage('zephir', require('highlight.js/lib/languages/zephir'));
-
-/*
- * Expose.
- */
-
-module.exports = low;
