@@ -47,7 +47,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     function () {
       low.highlight('fooscript', '');
     },
-    /Expected `fooscript` to be registered/,
+    /Unknown language: `fooscript` is not registered/,
     'should throw when given an unknown `language`'
   );
 
@@ -230,7 +230,7 @@ test('lowlight(value[, options])', function (t) {
 
     st.equal(
       result.secondBest.language,
-      'mipsasm',
+      'abnf',
       'should return a `secondBest` `language`'
     );
 
@@ -298,7 +298,7 @@ test('lowlight(value[, options])', function (t) {
     var output = read(join(FIXTURES, 'xml-large', 'output.txt'), 'utf8');
 
     input = low.highlightAuto(input);
-    output = rehype.parse(output);
+    output = rehype().parse(output, {fragment: true});
 
     visit(output, function (node) {
       delete node.position;
@@ -331,7 +331,7 @@ test('fixtures', function (t) {
     var output = read(join(FIXTURES, directory, OUTPUT), 'utf8').trim();
 
     input = low.highlight(language, input);
-    output = rehype.parse(output);
+    output = rehype().parse(output, {fragment: true});
 
     visit(output, function (node) {
       delete node.position;
