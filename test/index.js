@@ -12,7 +12,7 @@
 var fs = require('fs');
 var path = require('path');
 var test = require('tape');
-var hast = require('hast');
+var rehype = require('rehype');
 var visit = require('unist-util-visit');
 var low = require('..');
 
@@ -298,7 +298,7 @@ test('lowlight(value[, options])', function (t) {
     var output = read(join(FIXTURES, 'xml-large', 'output.txt'), 'utf8');
 
     input = low.highlightAuto(input);
-    output = hast.parse(output);
+    output = rehype.parse(output);
 
     visit(output, function (node) {
       delete node.position;
@@ -331,7 +331,7 @@ test('fixtures', function (t) {
     var output = read(join(FIXTURES, directory, OUTPUT), 'utf8').trim();
 
     input = low.highlight(language, input);
-    output = hast.parse(output);
+    output = rehype.parse(output);
 
     visit(output, function (node) {
       delete node.position;

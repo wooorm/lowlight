@@ -16,10 +16,7 @@
     "index.js",
     "lib/core.js"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/lowlight.git"
-  },
+  "repository": "https://github.com/wooorm/lowlight",
   "bugs": "https://github.com/wooorm/lowlight/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
@@ -33,7 +30,7 @@
     "browserify": "^13.0.0",
     "chalk": "^1.1.1",
     "esmangle": "^1.0.0",
-    "hast": "0.0.2",
+    "rehype": "2.0.0",
     "nyc": "^8.1.0",
     "remark-cli": "^2.0.0",
     "remark-preset-wooorm": "^1.0.0",
