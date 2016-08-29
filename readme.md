@@ -7,6 +7,18 @@ others.
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
 that’s [166 languages][names] (and all 73 themes).
 
+## Table of Contents
+
+*   [Installation](#installation)
+*   [Usage](#usage)
+*   [API](#api)
+    *   [low.highlight(language, value\[, options\])](#lowhighlightlanguage-value-options)
+    *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
+    *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
+*   [Browser](#browser)
+*   [Projects](#projects)
+*   [License](#license)
+
 ## Installation
 
 [npm][]:
@@ -115,7 +127,7 @@ Register a syntax.  Useful in the browser or with custom grammars.
 *   `syntax` (`Function`) — Syntax highlighter, see
     [`highlight.js`s docs][syntax] for more information.
 
-## Lowlight in the browser
+## Browser
 
 I do not suggest using the pre-built files or requiring `lowlight` in
 the browser as that would include a 530kb (170kb GZipped) file.
@@ -135,6 +147,19 @@ low.highlight('js', '"use strict";');
 
 ...When using browserify, minifying this results in just 17kb of code
 (7kb with GZip).
+
+## Projects
+
+*   [`emphasize`](https://github.com/wooorm/emphasize)
+    — Syntax highlighting in ANSI, for the terminal;
+*   [`react-lowlight`](https://github.com/rexxars/react-lowlight)
+    — Syntax highlighter for [React][];
+*   [`react-syntax-highlighter`](https://github.com/conorhastings/react-syntax-highlighter)
+    — [React][] component for syntax highlighting.
+*   [`rehype-highlight`](https://github.com/wooorm/rehype-highlight)
+    — Syntax highlighting in [**rehype**](https://github.com/wooorm/rehype);
+*   [`remark-highlight.js`](https://github.com/ben-eb/remark-highlight.js)
+    — Syntax highlighting in [**remark**](https://github.com/wooorm/remark);
 
 ## License
 
@@ -172,4 +197,4 @@ low.highlight('js', '"use strict";');
 
 [to-hyperscript]: https://github.com/wooorm/hast-to-hyperscript
 
-[browser]: #lowlight-in-the-browser
+[browser]: #browser
