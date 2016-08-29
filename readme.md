@@ -15,55 +15,42 @@ that’s [155 languages][names] (and all 73 themes).
 npm install lowlight
 ```
 
-[Usage in the browser »][browser].
+[Usage in the browser »][browser]
 
 ## Usage
 
-Dependencies:
+Highlight:
 
 ```javascript
-var hast = require('hast');
 var low = require('lowlight');
-```
-
-Compile:
-
-```javascript
 var ast = low.highlight('js', '"use strict";').value;
-var html = hast.stringify({'type': 'root', 'children': ast});
 ```
 
 Yields:
 
-```json
-[
-  {
-    "type": "element",
-    "tagName": "span",
-    "properties": {
-      "className": [
-        "hljs-meta"
-      ]
-    },
-    "children": [
-      {
-        "type": "text",
-        "value": "\"use strict\""
-      }
-    ]
-  },
-  {
-    "type": "text",
-    "value": ";"
-  }
-]
+```js
+[ { type: 'element',
+    tagName: 'span',
+    properties: { className: [ 'hljs-meta' ] },
+    children: [ { type: 'text', value: '"use strict"' } ] },
+  { type: 'text', value: ';' } ]
 ```
 
-Or, stringified with [hast][]:
+Or, stringified with [rehype][]:
+
+```js
+var rehype = require('rehype');
+var html = rehype().stringify({type: 'root', children: ast}));
+```
+
+Yields:
 
 ```html
-<span class="hljs-meta">&quot;use strict&quot;</span>;
+<span class="hljs-meta">"use strict"</span>;
 ```
+
+> **Tip**: Use [`hast-to-hyperscript`][to-hyperscript] to transform
+> to other virtual DOMs, or DIY.
 
 ## API
 
@@ -71,25 +58,21 @@ Or, stringified with [hast][]:
 
 Parse `value` according to the `language` grammar.
 
-**Parameters**
+##### Parameters
 
 *   `name` (`string`) — See list of [names and aliases][names];
-
 *   `value` (`string`) — Source to highlight;
-
 *   `options` (`Object?`, optional):
+    *   `prefix` (`string?`, default: `'hljs-'`) — Class prefix.
 
-    *   `prefix` (`string?`, default: `'hljs-'`)
-        — Class prefix.
+###### Returns
 
-**Returns**: `Object`:
+`Object`:
 
 *   `relevance` (`number`)
     — Integer representing how sure **low** is the given code is in
     the given language;
-
 *   `language` (`string`) — The given `language`;
-
 *   `value` ([`Array.<Node>`][hast-node]) — [Hast nodes][hast-node]
     representing the highlighted given code.
 
@@ -97,30 +80,26 @@ Parse `value` according to the `language` grammar.
 
 Parse `value` by guessing its grammar.
 
-**Parameters**
+###### Parameters
 
 *   `value` (`string`) — Source to highlight;
-
 *   `options` (`Object?`, optional):
-
     *   `prefix` (`string?`, default: `'hljs-'`)
         — Class prefix;
-
     *   `subset` (`Array.<string>?`, optional, defaults to
         all registered languages.)
         — List of allowed languages.
 
-**Returns**: `Object`:
+###### Returns
+
+`Object`:
 
 *   `relevance` (`number`)
     — Integer representing how sure **low** is the given code
     is in the detected language;
-
 *   `language` (`string`) — The given `language`;
-
 *   `value` ([`Array.<Node>`][hast-node]) — [Hast nodes][hast-node]
     representing the highlighted given code.
-
 *   `secondBest` (`Object?`)
     — Object with the same structure as the top returned object, but
     containing information for the second-best result.
@@ -130,17 +109,16 @@ Parse `value` by guessing its grammar.
 
 Register a syntax.  Useful in the browser or with custom grammars.
 
-**Parameters**
+###### Parameters
 
 *   `name` (`string`) — Name of language;
-
 *   `syntax` (`Function`) — Syntax highlighter, see
     [`highlight.js`s docs][syntax] for more information.
 
 ## Lowlight in the browser
 
 I do not suggest using the pre-built files or requiring `lowlight` in
-the browser as that would include a 530kb (170kb with GZIP) file.
+the browser as that would include a 530kb (170kb GZipped) file.
 
 Instead, require `lowlight/lib/core`, and include only the used
 highlighters.  For example:
@@ -155,8 +133,8 @@ low.highlight('js', '"use strict";');
 // See `Usage` for the results.
 ```
 
-...When using browserify, minifying, and GZIP that results in just
-17kb of code (7kb with GZIP).
+...When using browserify, minifying this results in just 17kb of code
+(7kb with GZip).
 
 ## License
 
@@ -178,7 +156,7 @@ low.highlight('js', '"use strict";');
 
 [author]: http://wooorm.com
 
-[hast]: https://github.com/wooorm/hast
+[rehype]: https://github.com/wooorm/rehype
 
 [hast-node]: https://github.com/wooorm/hast#nodes
 
@@ -191,5 +169,7 @@ low.highlight('js', '"use strict";');
 [react]: https://facebook.github.io/react/
 
 [vdom]: https://github.com/Matt-Esch/virtual-dom
+
+[to-hyperscript]: https://github.com/wooorm/hast-to-hyperscript
 
 [browser]: #lowlight-in-the-browser
