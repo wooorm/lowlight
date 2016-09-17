@@ -173,6 +173,20 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     st.end();
   });
 
+  t.test('empty `prefix`', function (st) {
+    var result = low.highlight('js', '"use strict";', {
+      prefix: ''
+    });
+
+    t.deepEqual(
+      result.value[0].properties.className,
+      ['meta'],
+      'should support an empty `prefix`'
+    );
+
+    st.end();
+  });
+
   t.end();
 });
 
@@ -264,6 +278,18 @@ test('lowlight(value[, options])', function (t) {
       result.value[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
+    );
+
+    st.end();
+  });
+
+  t.test('empty `prefix`', function (st) {
+    var result = low.highlightAuto('"use strict";', {prefix: ''});
+
+    t.deepEqual(
+      result.value[0].properties.className,
+      ['meta'],
+      'should support an empty `prefix`'
     );
 
     st.end();
