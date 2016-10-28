@@ -52,7 +52,7 @@ Or, stringified with [rehype][]:
 
 ```js
 var rehype = require('rehype');
-var html = rehype().stringify({type: 'root', children: ast}));
+var html = rehype().stringify({type: 'root', children: ast});
 ```
 
 Yields:
