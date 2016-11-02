@@ -24,7 +24,7 @@
     "Shu Uesugi <shu@chibicode.com>"
   ],
   "dependencies": {
-    "highlight.js": "~9.6.0"
+    "highlight.js": "~9.8.0"
   },
   "devDependencies": {
     "browserify": "^13.0.0",
@@ -36,7 +36,7 @@
     "remark-preset-wooorm": "^1.0.0",
     "tape": "^4.0.0",
     "unist-util-visit": "^1.0.0",
-    "xo": "^0.16.0"
+    "xo": "^0.17.0"
   },
   "scripts": {
     "build-registry": "node script/build-registry",
