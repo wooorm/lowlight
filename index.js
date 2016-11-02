@@ -37,6 +37,7 @@ low.registerLanguage('brainfuck', require('highlight.js/lib/languages/brainfuck'
 low.registerLanguage('cal', require('highlight.js/lib/languages/cal'));
 low.registerLanguage('capnproto', require('highlight.js/lib/languages/capnproto'));
 low.registerLanguage('ceylon', require('highlight.js/lib/languages/ceylon'));
+low.registerLanguage('clean', require('highlight.js/lib/languages/clean'));
 low.registerLanguage('clojure', require('highlight.js/lib/languages/clojure'));
 low.registerLanguage('clojure-repl', require('highlight.js/lib/languages/clojure-repl'));
 low.registerLanguage('cmake', require('highlight.js/lib/languages/cmake'));
@@ -69,6 +70,7 @@ low.registerLanguage('erlang-repl', require('highlight.js/lib/languages/erlang-r
 low.registerLanguage('erlang', require('highlight.js/lib/languages/erlang'));
 low.registerLanguage('excel', require('highlight.js/lib/languages/excel'));
 low.registerLanguage('fix', require('highlight.js/lib/languages/fix'));
+low.registerLanguage('flix', require('highlight.js/lib/languages/flix'));
 low.registerLanguage('fortran', require('highlight.js/lib/languages/fortran'));
 low.registerLanguage('fsharp', require('highlight.js/lib/languages/fsharp'));
 low.registerLanguage('gams', require('highlight.js/lib/languages/gams'));
