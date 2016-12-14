@@ -103,6 +103,7 @@ low.registerLanguage('less', require('highlight.js/lib/languages/less'));
 low.registerLanguage('lisp', require('highlight.js/lib/languages/lisp'));
 low.registerLanguage('livecodeserver', require('highlight.js/lib/languages/livecodeserver'));
 low.registerLanguage('livescript', require('highlight.js/lib/languages/livescript'));
+low.registerLanguage('llvm', require('highlight.js/lib/languages/llvm'));
 low.registerLanguage('lsl', require('highlight.js/lib/languages/lsl'));
 low.registerLanguage('lua', require('highlight.js/lib/languages/lua'));
 low.registerLanguage('makefile', require('highlight.js/lib/languages/makefile'));
