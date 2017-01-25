@@ -27,7 +27,7 @@
     "highlight.js": "~9.9.0"
   },
   "devDependencies": {
-    "browserify": "^13.0.0",
+    "browserify": "^14.0.0",
     "chalk": "^1.1.1",
     "esmangle": "^1.0.0",
     "rehype": "3.0.0",
