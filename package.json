@@ -30,17 +30,17 @@
     "browserify": "^14.0.0",
     "chalk": "^1.1.1",
     "esmangle": "^1.0.0",
-    "rehype": "3.0.0",
+    "rehype": "4.0.0",
     "nyc": "^10.0.0",
-    "remark-cli": "^2.0.0",
-    "remark-preset-wooorm": "^1.0.0",
+    "remark-cli": "^3.0.0",
+    "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.0.0",
     "unist-util-visit": "^1.0.0",
     "xo": "^0.17.0"
   },
   "scripts": {
     "build-registry": "node script/build-registry",
-    "build-md": "remark . --quiet --frail",
+    "build-md": "remark . -qfo",
     "build-bundle": "browserify index.js --bare -s lowlight > lowlight.js",
     "build-mangle": "esmangle lowlight.js > lowlight.min.js",
     "build": "npm run build-registry && npm run build-md && npm run build-bundle && npm run build-mangle",
@@ -66,7 +66,6 @@
     ]
   },
   "remarkConfig": {
-    "output": true,
-    "presets": "wooorm"
+    "plugins": ["preset-wooorm"]
   }
 }

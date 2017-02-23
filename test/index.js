@@ -324,7 +324,7 @@ test('lowlight(value[, options])', function (t) {
     var output = read(join(FIXTURES, 'xml-large', 'output.txt'), 'utf8');
 
     input = low.highlightAuto(input);
-    output = rehype().parse(output, {fragment: true});
+    output = rehype().data('settings', {fragment: true}).parse(output);
 
     visit(output, function (node) {
       delete node.position;
@@ -357,7 +357,7 @@ test('fixtures', function (t) {
     var output = read(join(FIXTURES, directory, OUTPUT), 'utf8').trim();
 
     input = low.highlight(language, input);
-    output = rehype().parse(output, {fragment: true});
+    output = rehype().data('settings', {fragment: true}).parse(output);
 
     visit(output, function (node) {
       delete node.position;
