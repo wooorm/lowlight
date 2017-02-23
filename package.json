@@ -33,7 +33,7 @@
     "rehype": "3.0.0",
     "nyc": "^10.0.0",
     "remark-cli": "^2.0.0",
-    "remark-preset-wooorm": "^1.0.0",
+    "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.0.0",
     "unist-util-visit": "^1.0.0",
     "xo": "^0.17.0"
