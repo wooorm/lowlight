@@ -36,7 +36,7 @@
     "remark-preset-wooorm": "^2.0.0",
     "tape": "^4.0.0",
     "unist-util-visit": "^1.0.0",
-    "xo": "^0.17.0"
+    "xo": "^0.18.0"
   },
   "scripts": {
     "build-registry": "node script/build-registry",
