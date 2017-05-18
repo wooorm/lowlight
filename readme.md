@@ -12,9 +12,10 @@ that’s [174 languages][names] (and all 73 themes).
 *   [Installation](#installation)
 *   [Usage](#usage)
 *   [API](#api)
+    *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
     *   [low.highlight(language, value\[, options\])](#lowhighlightlanguage-value-options)
     *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
-    *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
+    *   [Result](#result)
 *   [Browser](#browser)
 *   [Projects](#projects)
 *   [License](#license)
@@ -66,66 +67,51 @@ Yields:
 
 ## API
 
+### `low.registerLanguage(name, syntax)`
+
+Register a [syntax][] as `name` (`string`).  Useful in the browser or with
+custom grammars.
+
 ### `low.highlight(language, value[, options])`
 
-Parse `value` according to the `language` grammar.
+Parse `value` (`string`) according to the [`language`][names] grammar.
 
-##### Parameters
+###### `options`
 
-*   `name` (`string`) — See list of [names and aliases][names];
-*   `value` (`string`) — Source to highlight;
-*   `options` (`Object?`, optional):
-    *   `prefix` (`string?`, default: `'hljs-'`) — Class prefix.
+*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
 
 ###### Returns
 
-`Object`:
-
-*   `relevance` (`number`)
-    — Integer representing how sure **low** is the given code is in
-    the given language;
-*   `language` (`string`) — The given `language`;
-*   `value` ([`Array.<Node>`][hast-node]) — [Hast nodes][hast-node]
-    representing the highlighted given code.
+[`Result`][result].
 
 ### `low.highlightAuto(value[, options])`
 
 Parse `value` by guessing its grammar.
 
-###### Parameters
+###### `options`
 
-*   `value` (`string`) — Source to highlight;
-*   `options` (`Object?`, optional):
-    *   `prefix` (`string?`, default: `'hljs-'`)
-        — Class prefix;
-    *   `subset` (`Array.<string>?`, optional, defaults to
-        all registered languages.)
-        — List of allowed languages.
+*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
+*   `subset` (`Array.<string>?` default: all registered languages) — List of
+    allowed languages
 
 ###### Returns
 
-`Object`:
+[`Result`][result], with a `secondBest` if found.
 
-*   `relevance` (`number`)
-    — Integer representing how sure **low** is the given code
-    is in the detected language;
-*   `language` (`string`) — The given `language`;
-*   `value` ([`Array.<Node>`][hast-node]) — [Hast nodes][hast-node]
-    representing the highlighted given code.
-*   `secondBest` (`Object?`)
-    — Object with the same structure as the top returned object, but
-    containing information for the second-best result.
-    Can be `null`.
+### `Result`
 
-### `low.registerLanguage(name, syntax)`
+`Result` is a highlighting result object.
 
-Register a syntax.  Useful in the browser or with custom grammars.
+###### Properties
 
-###### Parameters
-
-*   `name` (`string`) — Name of language;
-*   `syntax` (`Function`) — Syntax highlighter, see
-    [`highlight.js`s docs][syntax] for more information.
+*   `relevance` (`number`) — Integer representing how sure **low** is the given
+    code is in the given language
+*   `language` (`string`) — The detected `language`
+*   `value` ([`Array.<Node>`][hast-node]) — Virtual nodes representing the
+    highlighted given code
+*   `secondBest` ([`Result?`][result])
+    — Result of the second-best (based on `relevance`) match.
+    Only set by `highlightAuto`, but can still be `null`.
 
 ## Browser
 
@@ -151,15 +137,15 @@ low.highlight('js', '"use strict";');
 ## Projects
 
 *   [`emphasize`](https://github.com/wooorm/emphasize)
-    — Syntax highlighting in ANSI, for the terminal;
+    — Syntax highlighting in ANSI, for the terminal
 *   [`react-lowlight`](https://github.com/rexxars/react-lowlight)
-    — Syntax highlighter for [React][];
+    — Syntax highlighter for [React][]
 *   [`react-syntax-highlighter`](https://github.com/conorhastings/react-syntax-highlighter)
-    — [React][] component for syntax highlighting.
+    — [React][] component for syntax highlighting
 *   [`rehype-highlight`](https://github.com/wooorm/rehype-highlight)
-    — Syntax highlighting in [**rehype**](https://github.com/wooorm/rehype);
+    — Syntax highlighting in [**rehype**](https://github.com/wooorm/rehype)
 *   [`remark-highlight.js`](https://github.com/ben-eb/remark-highlight.js)
-    — Syntax highlighting in [**remark**](https://github.com/wooorm/remark);
+    — Syntax highlighting in [**remark**](https://github.com/wooorm/remark)
 
 ## License
 
@@ -183,7 +169,7 @@ low.highlight('js', '"use strict";');
 
 [rehype]: https://github.com/wooorm/rehype
 
-[hast-node]: https://github.com/wooorm/hast#nodes
+[hast-node]: https://github.com/wooorm/hast#ast
 
 [highlight.js]: https://github.com/isagalaev/highlight.js
 
@@ -198,3 +184,5 @@ low.highlight('js', '"use strict";');
 [to-hyperscript]: https://github.com/wooorm/hast-to-hyperscript
 
 [browser]: #browser
+
+[result]: #result
