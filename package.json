@@ -24,7 +24,7 @@
     "Shu Uesugi <shu@chibicode.com>"
   ],
   "dependencies": {
-    "highlight.js": "~9.11.0"
+    "highlight.js": "~9.12.0"
   },
   "devDependencies": {
     "browserify": "^14.0.0",

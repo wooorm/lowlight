@@ -98,6 +98,7 @@ low.registerLanguage('javascript', require('highlight.js/lib/languages/javascrip
 low.registerLanguage('jboss-cli', require('highlight.js/lib/languages/jboss-cli'));
 low.registerLanguage('json', require('highlight.js/lib/languages/json'));
 low.registerLanguage('julia', require('highlight.js/lib/languages/julia'));
+low.registerLanguage('julia-repl', require('highlight.js/lib/languages/julia-repl'));
 low.registerLanguage('kotlin', require('highlight.js/lib/languages/kotlin'));
 low.registerLanguage('lasso', require('highlight.js/lib/languages/lasso'));
 low.registerLanguage('ldif', require('highlight.js/lib/languages/ldif'));
@@ -147,6 +148,7 @@ low.registerLanguage('qml', require('highlight.js/lib/languages/qml'));
 low.registerLanguage('r', require('highlight.js/lib/languages/r'));
 low.registerLanguage('rib', require('highlight.js/lib/languages/rib'));
 low.registerLanguage('roboconf', require('highlight.js/lib/languages/roboconf'));
+low.registerLanguage('routeros', require('highlight.js/lib/languages/routeros'));
 low.registerLanguage('rsl', require('highlight.js/lib/languages/rsl'));
 low.registerLanguage('ruleslanguage', require('highlight.js/lib/languages/ruleslanguage'));
 low.registerLanguage('rust', require('highlight.js/lib/languages/rust'));
