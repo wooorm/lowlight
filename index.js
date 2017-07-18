@@ -1,15 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module lowlight
- * @fileoverview Virtual syntax highlighting for virtual
- *   DOMs and non-HTML things.
- */
-
 'use strict';
 
-/* Expose. */
 var low = module.exports = require('./lib/core.js');
 
 low.registerLanguage('1c', require('highlight.js/lib/languages/1c'));

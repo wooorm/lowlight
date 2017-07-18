@@ -1,14 +1,5 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module lowlight
- * @fileoverview Test suite for `lowlight`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var fs = require('fs');
 var path = require('path');
 var test = require('tape');
@@ -23,7 +14,6 @@ var FIXTURES = path.join(__dirname, 'fixture');
 var INPUT = 'input.txt';
 var OUTPUT = 'output.txt';
 
-/* Tests. */
 test('lowlight.highlight(language, value[, options])', function (t) {
   var result = low.highlight('js', '');
 
@@ -351,7 +341,6 @@ test('fixtures', function (t) {
       }
     });
 
-  /* Test a fixture. */
   function subtest(language, name, directory) {
     var input = read(join(FIXTURES, directory, INPUT), 'utf8').trim();
     var output = read(join(FIXTURES, directory, OUTPUT), 'utf8').trim();
