@@ -12,16 +12,17 @@
     "highlight",
     "highlighting"
   ],
-  "files": [
-    "index.js",
-    "lib/core.js"
-  ],
-  "repository": "https://github.com/wooorm/lowlight",
+  "repository": "wooorm/lowlight",
   "bugs": "https://github.com/wooorm/lowlight/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Ezra Lalonde <ezra@usefuliftrue.com>",
     "Shu Uesugi <shu@chibicode.com>"
+  ],
+  "files": [
+    "index.js",
+    "lib/core.js"
   ],
   "dependencies": {
     "highlight.js": "~9.12.0"
@@ -45,7 +46,7 @@
     "build-mangle": "esmangle lowlight.js > lowlight.min.js",
     "build": "npm run build-registry && npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
-    "test-api": "node test/index.js",
+    "test-api": "node test",
     "test-coverage": "nyc --reporter lcov tape test/index.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
   },
@@ -69,6 +70,8 @@
     ]
   },
   "remarkConfig": {
-    "plugins": ["preset-wooorm"]
+    "plugins": [
+      "preset-wooorm"
+    ]
   }
 }
