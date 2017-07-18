@@ -29,9 +29,9 @@
   },
   "devDependencies": {
     "browserify": "^14.0.0",
-    "chalk": "^1.1.1",
+    "chalk": "^2.0.0",
     "esmangle": "^1.0.0",
-    "rehype": "4.0.0",
+    "rehype": "5.0.0",
     "nyc": "^11.0.0",
     "remark-cli": "^3.0.0",
     "remark-preset-wooorm": "^3.0.0",
