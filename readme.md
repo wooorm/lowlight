@@ -7,6 +7,8 @@ others.
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
 that’s [176 languages][names] (and all 73 themes).
 
+Want to use [Prism][] instead?  Try [`refractor`][refractor]!
+
 ## Table of Contents
 
 *   [Installation](#installation)
@@ -17,6 +19,7 @@ that’s [176 languages][names] (and all 73 themes).
     *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
     *   [Result](#result)
 *   [Browser](#browser)
+*   [Related](#related)
 *   [Projects](#projects)
 *   [License](#license)
 
@@ -134,6 +137,10 @@ low.highlight('js', '"use strict";');
 ...When using browserify, minifying this results in just 17kb of code
 (7kb with GZip).
 
+## Related
+
+*   [`refractor`][refractor] — Same, but based on [Prism][]
+
 ## Projects
 
 *   [`emphasize`](https://github.com/wooorm/emphasize)
@@ -186,3 +193,7 @@ low.highlight('js', '"use strict";');
 [browser]: #browser
 
 [result]: #result
+
+[prism]: https://github.com/PrismJS/prism
+
+[refractor]: https://github.com/wooorm/refractor
