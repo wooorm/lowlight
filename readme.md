@@ -40,6 +40,8 @@ Highlight:
 ```javascript
 var low = require('lowlight');
 var ast = low.highlight('js', '"use strict";').value;
+
+console.log(ast);
 ```
 
 Yields:
@@ -57,6 +59,8 @@ Or, stringified with [rehype][]:
 ```js
 var rehype = require('rehype');
 var html = rehype().stringify({type: 'root', children: ast}).toString();
+
+console.log(html);
 ```
 
 Yields:
@@ -75,6 +79,23 @@ Yields:
 Register a [syntax][] as `name` (`string`).  Useful in the browser or with
 custom grammars.
 
+###### Example
+
+```js
+var low = require('lowlight/lib/core');
+var xml = require('highlight.js/lib/languages/xml');
+
+low.registerLanguage('xml', xml);
+
+console.log(low.highlight('html', '<em>Emphasis</em>'));
+```
+
+Yields:
+
+```js
+{ relevance: 2, language: 'html', value: [Array] }
+```
+
 ### `low.highlight(language, value[, options])`
 
 Parse `value` (`string`) according to the [`language`][names] grammar.
@@ -86,6 +107,20 @@ Parse `value` (`string`) according to the [`language`][names] grammar.
 ###### Returns
 
 [`Result`][result].
+
+###### Example
+
+```js
+var low = require('lowlight');
+
+console.log(low.highlight('css', 'em { color: red }'));
+```
+
+Yields:
+
+```js
+{ relevance: 4, language: 'css', value: [Array] }
+```
 
 ### `low.highlightAuto(value[, options])`
 
@@ -100,6 +135,23 @@ Parse `value` by guessing its grammar.
 ###### Returns
 
 [`Result`][result], with a `secondBest` if found.
+
+###### Example
+
+```js
+var low = require('lowlight');
+
+console.log(low.highlightAuto('"hello, " + name + "!"'));
+```
+
+Yields:
+
+```js
+{ relevance: 3,
+  language: 'applescript',
+  value: [Array],
+  secondBest: { relevance: 3, language: 'basic', value: [Array] } }
+```
 
 ### `Result`
 
