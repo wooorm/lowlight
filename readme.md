@@ -201,10 +201,10 @@ low.highlight('js', '"use strict";');
     — Syntax highlighter for [React][]
 *   [`react-syntax-highlighter`](https://github.com/conorhastings/react-syntax-highlighter)
     — [React][] component for syntax highlighting
-*   [`rehype-highlight`](https://github.com/wooorm/rehype-highlight)
-    — Syntax highlighting in [**rehype**](https://github.com/wooorm/rehype)
+*   [`rehype-highlight`](https://github.com/rehypejs/rehype-highlight)
+    — Syntax highlighting in [**rehype**](https://github.com/rehypejs/rehype)
 *   [`remark-highlight.js`](https://github.com/ben-eb/remark-highlight.js)
-    — Syntax highlighting in [**remark**](https://github.com/wooorm/remark)
+    — Syntax highlighting in [**remark**](https://github.com/remarkjs/remark)
 
 ## License
 
@@ -226,9 +226,9 @@ low.highlight('js', '"use strict";');
 
 [author]: http://wooorm.com
 
-[rehype]: https://github.com/wooorm/rehype
+[rehype]: https://github.com/rehypejs/rehype
 
-[hast-node]: https://github.com/wooorm/hast#ast
+[hast-node]: https://github.com/syntax-tree/hast#ast
 
 [highlight.js]: https://github.com/isagalaev/highlight.js
 
@@ -240,7 +240,7 @@ low.highlight('js', '"use strict";');
 
 [vdom]: https://github.com/Matt-Esch/virtual-dom
 
-[to-hyperscript]: https://github.com/wooorm/hast-to-hyperscript
+[to-hyperscript]: https://github.com/syntax-tree/hast-to-hyperscript
 
 [browser]: #browser
 
