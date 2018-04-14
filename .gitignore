@@ -5,3 +5,4 @@ coverage/
 node_modules/
 lowlight.js
 lowlight.min.js
+yarn.lock
