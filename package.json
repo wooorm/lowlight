@@ -25,6 +25,7 @@
     "lib/core.js"
   ],
   "dependencies": {
+    "fault": "^1.0.2",
     "highlight.js": "~9.12.0"
   },
   "devDependencies": {
@@ -63,12 +64,9 @@
     "esnext": false,
     "rules": {
       "complexity": "off",
-      "max-lines": "off",
       "max-params": "off",
-      "no-multi-assign": "off",
       "object-shorthand": "off",
       "prefer-arrow-callback": "off",
-      "unicorn/prefer-type-error": "off",
       "no-var": "off"
     },
     "ignores": [
