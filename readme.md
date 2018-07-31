@@ -171,7 +171,7 @@ Yields:
 ## Browser
 
 I do not suggest using the pre-built files or requiring `lowlight` in
-the browser as that would include a 530kb (170kb GZipped) file.
+the browser as that would include a 684kb (196kb GZipped) file.
 
 Instead, require `lowlight/lib/core`, and include only the used
 highlighters.  For example:
@@ -186,8 +186,8 @@ low.highlight('js', '"use strict";');
 // See `Usage` for the results.
 ```
 
-...When using browserify, minifying this results in just 17kb of code
-(7kb with GZip).
+...When using [browserify][] and minifying with [tinyify][] this results in
+just 18kb of code (7kb with GZip).
 
 ## Related
 
@@ -249,3 +249,7 @@ low.highlight('js', '"use strict";');
 [prism]: https://github.com/PrismJS/prism
 
 [refractor]: https://github.com/wooorm/refractor
+
+[browserify]: https://github.com/browserify/browserify
+
+[tinyify]: https://github.com/browserify/tinyify
