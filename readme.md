@@ -15,6 +15,7 @@ Want to use [Prism][] instead?  Try [`refractor`][refractor]!
 *   [Usage](#usage)
 *   [API](#api)
     *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
+    *   [low.registerAlias(name\[, alias\])](#lowregisteraliasname-alias)
     *   [low.highlight(language, value\[, options\])](#lowhighlightlanguage-value-options)
     *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
     *   [Result](#result)
@@ -94,6 +95,38 @@ Yields:
 
 ```js
 { relevance: 2, language: 'html', value: [Array] }
+```
+
+### `low.registerAlias(name[, alias])`
+
+Register a new `alias` for the `name` language.
+
+###### Signatures
+
+*   `registerAlias(name, alias|list)`
+*   `registerAlias(aliases)`
+
+###### Parameters
+
+*   `name` (`string`) — [Name][names] of a registered language
+*   `alias` (`string`) — New alias for the registered language
+*   `list` (`Array.<alias>`) — List of aliases
+*   `aliases` (`Object.<alias|list>`) — Map where each key is a `name` and each
+    value an `alias` or a `list`
+
+###### Example
+
+```js
+var low = require('lowlight/lib/core');
+var md = require('highlight.js/lib/languages/markdown');
+
+low.registerLanguage('markdown', md);
+// low.highlight('mdown', '<em>Emphasis</em>')
+// ^ would throw: Error: Unknown language: `mdown` is not registered
+
+low.registerAlias({markdown: ['mdown', 'mkdn', 'mdwn', 'ron']})
+low.highlight('mdown', '<em>Emphasis</em>')
+// ^ Works!
 ```
 
 ### `low.highlight(language, value[, options])`

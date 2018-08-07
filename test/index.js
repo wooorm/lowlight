@@ -347,3 +347,49 @@ test('fixtures', function(t) {
 
   t.end()
 })
+
+test('aliases', function(t) {
+  low.registerAlias('markdown', 'mkd')
+  var input = read(join(FIXTURES, 'md-sublanguage', INPUT), 'utf8').trim()
+  var initialOutput = low.highlight('markdown', input)
+  var aliasOutput = low.highlight('mkd', input)
+  t.deepEqual(
+    initialOutput.value,
+    aliasOutput.value,
+    'alias must be parsed like original language'
+  )
+  low.registerAlias('markdown', ['mmkd', 'mmkdown'])
+  var secondaryAliasOutput = low.highlight('mmkd', input)
+  t.deepEqual(
+    initialOutput.value,
+    secondaryAliasOutput.value,
+    'alias must be parsed like original language'
+  )
+  low.registerAlias({
+    markdown: 'mdown'
+  })
+  secondaryAliasOutput = low.highlight('mdown', input)
+  t.deepEqual(
+    initialOutput.value,
+    secondaryAliasOutput.value,
+    'alias must be parsed like original language'
+  )
+  low.registerAlias({
+    markdown: ['mmdown', 'mark']
+  })
+  secondaryAliasOutput = low.highlight('mark', input)
+  t.deepEqual(
+    initialOutput.value,
+    secondaryAliasOutput.value,
+    'alias must be parsed like original language'
+  )
+  low.registerAlias('markdown', '')
+  t.throws(
+    function() {
+      low.highlight('', '')
+    },
+    /Unknown language: `` is not registered/,
+    'empty language was not registered'
+  )
+  t.end()
+})
