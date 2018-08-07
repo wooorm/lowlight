@@ -15,6 +15,7 @@ Want to use [Prism][] instead?  Try [`refractor`][refractor]!
 *   [Usage](#usage)
 *   [API](#api)
     *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
+    *   [low.registerAlias(aliases\[, namelist\])](#lowregisteraliasaliases-namelist)
     *   [low.highlight(language, value\[, options\])](#lowhighlightlanguage-value-options)
     *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
     *   [Result](#result)
@@ -94,6 +95,40 @@ Yields:
 
 ```js
 { relevance: 2, language: 'html', value: [Array] }
+```
+
+### `low.registerAlias(aliases[, namelist])`
+
+Allows to add aliases to the supported languages.
+Those aliases can be provided via a `string, Array.<String>` map or
+merely the list of alias for the given languages.
+
+For example, you can pass in:
+
+```javascript
+'markdown', 'mkd'
+'markdown', ['mkd', 'markd']
+{markdown: 'mkd'}
+{markdown: ['mkd', 'markd']}
+```
+
+\#### Example
+
+```js
+var low = require('lowlight/lib/core');
+var md = require('highlight.js/lib/languages/markdown');
+
+low.registerLanguage('markdown', md);
+low.registerAlias({markdown: ['mkd', 'mdown']})
+console.log(low.highlight('mkd', '<em>Emphasis</em>'));
+console.log(low.highlight('mdown', '<em>Emphasis</em>'));
+```
+
+Yields:
+
+```js
+{ relevance: 2, language: 'mkd', value: [Array] }
+{ relevance: 2, language: 'mdown', value: [Array] }
 ```
 
 ### `low.highlight(language, value[, options])`
