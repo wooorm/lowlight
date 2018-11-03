@@ -15,11 +15,16 @@ low.registerLanguage(
   require('highlight.js/lib/languages/actionscript')
 )
 low.registerLanguage('ada', require('highlight.js/lib/languages/ada'))
+low.registerLanguage(
+  'angelscript',
+  require('highlight.js/lib/languages/angelscript')
+)
 low.registerLanguage('apache', require('highlight.js/lib/languages/apache'))
 low.registerLanguage(
   'applescript',
   require('highlight.js/lib/languages/applescript')
 )
+low.registerLanguage('arcade', require('highlight.js/lib/languages/arcade'))
 low.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'))
 low.registerLanguage('arduino', require('highlight.js/lib/languages/arduino'))
 low.registerLanguage('armasm', require('highlight.js/lib/languages/armasm'))
@@ -100,6 +105,7 @@ low.registerLanguage('gauss', require('highlight.js/lib/languages/gauss'))
 low.registerLanguage('gcode', require('highlight.js/lib/languages/gcode'))
 low.registerLanguage('gherkin', require('highlight.js/lib/languages/gherkin'))
 low.registerLanguage('glsl', require('highlight.js/lib/languages/glsl'))
+low.registerLanguage('gml', require('highlight.js/lib/languages/gml'))
 low.registerLanguage('go', require('highlight.js/lib/languages/go'))
 low.registerLanguage('golo', require('highlight.js/lib/languages/golo'))
 low.registerLanguage('gradle', require('highlight.js/lib/languages/gradle'))
@@ -118,6 +124,7 @@ low.registerLanguage('hy', require('highlight.js/lib/languages/hy'))
 low.registerLanguage('inform7', require('highlight.js/lib/languages/inform7'))
 low.registerLanguage('ini', require('highlight.js/lib/languages/ini'))
 low.registerLanguage('irpf90', require('highlight.js/lib/languages/irpf90'))
+low.registerLanguage('isbl', require('highlight.js/lib/languages/isbl'))
 low.registerLanguage('java', require('highlight.js/lib/languages/java'))
 low.registerLanguage(
   'javascript',
@@ -185,7 +192,12 @@ low.registerLanguage('openscad', require('highlight.js/lib/languages/openscad'))
 low.registerLanguage('oxygene', require('highlight.js/lib/languages/oxygene'))
 low.registerLanguage('parser3', require('highlight.js/lib/languages/parser3'))
 low.registerLanguage('pf', require('highlight.js/lib/languages/pf'))
+low.registerLanguage('pgsql', require('highlight.js/lib/languages/pgsql'))
 low.registerLanguage('php', require('highlight.js/lib/languages/php'))
+low.registerLanguage(
+  'plaintext',
+  require('highlight.js/lib/languages/plaintext')
+)
 low.registerLanguage('pony', require('highlight.js/lib/languages/pony'))
 low.registerLanguage(
   'powershell',
@@ -197,6 +209,10 @@ low.registerLanguage(
 )
 low.registerLanguage('profile', require('highlight.js/lib/languages/profile'))
 low.registerLanguage('prolog', require('highlight.js/lib/languages/prolog'))
+low.registerLanguage(
+  'properties',
+  require('highlight.js/lib/languages/properties')
+)
 low.registerLanguage('protobuf', require('highlight.js/lib/languages/protobuf'))
 low.registerLanguage('puppet', require('highlight.js/lib/languages/puppet'))
 low.registerLanguage(
@@ -207,6 +223,7 @@ low.registerLanguage('python', require('highlight.js/lib/languages/python'))
 low.registerLanguage('q', require('highlight.js/lib/languages/q'))
 low.registerLanguage('qml', require('highlight.js/lib/languages/qml'))
 low.registerLanguage('r', require('highlight.js/lib/languages/r'))
+low.registerLanguage('reasonml', require('highlight.js/lib/languages/reasonml'))
 low.registerLanguage('rib', require('highlight.js/lib/languages/rib'))
 low.registerLanguage('roboconf', require('highlight.js/lib/languages/roboconf'))
 low.registerLanguage('routeros', require('highlight.js/lib/languages/routeros'))
@@ -216,6 +233,7 @@ low.registerLanguage(
   require('highlight.js/lib/languages/ruleslanguage')
 )
 low.registerLanguage('rust', require('highlight.js/lib/languages/rust'))
+low.registerLanguage('sas', require('highlight.js/lib/languages/sas'))
 low.registerLanguage('scala', require('highlight.js/lib/languages/scala'))
 low.registerLanguage('scheme', require('highlight.js/lib/languages/scheme'))
 low.registerLanguage('scilab', require('highlight.js/lib/languages/scilab'))
