@@ -38,7 +38,7 @@
     "remark-preset-wooorm": "^4.0.0",
     "tape": "^4.0.0",
     "tinyify": "^2.4.3",
-    "unist-util-visit": "^1.0.0",
+    "unist-util-remove-position": "^1.1.2",
     "xo": "^0.23.0"
   },
   "scripts": {

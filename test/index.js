@@ -4,15 +4,14 @@ var fs = require('fs')
 var path = require('path')
 var test = require('tape')
 var rehype = require('rehype')
-var visit = require('unist-util-visit')
+var removePosition = require('unist-util-remove-position')
 var low = require('..')
 
-var read = fs.readFileSync
 var join = path.join
 
-var FIXTURES = path.join(__dirname, 'fixture')
-var INPUT = 'input.txt'
-var OUTPUT = 'output.txt'
+var fixtures = path.join(__dirname, 'fixture')
+var inputName = 'input.txt'
+var outputName = 'output.txt'
 
 test('lowlight.highlight(language, value[, options])', function(t) {
   var result = low.highlight('js', '')
@@ -297,19 +296,9 @@ test('lowlight(value[, options])', function(t) {
   })
 
   t.test('harder example (coverage)', function(st) {
-    var input = read(join(FIXTURES, 'xml-large', 'input.txt'), 'utf8')
-    var output = read(join(FIXTURES, 'xml-large', 'output.txt'), 'utf8')
-
-    input = low.highlightAuto(input)
-    output = rehype()
-      .data('settings', {fragment: true})
-      .parse(output)
-
-    visit(output, function(node) {
-      delete node.position
+    subtest(st, 'xml-large', function(doc) {
+      return low.highlightAuto(doc)
     })
-
-    t.deepEqual(input.value, output.children, 'should correctly detect xml')
 
     st.end()
   })
@@ -318,72 +307,60 @@ test('lowlight(value[, options])', function(t) {
 })
 
 test('fixtures', function(t) {
-  fs.readdirSync(FIXTURES).forEach(function(filePath) {
-    var parts = filePath.split('-')
-    if (filePath.charAt(0) !== '.') {
-      subtest(parts[0], parts.slice(1).join('-'), filePath)
+  fs.readdirSync(fixtures).forEach(each)
+
+  function each(basename) {
+    if (basename.charAt(0) !== '.') {
+      subtest(t, basename, function(doc, language) {
+        return low.highlight(language, doc)
+      })
     }
-  })
-
-  function subtest(language, name, directory) {
-    var input = read(join(FIXTURES, directory, INPUT), 'utf8').trim()
-    var output = read(join(FIXTURES, directory, OUTPUT), 'utf8').trim()
-
-    input = low.highlight(language, input)
-    output = rehype()
-      .data('settings', {fragment: true})
-      .parse(output)
-
-    visit(output, function(node) {
-      delete node.position
-    })
-
-    t.deepEqual(
-      input.value,
-      output.children,
-      'should correctly process ' + name + ' in ' + language
-    )
   }
 
   t.end()
 })
 
 test('aliases', function(t) {
+  var input = fs
+    .readFileSync(join(fixtures, 'md-sublanguage', inputName))
+    .toString()
+    .trim()
+  var expected = low.highlight('markdown', input).value
+
   low.registerAlias('markdown', 'mkd')
-  var input = read(join(FIXTURES, 'md-sublanguage', INPUT), 'utf8').trim()
-  var initialOutput = low.highlight('markdown', input)
-  var aliasOutput = low.highlight('mkd', input)
+
   t.deepEqual(
-    initialOutput.value,
-    aliasOutput.value,
+    low.highlight('mkd', input).value,
+    expected,
     'alias must be parsed like original language'
   )
+
   low.registerAlias('markdown', ['mmkd', 'mmkdown'])
-  var secondaryAliasOutput = low.highlight('mmkd', input)
+
   t.deepEqual(
-    initialOutput.value,
-    secondaryAliasOutput.value,
+    low.highlight('mmkd', input).value,
+    expected,
     'alias must be parsed like original language'
   )
-  low.registerAlias({
-    markdown: 'mdown'
-  })
-  secondaryAliasOutput = low.highlight('mdown', input)
+
+  low.registerAlias({markdown: 'mdown'})
+
   t.deepEqual(
-    initialOutput.value,
-    secondaryAliasOutput.value,
+    low.highlight('mdown', input).value,
+    expected,
     'alias must be parsed like original language'
   )
-  low.registerAlias({
-    markdown: ['mmdown', 'mark']
-  })
-  secondaryAliasOutput = low.highlight('mark', input)
+
+  low.registerAlias({markdown: ['mmdown', 'mark']})
+
   t.deepEqual(
-    initialOutput.value,
-    secondaryAliasOutput.value,
+    low.highlight('mark', input).value,
+    expected,
     'alias must be parsed like original language'
   )
+
   low.registerAlias('markdown', '')
+
   t.throws(
     function() {
       low.highlight('', '')
@@ -393,3 +370,24 @@ test('aliases', function(t) {
   )
   t.end()
 })
+
+function subtest(t, directory, transform) {
+  var parts = directory.split('-')
+  var language = parts[0]
+  var name = parts.slice(1).join('-')
+  var input = join(fixtures, directory, inputName)
+  var output = join(fixtures, directory, outputName)
+
+  var actual = transform(String(fs.readFileSync(input)).trim(), language)
+  var expected = rehype()
+    .data('settings', {fragment: true})
+    .parse(String(fs.readFileSync(output)).trim())
+
+  removePosition(expected, true)
+
+  t.deepEqual(
+    actual.value,
+    expected.children,
+    'should correctly process ' + name + ' in ' + language
+  )
+}
