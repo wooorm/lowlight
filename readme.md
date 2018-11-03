@@ -1,4 +1,4 @@
-# lowlight [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# lowlight [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Size][size-badge]][size]
 
 Virtual syntax highlighting for virtual DOMs and non-HTML things,
 with language auto-detection.  Perfect for [React][], [VDOM][], and
@@ -245,13 +245,21 @@ just 18kb of code (7kb with GZip).
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/lowlight.svg
+[build-badge]: https://img.shields.io/travis/wooorm/lowlight.svg
 
-[travis]: https://travis-ci.org/wooorm/lowlight
+[build]: https://travis-ci.org/wooorm/lowlight
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/lowlight.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/lowlight.svg
 
-[codecov]: https://codecov.io/github/wooorm/lowlight
+[coverage]: https://codecov.io/github/wooorm/lowlight
+
+[downloads-badge]: https://img.shields.io/npm/dm/lowlight.svg
+
+[downloads]: https://www.npmjs.com/package/lowlight
+
+[size-badge]: https://img.shields.io/bundlephobia/minzip/lowlight.svg
+
+[size]: https://bundlephobia.com/result?p=lowlight
 
 [npm]: https://docs.npmjs.com/cli/install
 
