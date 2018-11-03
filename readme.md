@@ -1,4 +1,4 @@
-# lowlight [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Size][size-badge]][size]
+# lowlight [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Size][size-badge]][size]
 
 Virtual syntax highlighting for virtual DOMs and non-HTML things,
 with language auto-detection.  Perfect for [React][], [VDOM][], and
