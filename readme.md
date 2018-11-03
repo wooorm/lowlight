@@ -5,7 +5,7 @@ with language auto-detection.  Perfect for [React][], [VDOM][], and
 others.
 
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
-that’s [176 languages][names] (and all 73 themes).
+that’s [185 languages][names] (and all 89 themes).
 
 Want to use [Prism][] instead?  Try [`refractor`][refractor]!
 
