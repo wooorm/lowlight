@@ -323,12 +323,21 @@ test('fixtures', function(t) {
 
 test('listLanguages', function(t) {
   var expectedLanguages = highlight.listLanguages()
-  t.deepEqual(low.listLanguages(), expectedLanguages)
+
+  t.deepEqual(
+    low.listLanguages(),
+    expectedLanguages,
+    'should return the same list of languages as highlight.js'
+  )
 
   low.registerLanguage('--test-lang--', function() {
     return {}
   })
-  t.deepEqual(low.listLanguages(), expectedLanguages.concat(['--test-lang--']))
+  t.deepEqual(
+    low.listLanguages(),
+    expectedLanguages.concat(['--test-lang--']),
+    'should include any additional languages that are registered'
+  )
 
   t.end()
 })
