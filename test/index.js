@@ -330,12 +330,13 @@ test('listLanguages', function(t) {
     'should return the same list of languages as highlight.js'
   )
 
-  low.registerLanguage('--test-lang--', function() {
+  var testLang = '--test-lang-314159-'
+  var mockSyntax = function() {
     return {}
-  })
-  t.deepEqual(
-    low.listLanguages(),
-    expectedLanguages.concat(['--test-lang--']),
+  }
+  low.registerLanguage(testLang, mockSyntax)
+  t.ok(
+    low.listLanguages().includes(testLang),
     'should include any additional languages that are registered'
   )
 
