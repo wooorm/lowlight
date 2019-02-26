@@ -323,6 +323,7 @@ test('fixtures', function(t) {
 
 test('listLanguages', function(t) {
   var expectedLanguages = highlight.listLanguages()
+  var mockName = 'testtest'
 
   t.deepEqual(
     low.listLanguages(),
@@ -330,15 +331,16 @@ test('listLanguages', function(t) {
     'should return the same list of languages as highlight.js'
   )
 
-  var testLang = '--test-lang-314159-'
-  var mockSyntax = function() {
-    return {}
-  }
-  low.registerLanguage(testLang, mockSyntax)
+  low.registerLanguage(mockName, mockSyntax)
+  
   t.ok(
-    low.listLanguages().includes(testLang),
+    low.listLanguages().includes(mockName),
     'should include any additional languages that are registered'
   )
+  
+  function mockSyntax() {
+    return {}
+  }
 
   t.end()
 })
