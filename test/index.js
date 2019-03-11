@@ -1,5 +1,6 @@
 'use strict'
 
+var highlight = require('highlight.js') // eslint-disable-line ava/no-import-test-files
 var fs = require('fs')
 var path = require('path')
 var test = require('tape')
@@ -315,6 +316,30 @@ test('fixtures', function(t) {
         return low.highlight(language, doc)
       })
     }
+  }
+
+  t.end()
+})
+
+test('listLanguages', function(t) {
+  var expectedLanguages = highlight.listLanguages()
+  var mockName = 'testtest'
+
+  t.deepEqual(
+    low.listLanguages(),
+    expectedLanguages,
+    'should return the same list of languages as highlight.js'
+  )
+
+  low.registerLanguage(mockName, mockSyntax)
+
+  t.ok(
+    low.listLanguages().includes(mockName),
+    'should include any additional languages that are registered'
+  )
+
+  function mockSyntax() {
+    return {}
   }
 
   t.end()
