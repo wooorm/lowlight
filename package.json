@@ -43,7 +43,7 @@
   },
   "scripts": {
     "generate": "node script/build-registry",
-    "format": "remark . -qfo && prettier --write '**/*.js' && xo --fix",
+    "format": "remark . -qfo && prettier --write \"**/*.js\" && xo --fix",
     "build-bundle": "browserify index.js -s lowlight > lowlight.js",
     "build-mangle": "browserify index.js -s lowlight -p tinyify > lowlight.min.js",
     "build": "npm run build-bundle && npm run build-mangle",
