@@ -16,6 +16,7 @@ Want to use [Prism][] instead?  Try [`refractor`][refractor]!
 *   [API](#api)
     *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
     *   [low.registerAlias(name\[, alias\])](#lowregisteraliasname-alias)
+    *   [low.listLanguages()](#lowlistlanguages)
     *   [low.highlight(language, value\[, options\])](#lowhighlightlanguage-value-options)
     *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
     *   [Result](#result)
@@ -127,6 +128,27 @@ low.registerLanguage('markdown', md);
 low.registerAlias({markdown: ['mdown', 'mkdn', 'mdwn', 'ron']})
 low.highlight('mdown', '<em>Emphasis</em>')
 // ^ Works!
+```
+
+### `low.listLanguages()`
+
+List all registered languages.
+
+###### Returns
+
+`Array.<string>`.
+
+###### Example
+
+```js
+var low = require('lowlight/lib/core')
+var md = require('highlight.js/lib/languages/markdown')
+
+console.log(low.listLanguages()) // => []
+
+low.registerLanguage('markdown', md)
+
+console.log(low.listLanguages()) // => ['markdown']
 ```
 
 ### `low.highlight(language, value[, options])`
