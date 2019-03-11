@@ -14,12 +14,12 @@ Want to use [Prism][] instead?  Try [`refractor`][refractor]!
 *   [Installation](#installation)
 *   [Usage](#usage)
 *   [API](#api)
-    *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
-    *   [low.registerAlias(name\[, alias\])](#lowregisteraliasname-alias)
-    *   [low.listLanguages()](#lowlistlanguages)
     *   [low.highlight(language, value\[, options\])](#lowhighlightlanguage-value-options)
     *   [low.highlightAuto(value\[, options\])](#lowhighlightautovalue-options)
     *   [Result](#result)
+    *   [low.registerLanguage(name, syntax)](#lowregisterlanguagename-syntax)
+    *   [low.registerAlias(name\[, alias\])](#lowregisteraliasname-alias)
+    *   [low.listLanguages()](#lowlistlanguages)
 *   [Browser](#browser)
 *   [Related](#related)
 *   [Projects](#projects)
@@ -40,10 +40,10 @@ npm install lowlight
 Highlight:
 
 ```javascript
-var low = require('lowlight');
-var ast = low.highlight('js', '"use strict";').value;
+var low = require('lowlight')
+var tree = low.highlight('js', '"use strict";').value
 
-console.log(ast);
+console.log(tree)
 ```
 
 Yields:
@@ -59,10 +59,12 @@ Yields:
 Or, stringified with [rehype][]:
 
 ```js
-var rehype = require('rehype');
-var html = rehype().stringify({type: 'root', children: ast}).toString();
+var rehype = require('rehype')
+var html = rehype()
+  .stringify({type: 'root', children: tree})
+  .toString()
 
-console.log(html);
+console.log(html)
 ```
 
 Yields:
@@ -76,6 +78,78 @@ Yields:
 
 ## API
 
+### `low.highlight(language, value[, options])`
+
+Parse `value` (`string`) according to the [`language`][names] grammar.
+
+###### `options`
+
+*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
+
+###### Returns
+
+[`Result`][result].
+
+###### Example
+
+```js
+var low = require('lowlight')
+
+console.log(low.highlight('css', 'em { color: red }'))
+```
+
+Yields:
+
+```js
+{ relevance: 4, language: 'css', value: [Array] }
+```
+
+### `low.highlightAuto(value[, options])`
+
+Parse `value` by guessing its grammar.
+
+###### `options`
+
+*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
+*   `subset` (`Array.<string>?` default: all registered languages) — List of
+    allowed languages
+
+###### Returns
+
+[`Result`][result], with a `secondBest` if found.
+
+###### Example
+
+```js
+var low = require('lowlight')
+
+console.log(low.highlightAuto('"hello, " + name + "!"'))
+```
+
+Yields:
+
+```js
+{ relevance: 3,
+  language: 'applescript',
+  value: [Array],
+  secondBest: { relevance: 3, language: 'basic', value: [Array] } }
+```
+
+### `Result`
+
+`Result` is a highlighting result object.
+
+###### Properties
+
+*   `relevance` (`number`) — Integer representing how sure **low** is the given
+    code is in the given language
+*   `language` (`string`) — The detected `language`
+*   `value` ([`Array.<Node>`][hast-node]) — Virtual nodes representing the
+    highlighted given code
+*   `secondBest` ([`Result?`][result])
+    — Result of the second-best (based on `relevance`) match.
+    Only set by `highlightAuto`, but can still be `null`.
+
 ### `low.registerLanguage(name, syntax)`
 
 Register a [syntax][] as `name` (`string`).  Useful in the browser or with
@@ -84,12 +158,12 @@ custom grammars.
 ###### Example
 
 ```js
-var low = require('lowlight/lib/core');
-var xml = require('highlight.js/lib/languages/xml');
+var low = require('lowlight/lib/core')
+var xml = require('highlight.js/lib/languages/xml')
 
-low.registerLanguage('xml', xml);
+low.registerLanguage('xml', xml)
 
-console.log(low.highlight('html', '<em>Emphasis</em>'));
+console.log(low.highlight('html', '<em>Emphasis</em>'))
 ```
 
 Yields:
@@ -118,10 +192,10 @@ Register a new `alias` for the `name` language.
 ###### Example
 
 ```js
-var low = require('lowlight/lib/core');
-var md = require('highlight.js/lib/languages/markdown');
+var low = require('lowlight/lib/core')
+var md = require('highlight.js/lib/languages/markdown')
 
-low.registerLanguage('markdown', md);
+low.registerLanguage('markdown', md)
 // low.highlight('mdown', '<em>Emphasis</em>')
 // ^ would throw: Error: Unknown language: `mdown` is not registered
 
@@ -151,78 +225,6 @@ low.registerLanguage('markdown', md)
 console.log(low.listLanguages()) // => ['markdown']
 ```
 
-### `low.highlight(language, value[, options])`
-
-Parse `value` (`string`) according to the [`language`][names] grammar.
-
-###### `options`
-
-*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
-
-###### Returns
-
-[`Result`][result].
-
-###### Example
-
-```js
-var low = require('lowlight');
-
-console.log(low.highlight('css', 'em { color: red }'));
-```
-
-Yields:
-
-```js
-{ relevance: 4, language: 'css', value: [Array] }
-```
-
-### `low.highlightAuto(value[, options])`
-
-Parse `value` by guessing its grammar.
-
-###### `options`
-
-*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
-*   `subset` (`Array.<string>?` default: all registered languages) — List of
-    allowed languages
-
-###### Returns
-
-[`Result`][result], with a `secondBest` if found.
-
-###### Example
-
-```js
-var low = require('lowlight');
-
-console.log(low.highlightAuto('"hello, " + name + "!"'));
-```
-
-Yields:
-
-```js
-{ relevance: 3,
-  language: 'applescript',
-  value: [Array],
-  secondBest: { relevance: 3, language: 'basic', value: [Array] } }
-```
-
-### `Result`
-
-`Result` is a highlighting result object.
-
-###### Properties
-
-*   `relevance` (`number`) — Integer representing how sure **low** is the given
-    code is in the given language
-*   `language` (`string`) — The detected `language`
-*   `value` ([`Array.<Node>`][hast-node]) — Virtual nodes representing the
-    highlighted given code
-*   `secondBest` ([`Result?`][result])
-    — Result of the second-best (based on `relevance`) match.
-    Only set by `highlightAuto`, but can still be `null`.
-
 ## Browser
 
 I do not suggest using the pre-built files or requiring `lowlight` in
@@ -232,12 +234,12 @@ Instead, require `lowlight/lib/core`, and include only the used
 highlighters.  For example:
 
 ```js
-var low = require('lowlight/lib/core');
-var js = require('highlight.js/lib/languages/javascript');
+var low = require('lowlight/lib/core')
+var js = require('highlight.js/lib/languages/javascript')
 
-low.registerLanguage('javascript', js);
+low.registerLanguage('javascript', js)
 
-low.highlight('js', '"use strict";');
+low.highlight('js', '"use strict";')
 // See `Usage` for the results.
 ```
 
