@@ -63,12 +63,7 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "complexity": "off",
-      "guard-for-in": "off",
-      "max-params": "off",
-      "object-shorthand": "off",
-      "prefer-arrow-callback": "off",
-      "no-var": "off"
+      "guard-for-in": "off"
     },
     "ignores": [
       "lowlight.js"
