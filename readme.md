@@ -289,7 +289,7 @@ just 18kb of code (7kb with GZip).
 
 [license]: license
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
 [rehype]: https://github.com/rehypejs/rehype
 
