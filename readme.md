@@ -6,8 +6,8 @@
 [![Size][size-badge]][size]
 
 Virtual syntax highlighting for virtual DOMs and non-HTML things,
-with language auto-detection.  Perfect for [React][], [VDOM][], and
-others.
+with language auto-detection.
+Perfect for [React][], [VDOM][], and others.
 
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
 that’s [185 languages][names] (and all 89 themes).
@@ -115,9 +115,10 @@ Parse `value` by guessing its grammar.
 
 ###### `options`
 
-*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
-*   `subset` (`Array.<string>?` default: all registered languages) — List of
-    allowed languages
+*   `prefix` (`string?`, default: `'hljs-'`)
+    — Class prefix
+*   `subset` (`Array.<string>?` default: all registered languages)
+    — List of allowed languages
 
 ###### Returns
 
@@ -146,19 +147,21 @@ Yields:
 
 ###### Properties
 
-*   `relevance` (`number`) — Integer representing how sure **low** is the given
-    code is in the given language
-*   `language` (`string`) — The detected `language`
-*   `value` ([`Array.<Node>`][hast-node]) — Virtual nodes representing the
-    highlighted given code
+*   `relevance` (`number`)
+    — Integer representing how sure **low** is the given code is in the given
+    language
+*   `language` (`string`)
+    — The detected `language`
+*   `value` ([`Array.<Node>`][hast-node])
+    — Virtual nodes representing the highlighted given code
 *   `secondBest` ([`Result?`][result])
     — Result of the second-best (based on `relevance`) match.
     Only set by `highlightAuto`, but can still be `null`.
 
 ### `low.registerLanguage(name, syntax)`
 
-Register a [syntax][] as `name` (`string`).  Useful in the browser or with
-custom grammars.
+Register a [syntax][] as `name` (`string`).
+Useful in the browser or with custom grammars.
 
 ###### Example
 
@@ -232,11 +235,12 @@ console.log(low.listLanguages()) // => ['markdown']
 
 ## Browser
 
-I do not suggest using the pre-built files or requiring `lowlight` in
-the browser as that would include a 684kb (196kb GZipped) file.
+It is not suggested to use the pre-built files or requiring `lowlight` in
+the browser as that would include 838kB (241kB GZipped) of code.
 
 Instead, require `lowlight/lib/core`, and include only the used
-highlighters.  For example:
+highlighters.
+For example:
 
 ```js
 var low = require('lowlight/lib/core')
@@ -248,8 +252,8 @@ low.highlight('js', '"use strict";')
 // See `Usage` for the results.
 ```
 
-...When using [browserify][] and minifying with [tinyify][] this results in
-just 18kb of code (7kb with GZip).
+…when using [browserify][] and minifying with [tinyify][] this results in
+just 18kB of code (7kB with GZip).
 
 ## Related
 
