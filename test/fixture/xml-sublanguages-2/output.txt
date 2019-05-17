@@ -1,0 +1,1 @@
+<span class="hljs-tag">&#x3C;<span class="hljs-name">script</span>></span>foo()<span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
