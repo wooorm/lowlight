@@ -1,8 +1,8 @@
 'use strict'
 
-var highlight = require('highlight.js') // eslint-disable-line ava/no-import-test-files
 var fs = require('fs')
 var path = require('path')
+var highlight = require('highlight.js') // eslint-disable-line ava/no-import-test-files
 var test = require('tape')
 var rehype = require('rehype')
 var removePosition = require('unist-util-remove-position')
@@ -402,11 +402,28 @@ function subtest(t, directory, transform) {
   var name = parts.slice(1).join('-')
   var input = join(fixtures, directory, inputName)
   var output = join(fixtures, directory, outputName)
+  var out
 
   var actual = transform(String(fs.readFileSync(input)).trim(), language)
+
+  // Create output snapshot if it doesn’t exist yet.
+  try {
+    out = fs.readFileSync(output)
+  } catch (error) {
+    out =
+      rehype()
+        .data('settings', {
+          fragment: true,
+          entities: {useNamedReferences: true}
+        })
+        .stringify({type: 'root', children: actual.value}) + '\n'
+
+    fs.writeFileSync(output, out)
+  }
+
   var expected = rehype()
     .data('settings', {fragment: true})
-    .parse(String(fs.readFileSync(output)).trim())
+    .parse(String(out).trim())
 
   removePosition(expected, true)
 
