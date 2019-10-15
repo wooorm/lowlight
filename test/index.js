@@ -2,7 +2,7 @@
 
 var fs = require('fs')
 var path = require('path')
-var highlight = require('highlight.js') // eslint-disable-line ava/no-import-test-files
+var highlight = require('highlight.js')
 var test = require('tape')
 var rehype = require('rehype')
 var removePosition = require('unist-util-remove-position')
@@ -409,7 +409,7 @@ function subtest(t, directory, transform) {
   // Create output snapshot if it doesn’t exist yet.
   try {
     out = fs.readFileSync(output)
-  } catch (error) {
+  } catch (_) {
     out =
       rehype()
         .data('settings', {
