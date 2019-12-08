@@ -271,6 +271,9 @@ just 18kB of code (7kB with GZip).
     — Syntax highlighting in [**rehype**](https://github.com/rehypejs/rehype)
 *   [`remark-highlight.js`](https://github.com/ben-eb/remark-highlight.js)
     — Syntax highlighting in [**remark**](https://github.com/remarkjs/remark)
+*   [`jstransformer-lowlight`](https://github.com/ai/jstransformer-lowlight)
+    — Syntax highlighting for [JSTransformers](https://github.com/jstransformers)
+    and [Pug](https://pugjs.org/language/filters.html)
 
 ## License
 
