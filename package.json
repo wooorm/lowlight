@@ -14,6 +14,10 @@
   ],
   "repository": "wooorm/lowlight",
   "bugs": "https://github.com/wooorm/lowlight/issues",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/wooorm"
+  },
   "author": "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (https://wooorm.com)",
