@@ -5,19 +5,20 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Virtual syntax highlighting for virtual DOMs and non-HTML things,
-with language auto-detection.
+Virtual syntax highlighting for virtual DOMs and non-HTML things, with language
+auto-detection.
 Perfect for [React][], [VDOM][], and others.
 
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
 that’s [185 languages][names] (and all 89 themes).
 
-Want to use [Prism][] instead?  Try [`refractor`][refractor]!
+Want to use [Prism][] instead?
+Try [`refractor`][refractor]!
 
-## Table of Contents
+## Contents
 
-*   [Installation](#installation)
-*   [Usage](#usage)
+*   [Install](#install)
+*   [Use](#use)
 *   [API](#api)
     *   [`low.highlight(language, value[, options])`](#lowhighlightlanguage-value-options)
     *   [`low.highlightAuto(value[, options])`](#lowhighlightautovalue-options)
@@ -30,21 +31,21 @@ Want to use [Prism][] instead?  Try [`refractor`][refractor]!
 *   [Projects](#projects)
 *   [License](#license)
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install lowlight
 ```
 
 [Usage in the browser »][browser]
 
-## Usage
+## Use
 
 Highlight:
 
-```javascript
+```js
 var low = require('lowlight')
 var tree = low.highlight('js', '"use strict";').value
 
@@ -61,7 +62,7 @@ Yields:
   { type: 'text', value: ';' } ]
 ```
 
-Or, stringified with [rehype][]:
+Or, serialized with [rehype][]:
 
 ```js
 var rehype = require('rehype')
@@ -78,8 +79,8 @@ Yields:
 <span class="hljs-meta">"use strict"</span>;
 ```
 
-> **Tip**: Use [`hast-to-hyperscript`][to-hyperscript] to transform
-> to other virtual DOMs, or DIY.
+> **Tip**: Use [`hast-to-hyperscript`][to-hyperscript] to transform to other
+> virtual DOMs, or DIY.
 
 ## API
 
@@ -135,10 +136,12 @@ console.log(low.highlightAuto('"hello, " + name + "!"'))
 Yields:
 
 ```js
-{ relevance: 3,
+{
+  relevance: 3,
   language: 'applescript',
   value: [Array],
-  secondBest: { relevance: 3, language: 'basic', value: [Array] } }
+  secondBest: {relevance: 3, language: 'basic', value: [Array]}
+}
 ```
 
 ### `Result`
@@ -148,8 +151,7 @@ Yields:
 ###### Properties
 
 *   `relevance` (`number`)
-    — Integer representing how sure **low** is the given code is in the given
-    language
+    — How sure **low** is that the given code is in the found language
 *   `language` (`string`)
     — The detected `language`
 *   `value` ([`Array.<Node>`][hast-node])
@@ -177,7 +179,7 @@ console.log(low.highlight('html', '<em>Emphasis</em>'))
 Yields:
 
 ```js
-{ relevance: 2, language: 'html', value: [Array] }
+{relevance: 2, language: 'html', value: [Array]}
 ```
 
 ### `low.registerAlias(name[, alias])`
@@ -204,6 +206,7 @@ var low = require('lowlight/lib/core')
 var md = require('highlight.js/lib/languages/markdown')
 
 low.registerLanguage('markdown', md)
+
 // low.highlight('mdown', '<em>Emphasis</em>')
 // ^ would throw: Error: Unknown language: `mdown` is not registered
 
@@ -235,11 +238,10 @@ console.log(low.listLanguages()) // => ['markdown']
 
 ## Browser
 
-It is not suggested to use the pre-built files or requiring `lowlight` in
-the browser as that would include 838kB (241kB GZipped) of code.
+It is not suggested to use the pre-built files or requiring `lowlight` in the
+browser as that would include 838kB (241kB GZipped) of code.
 
-Instead, require `lowlight/lib/core`, and include only the used
-highlighters.
+Instead, require `lowlight/lib/core`, and include only the used highlighters.
 For example:
 
 ```js
@@ -252,8 +254,8 @@ low.highlight('js', '"use strict";')
 // See `Usage` for the results.
 ```
 
-…when using [browserify][] and minifying with [tinyify][] this results in
-just 18kB of code (7kB with GZip).
+…when using [browserify][] and minifying with [tinyify][] this results in just
+18kB of code (7kB with GZip).
 
 ## Related
 
