@@ -10,7 +10,7 @@ auto-detection.
 Perfect for [React][], [VDOM][], and others.
 
 Lowlight is built to work with all syntaxes supported by [highlight.js][],
-that’s [185 languages][names] (and all 89 themes).
+that’s [189 languages][names] (and all 94 themes).
 
 Want to use [Prism][] instead?
 Try [`refractor`][refractor]!
@@ -55,20 +55,22 @@ console.log(tree)
 Yields:
 
 ```js
-[ { type: 'element',
+[
+  {
+    type: 'element',
     tagName: 'span',
-    properties: { className: [ 'hljs-meta' ] },
-    children: [ { type: 'text', value: '"use strict"' } ] },
-  { type: 'text', value: ';' } ]
+    properties: {className: ['hljs-meta']},
+    children: [{type: 'text', value: '"use strict"'}]
+  },
+  {type: 'text', value: ';'}
+]
 ```
 
 Or, serialized with [rehype][]:
 
 ```js
 var rehype = require('rehype')
-var html = rehype()
-  .stringify({type: 'root', children: tree})
-  .toString()
+var html = rehype().stringify({type: 'root', children: tree}).toString()
 
 console.log(html)
 ```
@@ -107,7 +109,7 @@ console.log(low.highlight('css', 'em { color: red }'))
 Yields:
 
 ```js
-{ relevance: 4, language: 'css', value: [Array] }
+{relevance: 4, language: 'css', value: [Array]}
 ```
 
 ### `low.highlightAuto(value[, options])`
@@ -239,7 +241,7 @@ console.log(low.listLanguages()) // => ['markdown']
 ## Browser
 
 It is not suggested to use the pre-built files or requiring `lowlight` in the
-browser as that would include 838kB (241kB GZipped) of code.
+browser as that would include 916kB (260kB GZipped) of code.
 
 Instead, require `lowlight/lib/core`, and include only the used highlighters.
 For example:
@@ -254,8 +256,8 @@ low.highlight('js', '"use strict";')
 // See `Usage` for the results.
 ```
 
-…when using [browserify][] and minifying with [tinyify][] this results in just
-18kB of code (7kB with GZip).
+…when using [browserify][] and minifying with [tinyify][] this results in 24kB
+of code (9kB with GZip).
 
 ## Related
 

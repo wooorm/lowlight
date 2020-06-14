@@ -25,6 +25,7 @@ low.registerLanguage(
   require('highlight.js/lib/languages/applescript')
 )
 low.registerLanguage('arcade', require('highlight.js/lib/languages/arcade'))
+low.registerLanguage('c-like', require('highlight.js/lib/languages/c-like'))
 low.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'))
 low.registerLanguage('arduino', require('highlight.js/lib/languages/arduino'))
 low.registerLanguage('armasm', require('highlight.js/lib/languages/armasm'))
@@ -46,6 +47,7 @@ low.registerLanguage(
   'brainfuck',
   require('highlight.js/lib/languages/brainfuck')
 )
+low.registerLanguage('c', require('highlight.js/lib/languages/c'))
 low.registerLanguage('cal', require('highlight.js/lib/languages/cal'))
 low.registerLanguage(
   'capnproto',
@@ -67,7 +69,7 @@ low.registerLanguage('coq', require('highlight.js/lib/languages/coq'))
 low.registerLanguage('cos', require('highlight.js/lib/languages/cos'))
 low.registerLanguage('crmsh', require('highlight.js/lib/languages/crmsh'))
 low.registerLanguage('crystal', require('highlight.js/lib/languages/crystal'))
-low.registerLanguage('cs', require('highlight.js/lib/languages/cs'))
+low.registerLanguage('csharp', require('highlight.js/lib/languages/csharp'))
 low.registerLanguage('csp', require('highlight.js/lib/languages/csp'))
 low.registerLanguage('css', require('highlight.js/lib/languages/css'))
 low.registerLanguage('d', require('highlight.js/lib/languages/d'))
@@ -142,6 +144,7 @@ low.registerLanguage(
 )
 low.registerLanguage('kotlin', require('highlight.js/lib/languages/kotlin'))
 low.registerLanguage('lasso', require('highlight.js/lib/languages/lasso'))
+low.registerLanguage('latex', require('highlight.js/lib/languages/latex'))
 low.registerLanguage('ldif', require('highlight.js/lib/languages/ldif'))
 low.registerLanguage('leaf', require('highlight.js/lib/languages/leaf'))
 low.registerLanguage('less', require('highlight.js/lib/languages/less'))
@@ -180,7 +183,7 @@ low.registerLanguage(
 )
 low.registerLanguage('n1ql', require('highlight.js/lib/languages/n1ql'))
 low.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'))
-low.registerLanguage('nimrod', require('highlight.js/lib/languages/nimrod'))
+low.registerLanguage('nim', require('highlight.js/lib/languages/nim'))
 low.registerLanguage('nix', require('highlight.js/lib/languages/nix'))
 low.registerLanguage('nsis', require('highlight.js/lib/languages/nsis'))
 low.registerLanguage(
@@ -194,6 +197,10 @@ low.registerLanguage('parser3', require('highlight.js/lib/languages/parser3'))
 low.registerLanguage('pf', require('highlight.js/lib/languages/pf'))
 low.registerLanguage('pgsql', require('highlight.js/lib/languages/pgsql'))
 low.registerLanguage('php', require('highlight.js/lib/languages/php'))
+low.registerLanguage(
+  'php-template',
+  require('highlight.js/lib/languages/php-template')
+)
 low.registerLanguage(
   'plaintext',
   require('highlight.js/lib/languages/plaintext')
@@ -220,6 +227,10 @@ low.registerLanguage(
   require('highlight.js/lib/languages/purebasic')
 )
 low.registerLanguage('python', require('highlight.js/lib/languages/python'))
+low.registerLanguage(
+  'python-repl',
+  require('highlight.js/lib/languages/python-repl')
+)
 low.registerLanguage('q', require('highlight.js/lib/languages/q'))
 low.registerLanguage('qml', require('highlight.js/lib/languages/qml'))
 low.registerLanguage('r', require('highlight.js/lib/languages/r'))
@@ -260,7 +271,6 @@ low.registerLanguage(
 low.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'))
 low.registerLanguage('tap', require('highlight.js/lib/languages/tap'))
 low.registerLanguage('tcl', require('highlight.js/lib/languages/tcl'))
-low.registerLanguage('tex', require('highlight.js/lib/languages/tex'))
 low.registerLanguage('thrift', require('highlight.js/lib/languages/thrift'))
 low.registerLanguage('tp', require('highlight.js/lib/languages/tp'))
 low.registerLanguage('twig', require('highlight.js/lib/languages/twig'))

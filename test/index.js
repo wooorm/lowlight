@@ -177,7 +177,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   t.end()
 })
 
-test('lowlight(value[, options])', function (t) {
+test('lowlight.highlightAuto(value[, options])', function (t) {
   var result = low.highlightAuto('')
 
   t.throws(
@@ -325,6 +325,9 @@ test('listLanguages', function (t) {
   var expectedLanguages = highlight.listLanguages()
   var mockName = 'testtest'
 
+  // If this test fails, update `readme.md`.
+  t.equal(expectedLanguages.length, 189, 'should match `readme.md`')
+
   t.deepEqual(
     low.listLanguages(),
     expectedLanguages,
@@ -393,6 +396,7 @@ test('aliases', function (t) {
     /Unknown language: `` is not registered/,
     'empty language was not registered'
   )
+
   t.end()
 })
 
