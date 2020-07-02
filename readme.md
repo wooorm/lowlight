@@ -311,11 +311,11 @@ of code (9kB with GZip).
 
 [hast-node]: https://github.com/syntax-tree/hast#ast
 
-[highlight.js]: https://github.com/isagalaev/highlight.js
+[highlight.js]: https://github.com/highlightjs/highlight.js
 
-[syntax]: https://github.com/isagalaev/highlight.js/blob/master/docs/language-guide.rst
+[syntax]: https://github.com/highlightjs/highlight.js/blob/master/docs/language-guide.rst
 
-[names]: https://github.com/isagalaev/highlight.js/blob/master/docs/css-classes-reference.rst#language-names-and-aliases
+[names]: https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
 
 [react]: https://facebook.github.io/react/
 
