@@ -66,11 +66,14 @@ Yields:
 ]
 ```
 
-Or, serialized with [rehype][]:
+Or, serialized with [rehype-stringify][]:
 
 ```js
-var rehype = require('rehype')
-var html = rehype().stringify({type: 'root', children: tree}).toString()
+var unified = require('unified')
+var rehypeStringify = require('rehype-stringify')
+
+var processor = unified().use(rehypeStringify)
+var html = processor.stringify({type: 'root', children: tree}).toString()
 
 console.log(html)
 ```
