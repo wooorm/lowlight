@@ -310,7 +310,7 @@ of code (9kB with GZip).
 
 [author]: https://wooorm.com
 
-[rehype]: https://github.com/rehypejs/rehype
+[rehype-stringify]: https://github.com/rehypejs/rehype/tree/main/packages/rehype-stringify
 
 [hast-node]: https://github.com/syntax-tree/hast#ast
 
