@@ -33,7 +33,7 @@
     "highlight.js": "~10.2.0"
   },
   "devDependencies": {
-    "browserify": "^16.0.0",
+    "browserify": "^17.0.0",
     "chalk": "^4.0.0",
     "nyc": "^15.0.0",
     "prettier": "^2.0.0",
