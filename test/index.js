@@ -225,13 +225,13 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
 
     t.equal(
       result.secondBest.language,
-      'abnf',
+      'typescript',
       'should return a `secondBest` `language`'
     )
 
     t.equal(
       result.secondBest.relevance,
-      2,
+      10,
       'should return a `secondBest` `relevance`'
     )
 
