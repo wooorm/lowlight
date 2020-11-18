@@ -25,8 +25,6 @@ low.registerLanguage(
   require('highlight.js/lib/languages/applescript')
 )
 low.registerLanguage('arcade', require('highlight.js/lib/languages/arcade'))
-low.registerLanguage('c-like', require('highlight.js/lib/languages/c-like'))
-low.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'))
 low.registerLanguage('arduino', require('highlight.js/lib/languages/arduino'))
 low.registerLanguage('armasm', require('highlight.js/lib/languages/armasm'))
 low.registerLanguage('xml', require('highlight.js/lib/languages/xml'))
@@ -47,6 +45,7 @@ low.registerLanguage(
   'brainfuck',
   require('highlight.js/lib/languages/brainfuck')
 )
+low.registerLanguage('c-like', require('highlight.js/lib/languages/c-like'))
 low.registerLanguage('c', require('highlight.js/lib/languages/c'))
 low.registerLanguage('cal', require('highlight.js/lib/languages/cal'))
 low.registerLanguage(
@@ -67,6 +66,7 @@ low.registerLanguage(
 )
 low.registerLanguage('coq', require('highlight.js/lib/languages/coq'))
 low.registerLanguage('cos', require('highlight.js/lib/languages/cos'))
+low.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'))
 low.registerLanguage('crmsh', require('highlight.js/lib/languages/crmsh'))
 low.registerLanguage('crystal', require('highlight.js/lib/languages/crystal'))
 low.registerLanguage('csharp', require('highlight.js/lib/languages/csharp'))
@@ -185,6 +185,10 @@ low.registerLanguage('n1ql', require('highlight.js/lib/languages/n1ql'))
 low.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'))
 low.registerLanguage('nim', require('highlight.js/lib/languages/nim'))
 low.registerLanguage('nix', require('highlight.js/lib/languages/nix'))
+low.registerLanguage(
+  'node-repl',
+  require('highlight.js/lib/languages/node-repl')
+)
 low.registerLanguage('nsis', require('highlight.js/lib/languages/nsis'))
 low.registerLanguage(
   'objectivec',
