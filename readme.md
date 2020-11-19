@@ -288,9 +288,9 @@ of code (9kB with GZip).
 
 <!-- Definitions -->
 
-[build-badge]: https://img.shields.io/travis/wooorm/lowlight.svg
+[build-badge]: https://github.com/wooorm/lowlight/workflows/main/badge.svg
 
-[build]: https://travis-ci.org/wooorm/lowlight
+[build]: https://github.com/wooorm/lowlight/actions
 
 [coverage-badge]: https://img.shields.io/codecov/c/github/wooorm/lowlight.svg
 
