@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "fault": "^1.0.0",
-    "highlight.js": "~10.3.0"
+    "highlight.js": "~10.4.0"
   },
   "devDependencies": {
     "browserify": "^17.0.0",
