@@ -43,7 +43,7 @@
     "tape": "^5.0.0",
     "tinyify": "^3.0.0",
     "unist-util-remove-position": "^3.0.0",
-    "xo": "^0.34.0"
+    "xo": "^0.36.0"
   },
   "scripts": {
     "generate": "node script/build-registry",
