@@ -326,7 +326,7 @@ test('listLanguages', function (t) {
   var mockName = 'testtest'
 
   // If this test fails, update `readme.md`.
-  t.equal(expectedLanguages.length, 190, 'should match `readme.md`')
+  t.equal(expectedLanguages.length, 191, 'should match `readme.md`')
 
   t.deepEqual(
     low.listLanguages(),
