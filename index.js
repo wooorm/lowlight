@@ -261,6 +261,7 @@ low.registerLanguage(
 )
 low.registerLanguage('sml', require('highlight.js/lib/languages/sml'))
 low.registerLanguage('sqf', require('highlight.js/lib/languages/sqf'))
+low.registerLanguage('sql_more', require('highlight.js/lib/languages/sql_more'))
 low.registerLanguage('sql', require('highlight.js/lib/languages/sql'))
 low.registerLanguage('stan', require('highlight.js/lib/languages/stan'))
 low.registerLanguage('stata', require('highlight.js/lib/languages/stata'))
