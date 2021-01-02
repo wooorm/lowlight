@@ -43,7 +43,7 @@
     "tape": "^5.0.0",
     "tinyify": "^3.0.0",
     "unist-util-remove-position": "^3.0.0",
-    "xo": "^0.36.0"
+    "xo": "^0.37.0"
   },
   "scripts": {
     "generate": "node script/build-registry",
@@ -67,8 +67,9 @@
     "prettier": true,
     "esnext": false,
     "rules": {
-      "unicorn/prefer-optional-catch-binding": "off",
+      "unicorn/no-array-callback-reference": "off",
       "unicorn/no-fn-reference-in-iterator": "off",
+      "unicorn/prefer-optional-catch-binding": "off",
       "unicorn/prefer-includes": "off",
       "guard-for-in": "off"
     },
