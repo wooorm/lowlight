@@ -316,9 +316,9 @@ of code (9kB with GZip).
 
 [highlight.js]: https://github.com/highlightjs/highlight.js
 
-[syntax]: https://github.com/highlightjs/highlight.js/blob/master/docs/language-guide.rst
+[syntax]: https://github.com/highlightjs/highlight.js/blob/main/docs/language-guide.rst
 
-[names]: https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md
+[names]: https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
 
 [react]: https://facebook.github.io/react/
 
