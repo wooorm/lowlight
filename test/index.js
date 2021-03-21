@@ -308,11 +308,12 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
 })
 
 test('fixtures', function (t) {
-  fs.readdirSync(fixtures).forEach(each)
+  var files = fs.readdirSync(fixtures)
+  var index = -1
 
-  function each(basename) {
-    if (basename.charAt(0) !== '.') {
-      subtest(t, basename, function (doc, language) {
+  while (++index < files.length) {
+    if (files[index].charAt(0) !== '.') {
+      subtest(t, files[index], function (doc, language) {
         return low.highlight(language, doc)
       })
     }
