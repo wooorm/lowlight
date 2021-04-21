@@ -53,11 +53,10 @@ console.log(
  * @returns {string}
  */
 function name(name, index) {
-  var cleaned = name.replace(/_[a-z]/, (d) => d.charAt(1).toUpperCase())
-  var capped = cleaned.charAt(0).toUpperCase() + cleaned.slice(1)
+  var cleaned = name.replace(/[_-][a-z]/, (d) => d.charAt(1).toUpperCase())
   return isIdentifier(cleaned)
     ? cleaned
-    : isIdentifier('l' + capped)
-    ? 'l' + capped
-    : 'l' + index
+    : isIdentifier('$' + cleaned)
+    ? '$' + cleaned
+    : '$' + index
 }
