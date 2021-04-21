@@ -7,56 +7,92 @@ var doc = String(
   fs.readFileSync(path.join('node_modules', 'highlight.js', 'lib', 'index.js'))
 )
 
+var category = /\/\*.*?Category: (.*?)\r?\n/s
+var register = /hljs\.registerLanguage\('(.+?)'/g
+var index = -1
 /** @type {Array.<string>} */
-var languages = []
+var all = []
+/** @type {Array.<string>} */
+var common = []
+/** @type {Array.<string>} */
+var uncommon = []
+/** @type {RegExpMatchArray} */
+var match
 
-doc.replace(/hljs\.registerLanguage\('(.+?)'/g, (
-  /** @type {string} */ _,
-  /** @type {string} */ $1
-) => {
-  languages.push($1)
-  return ''
-})
+while ((match = register.exec(doc))) all.push(match[1])
+
+while (++index < all.length) {
+  doc = String(
+    fs.readFileSync(
+      path.join(
+        'node_modules',
+        'highlight.js',
+        'lib',
+        'languages',
+        all[index] + '.js'
+      )
+    )
+  )
+
+  match = category.exec(doc)
+
+  if (match && match[1].split(/,\s?/).includes('common')) {
+    common.push(all[index])
+  }
+}
+
+common.sort((a, b) => a.localeCompare(b))
+
+uncommon = all
+  .filter((d) => !common.includes(d))
+  .sort((a, b) => a.localeCompare(b))
+
+fs.writeFileSync(path.join('lib', 'common.js'), generate(common, 'core'))
+fs.writeFileSync(path.join('lib', 'all.js'), generate(uncommon, 'common'))
 
 fs.writeFileSync(
-  'index.js',
-  [
-    "import {lowlight} from './lib/core.js'",
-    ...languages.map((lang, index) => {
-      var id = name(lang, index)
-      return (
-        'import ' + id + " from 'highlight.js/lib/languages/" + lang + ".js'"
-      )
-    }),
-    'export {lowlight}',
-    ...languages.map((lang, index) => {
-      var id = name(lang, index)
-      return "lowlight.registerLanguage('" + lang + "', " + id + ')'
-    }),
-    ''
-  ].join('\n')
+  path.join('script', 'data.json'),
+  JSON.stringify({common, uncommon}, null, 2) + '\n'
 )
 
 console.log(
-  [
-    chalk.green('✓'),
-    'wrote `index.js`,',
-    'supporting',
-    languages.length,
-    'languages'
-  ].join(' ')
+  '%s wrote `lib/common.js` (%d languages)',
+  chalk.green('✓'),
+  common.length
+)
+
+console.log(
+  '%s wrote `lib/all.js` (%d more languages; %d total)',
+  chalk.green('✓'),
+  uncommon.length,
+  all.length
 )
 
 /**
- * @param {string} name
- * @param {number} index
+ * @param {Array.<string>} list
+ * @param {string} base
  * @returns {string}
  */
-function name(name, index) {
+function generate(list, base) {
+  return [
+    ...list.map(
+      (d) =>
+        'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + ".js'"
+    ),
+    "import {lowlight} from './" + base + ".js'",
+    'export {lowlight}',
+    ...list.map((d) => "lowlight.registerLanguage('" + d + "', " + id(d) + ')'),
+    ''
+  ].join('\n')
+}
+
+/**
+ * @param {string} name
+ * @returns {string}
+ */
+function id(name) {
   var cleaned = name.replace(/[_-][a-z]/, (d) => d.charAt(1).toUpperCase())
-  return isIdentifier(cleaned)
-    ? cleaned
-    : isIdentifier('$' + cleaned)
-    ? '$' + cleaned
-    : '$' + index
+  if (isIdentifier(cleaned)) return cleaned
+  if (isIdentifier('$' + cleaned)) return '$' + cleaned
+  throw new Error('Could not generate id for `' + name + '`')
 }

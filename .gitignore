@@ -3,4 +3,5 @@
 *.log
 coverage/
 node_modules/
+script/data.json
 yarn.lock

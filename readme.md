@@ -9,8 +9,16 @@ Virtual syntax highlighting for virtual DOMs and non-HTML things, with language
 auto-detection.
 Perfect for [React][], [VDOM][], and others.
 
-Lowlight is built to work with all syntaxes supported by [highlight.js][],
-that’s [188 languages][names] (and all 94 themes).
+Lowlight is built to work with all syntaxes supported by [highlight.js][].
+There are three builds of lowlight:
+
+<!--index start-->
+
+*   `lib/core.js` — 0 languages
+*   `lib/common.js` (default) — 35 languages
+*   `lib/all.js` — 188 languages
+
+<!--index end-->
 
 Want to use [Prism][] instead?
 Try [`refractor`][refractor]!
@@ -25,7 +33,7 @@ Try [`refractor`][refractor]!
     *   [`lowlight.registerLanguage(language, syntax)`](#lowlightregisterlanguagelanguage-syntax)
     *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
     *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
-*   [Browser](#browser)
+*   [Syntaxes](#syntaxes)
 *   [Related](#related)
 *   [Projects](#projects)
 *   [License](#license)
@@ -40,8 +48,6 @@ Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 ```sh
 npm install lowlight
 ```
-
-[Usage in the browser »][browser]
 
 ## Use
 
@@ -256,25 +262,209 @@ lowlight.registerLanguage('markdown', md)
 console.log(lowlight.listLanguages()) // => ['markdown']
 ```
 
-## Browser
+## Syntaxes
 
-It is not suggested to use the pre-built files or requiring `lowlight` in the
-browser as that would include 916kB (260kB GZipped) of code.
+If you’re using `lowlight/lib/core.js`, no syntaxes are included.
+Checked syntaxes are included if you import `lowlight` (or
+`lowlight/lib/common.js`).
+Unchecked syntaxes are available through `lowlight/lib/all.js`
 
-Instead, import `lowlight/lib/core.js`, and include only the used highlighters.
-For example:
+Note that highlight.js works as a singleton.
+That means that if you register a syntax anywhere in your project, it’ll become
+available everywhere!
 
-```js
-import {lowlight} from 'lowlight/lib/core.js'
-import js from 'highlight.js/lib/languages/javascript.js'
+<!--support start-->
 
-lowlight.registerLanguage('javascript', js)
+*   [ ] `1c` — 1C:Enterprise
+*   [ ] `abnf` — Augmented Backus-Naur Form
+*   [ ] `accesslog` — Apache Access Log
+*   [ ] `actionscript` (`as`) — ActionScript
+*   [ ] `ada` — Ada
+*   [ ] `angelscript` (`asc`) — AngelScript
+*   [ ] `apache` (`apacheconf`) — Apache config
+*   [ ] `applescript` (`osascript`) — AppleScript
+*   [ ] `arcade` — ArcGIS Arcade
+*   [x] `arduino` (`ino`) — Arduino
+*   [ ] `armasm` (`arm`) — ARM Assembly
+*   [ ] `asciidoc` (`adoc`) — AsciiDoc
+*   [ ] `aspectj` — AspectJ
+*   [ ] `autohotkey` (`ahk`) — AutoHotkey
+*   [ ] `autoit` — AutoIt
+*   [ ] `avrasm` — AVR Assembly
+*   [ ] `awk` — Awk
+*   [ ] `axapta` (`x++`) — X++
+*   [x] `bash` (`sh`) — Bash
+*   [ ] `basic` — BASIC
+*   [ ] `bnf` — Backus–Naur Form
+*   [ ] `brainfuck` (`bf`) — Brainfuck
+*   [x] `c` (`h`) — C
+*   [ ] `cal` — C/AL
+*   [ ] `capnproto` (`capnp`) — Cap’n Proto
+*   [ ] `ceylon` — Ceylon
+*   [ ] `clean` (`icl`, `dcl`) — Clean
+*   [ ] `clojure` (`clj`) — Clojure
+*   [ ] `clojure-repl` — Clojure REPL
+*   [ ] `cmake` (`cmake.in`) — CMake
+*   [ ] `coffeescript` (`coffee`, `cson`, `iced`) — CoffeeScript
+*   [ ] `coq` — Coq
+*   [ ] `cos` (`cls`) — Caché Object Script
+*   [x] `cpp` (`cc`, `c++`, `h++`, `hpp`, `hh`, `hxx`, `cxx`) — C++
+*   [ ] `crmsh` (`crm`, `pcmk`) — crmsh
+*   [ ] `crystal` (`cr`) — Crystal
+*   [x] `csharp` (`cs`, `c#`) — C#
+*   [ ] `csp` — CSP
+*   [x] `css` — CSS
+*   [ ] `d` — D
+*   [ ] `dart` — Dart
+*   [ ] `delphi` (`dpr`, `dfm`, `pas`, `pascal`) — Delphi
+*   [x] `diff` (`patch`) — Diff
+*   [ ] `django` (`jinja`) — Django
+*   [ ] `dns` (`bind`, `zone`) — DNS Zone
+*   [ ] `dockerfile` (`docker`) — Dockerfile
+*   [ ] `dos` (`bat`, `cmd`) — Batch file (DOS)
+*   [ ] `dsconfig` — undefined
+*   [ ] `dts` — Device Tree
+*   [ ] `dust` (`dst`) — Dust
+*   [ ] `ebnf` — Extended Backus-Naur Form
+*   [ ] `elixir` — Elixir
+*   [ ] `elm` — Elm
+*   [ ] `erb` — ERB
+*   [ ] `erlang` (`erl`) — Erlang
+*   [ ] `erlang-repl` — Erlang REPL
+*   [ ] `excel` (`xlsx`, `xls`) — Excel formulae
+*   [ ] `fix` — FIX
+*   [ ] `flix` — Flix
+*   [ ] `fortran` (`f90`, `f95`) — Fortran
+*   [ ] `fsharp` (`fs`) — F#
+*   [ ] `gams` (`gms`) — GAMS
+*   [ ] `gauss` (`gss`) — GAUSS
+*   [ ] `gcode` (`nc`) — G-code (ISO 6983)
+*   [ ] `gherkin` (`feature`) — Gherkin
+*   [ ] `glsl` — GLSL
+*   [ ] `gml` — GML
+*   [x] `go` (`golang`) — Go
+*   [ ] `golo` — Golo
+*   [ ] `gradle` — Gradle
+*   [ ] `groovy` — Groovy
+*   [ ] `haml` — HAML
+*   [ ] `handlebars` (`hbs`, `html.hbs`, `html.handlebars`, `htmlbars`) — Handlebars
+*   [ ] `haskell` (`hs`) — Haskell
+*   [ ] `haxe` (`hx`) — Haxe
+*   [ ] `hsp` — HSP
+*   [ ] `http` (`https`) — HTTP
+*   [ ] `hy` (`hylang`) — Hy
+*   [ ] `inform7` (`i7`) — Inform 7
+*   [x] `ini` (`toml`) — TOML, also INI
+*   [ ] `irpf90` — IRPF90
+*   [ ] `isbl` — ISBL
+*   [x] `java` (`jsp`) — Java
+*   [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — Javascript
+*   [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
+*   [x] `json` — JSON
+*   [ ] `julia` — Julia
+*   [ ] `julia-repl` — Julia REPL
+*   [x] `kotlin` (`kt`, `kts`) — Kotlin
+*   [ ] `lasso` (`ls`, `lassoscript`) — Lasso
+*   [ ] `latex` (`tex`) — LaTeX
+*   [ ] `ldif` — LDIF
+*   [ ] `leaf` — Leaf
+*   [x] `less` — Less
+*   [ ] `lisp` — Lisp
+*   [ ] `livecodeserver` — LiveCode
+*   [ ] `livescript` (`ls`) — LiveScript
+*   [ ] `llvm` — LLVM IR
+*   [ ] `lsl` — LSL (Linden Scripting Language)
+*   [x] `lua` — Lua
+*   [x] `makefile` (`mk`, `mak`, `make`) — Makefile
+*   [x] `markdown` (`md`, `mkdown`, `mkd`) — Markdown
+*   [ ] `mathematica` (`mma`, `wl`) — Mathematica
+*   [ ] `matlab` — Matlab
+*   [ ] `maxima` — Maxima
+*   [ ] `mel` — MEL
+*   [ ] `mercury` (`m`, `moo`) — Mercury
+*   [ ] `mipsasm` (`mips`) — MIPS Assembly
+*   [ ] `mizar` — Mizar
+*   [ ] `mojolicious` — Mojolicious
+*   [ ] `monkey` — Monkey
+*   [ ] `moonscript` (`moon`) — MoonScript
+*   [ ] `n1ql` — N1QL
+*   [ ] `nginx` (`nginxconf`) — Nginx config
+*   [ ] `nim` — Nim
+*   [ ] `nix` (`nixos`) — Nix
+*   [ ] `node-repl` — Node REPL
+*   [ ] `nsis` — NSIS
+*   [x] `objectivec` (`mm`, `objc`, `obj-c`, `obj-c++`, `objective-c++`) — Objective-C
+*   [ ] `ocaml` (`ml`) — OCaml
+*   [ ] `openscad` (`scad`) — OpenSCAD
+*   [ ] `oxygene` — Oxygene
+*   [ ] `parser3` — Parser3
+*   [x] `perl` (`pl`, `pm`) — Perl
+*   [ ] `pf` (`pf.conf`) — Packet Filter config
+*   [ ] `pgsql` (`postgres`, `postgresql`) — PostgreSQL
+*   [x] `php` — undefined
+*   [x] `php-template` — PHP template
+*   [x] `plaintext` (`text`, `txt`) — Plain text
+*   [ ] `pony` — Pony
+*   [ ] `powershell` (`ps`, `ps1`) — PowerShell
+*   [ ] `processing` — Processing
+*   [ ] `profile` — Python profiler
+*   [ ] `prolog` — Prolog
+*   [ ] `properties` — .properties
+*   [ ] `protobuf` — Protocol Buffers
+*   [ ] `puppet` (`pp`) — Puppet
+*   [ ] `purebasic` (`pb`, `pbi`) — PureBASIC
+*   [x] `python` (`py`, `gyp`, `ipython`) — Python
+*   [x] `python-repl` (`pycon`) — undefined
+*   [ ] `q` (`k`, `kdb`) — Q
+*   [ ] `qml` (`qt`) — QML
+*   [x] `r` — R
+*   [ ] `reasonml` (`re`) — ReasonML
+*   [ ] `rib` — RenderMan RIB
+*   [ ] `roboconf` (`graph`, `instances`) — Roboconf
+*   [ ] `routeros` (`mikrotik`) — Microtik RouterOS script
+*   [ ] `rsl` — RenderMan RSL
+*   [x] `ruby` (`rb`, `gemspec`, `podspec`, `thor`, `irb`) — Ruby
+*   [ ] `ruleslanguage` — Oracle Rules Language
+*   [x] `rust` (`rs`) — Rust
+*   [ ] `sas` — SAS
+*   [ ] `scala` — Scala
+*   [ ] `scheme` — Scheme
+*   [ ] `scilab` (`sci`) — Scilab
+*   [x] `scss` — SCSS
+*   [x] `shell` (`console`, `shellsession`) — Shell Session
+*   [ ] `smali` — Smali
+*   [ ] `smalltalk` (`st`) — Smalltalk
+*   [ ] `sml` (`ml`) — SML (Standard ML)
+*   [ ] `sqf` — SQF
+*   [x] `sql` — SQL
+*   [ ] `stan` (`stanfuncs`) — Stan
+*   [ ] `stata` (`do`, `ado`) — Stata
+*   [ ] `step21` (`p21`, `step`, `stp`) — STEP Part 21
+*   [ ] `stylus` (`styl`) — Stylus
+*   [ ] `subunit` — SubUnit
+*   [x] `swift` — Swift
+*   [ ] `taggerscript` — Tagger Script
+*   [ ] `tap` — Test Anything Protocol
+*   [ ] `tcl` (`tk`) — Tcl
+*   [ ] `thrift` — Thrift
+*   [ ] `tp` — TP
+*   [ ] `twig` (`craftcms`) — Twig
+*   [x] `typescript` (`ts`, `tsx`) — TypeScript
+*   [ ] `vala` — Vala
+*   [x] `vbnet` (`vb`) — Visual Basic .NET
+*   [ ] `vbscript` (`vbs`) — VBScript
+*   [ ] `vbscript-html` — VBScript in HTML
+*   [ ] `verilog` (`v`, `sv`, `svh`) — Verilog
+*   [ ] `vhdl` — VHDL
+*   [ ] `vim` — Vim Script
+*   [ ] `x86asm` — Intel x86 Assembly
+*   [ ] `xl` (`tao`) — XL
+*   [x] `xml` (`html`, `xhtml`, `rss`, `atom`, `xjb`, `xsd`, `xsl`, `plist`, `wsf`, `svg`) — HTML, XML
+*   [ ] `xquery` (`xpath`, `xq`) — XQuery
+*   [x] `yaml` (`yml`) — YAML
+*   [ ] `zephir` (`zep`) — Zephir
 
-lowlight.highlight('js', '"use strict";')
-// See `Use` for the results.
-```
-
-…when using esbuild this results in 27kB of minified code (10.8kB gzipped).
+<!--support end-->
 
 ## Related
 
@@ -343,8 +533,6 @@ lowlight.highlight('js', '"use strict";')
 [vdom]: https://github.com/Matt-Esch/virtual-dom
 
 [to-hyperscript]: https://github.com/syntax-tree/hast-to-hyperscript
-
-[browser]: #browser
 
 [prism]: https://github.com/PrismJS/prism
 
