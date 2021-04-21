@@ -1,7 +1,7 @@
 /**
  * @typedef {import('tape').Test} Test
  * @typedef {import('hast').Root} Root
- * @typedef {import('../lib/core.js').LowlightResult} LowlightResult
+ * @typedef {import('../lib/core.js').LowlightRoot} LowlightRoot
  */
 
 import fs from 'fs'
@@ -11,8 +11,6 @@ import test from 'tape'
 import rehype from 'rehype'
 import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
-
-var join = path.join
 
 var fixtures = path.join('test', 'fixture')
 var inputName = 'input.txt'
@@ -47,22 +45,26 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     'should throw when given an unknown `language`'
   )
 
-  t.equal(result.relevance, 0, 'should return a `0` for `relevance` when empty')
-
-  t.deepEqual(
-    result.value,
-    [],
-    'should return an empty array for `value` when empty'
+  t.equal(
+    result.data.relevance,
+    0,
+    'should return a `0` for `data.relevance` when empty'
   )
 
   t.deepEqual(
-    lowlight.highlight('js', '# foo').value,
+    result.children,
+    [],
+    'should return an empty array for `children` when empty'
+  )
+
+  t.deepEqual(
+    lowlight.highlight('js', '# foo').children,
     [{type: 'text', value: '# foo'}],
     'should silently ignore illegals'
   )
 
   t.deepEqual(
-    lowlight.highlight('js', '# foo').value,
+    lowlight.highlight('js', '# foo').children,
     [{type: 'text', value: '# foo'}],
     'should silently ignore illegals'
   )
@@ -74,19 +76,19 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     )
 
     t.equal(
-      result.relevance,
+      result.data.relevance,
       6,
       'should return the correct relevance for the fixture'
     )
 
     t.equal(
-      result.language,
+      result.data.language,
       'java',
       'should return the correct language for the fixture'
     )
 
     t.deepEqual(
-      result.value,
+      result.children,
       [
         {
           type: 'element',
@@ -152,7 +154,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 
     t.deepEqual(
       // @ts-ignore yep, it’s an element.
-      result.value[0].properties.className,
+      result.children[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
     )
@@ -167,7 +169,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 
     t.deepEqual(
       // @ts-ignore yep, it’s an element.
-      result.value[0].properties.className,
+      result.children[0].properties.className,
       ['meta'],
       'should support an empty `prefix`'
     )
@@ -190,37 +192,41 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     'should throw when not given a string'
   )
 
-  t.equal(result.relevance, 0, 'should return a `0` for `relevance` when empty')
+  t.equal(
+    result.data.relevance,
+    0,
+    'should return a `0` for `relevance` when empty'
+  )
 
   t.equal(
-    result.language,
+    result.data.language,
     null,
     'should return `null` for `language` when empty'
   )
 
   t.deepEqual(
-    result.value,
+    result.children,
     [],
-    'should return an empty array for `value` when empty'
+    'should return an empty array for `children` when empty'
   )
 
   t.test('fixture', function (t) {
     var result = lowlight.highlightAuto(['"use strict";'].join('\n'))
 
     t.equal(
-      result.relevance,
+      result.data.relevance,
       10,
       'should return the correct relevance for the fixture'
     )
 
     t.equal(
-      result.language,
+      result.data.language,
       'javascript',
       'should return the correct language for the fixture'
     )
 
     t.deepEqual(
-      result.value,
+      result.children,
       [
         {
           type: 'element',
@@ -241,7 +247,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
 
     t.deepEqual(
       // @ts-ignore yep, it’s an element.
-      result.value[0].properties.className,
+      result.children[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
     )
@@ -254,7 +260,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
 
     t.deepEqual(
       // @ts-ignore yep, it’s an element.
-      result.value[0].properties.className,
+      result.children[0].properties.className,
       ['meta'],
       'should support an empty `prefix`'
     )
@@ -265,7 +271,11 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
   t.test('custom `subset`', function (t) {
     var result = lowlight.highlightAuto('"use strict";', {subset: ['java']})
 
-    t.equal(result.language, 'java', 'should support a given custom `subset`')
+    t.equal(
+      result.data.language,
+      'java',
+      'should support a given custom `subset`'
+    )
 
     t.doesNotThrow(function () {
       result = lowlight.highlightAuto('"use strict";', {
@@ -274,7 +284,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     }, 'should ignore unregistered subset languages (#1)')
 
     t.equal(
-      result.language,
+      result.data.language,
       'javascript',
       'should ignore unregistered subset languages (#2)'
     )
@@ -337,15 +347,15 @@ test('listLanguages', function (t) {
 
 test('aliases', function (t) {
   var input = fs
-    .readFileSync(join(fixtures, 'md-sublanguage', inputName))
+    .readFileSync(path.join(fixtures, 'md-sublanguage', inputName))
     .toString()
     .trim()
-  var expected = lowlight.highlight('markdown', input).value
+  var expected = lowlight.highlight('markdown', input).children
 
   lowlight.registerAlias('markdown', 'mkd')
 
   t.deepEqual(
-    lowlight.highlight('mkd', input).value,
+    lowlight.highlight('mkd', input).children,
     expected,
     'alias must be parsed like original language'
   )
@@ -353,7 +363,7 @@ test('aliases', function (t) {
   lowlight.registerAlias('markdown', ['mmkd', 'mmkdown'])
 
   t.deepEqual(
-    lowlight.highlight('mmkd', input).value,
+    lowlight.highlight('mmkd', input).children,
     expected,
     'alias must be parsed like original language'
   )
@@ -361,7 +371,7 @@ test('aliases', function (t) {
   lowlight.registerAlias({markdown: 'mdown'})
 
   t.deepEqual(
-    lowlight.highlight('mdown', input).value,
+    lowlight.highlight('mdown', input).children,
     expected,
     'alias must be parsed like original language'
   )
@@ -369,7 +379,7 @@ test('aliases', function (t) {
   lowlight.registerAlias({markdown: ['mmdown', 'mark']})
 
   t.deepEqual(
-    lowlight.highlight('mark', input).value,
+    lowlight.highlight('mark', input).children,
     expected,
     'alias must be parsed like original language'
   )
@@ -382,14 +392,14 @@ test('aliases', function (t) {
 /**
  * @param {Test} t
  * @param {string} directory
- * @param {(doc: string, name: string) => LowlightResult} transform
+ * @param {(doc: string, name: string) => LowlightRoot} transform
  */
 function subtest(t, directory, transform) {
   var parts = directory.split('-')
   var language = parts[0]
   var name = parts.slice(1).join('-')
-  var input = join(fixtures, directory, inputName)
-  var output = join(fixtures, directory, outputName)
+  var input = path.join(fixtures, directory, inputName)
+  var output = path.join(fixtures, directory, outputName)
   /** @type {string} */
   var out
 
@@ -409,7 +419,7 @@ function subtest(t, directory, transform) {
           fragment: true,
           entities: {useNamedReferences: true}
         })
-        .stringify({type: 'root', children: actual.value}) + '\n'
+        .stringify(actual) + '\n'
 
     fs.writeFileSync(output, out)
   }
@@ -419,7 +429,7 @@ function subtest(t, directory, transform) {
   removePosition(expected, true)
 
   t.deepEqual(
-    actual.value,
+    actual.children,
     expected.children,
     'should correctly process ' + name + ' in ' + language
   )

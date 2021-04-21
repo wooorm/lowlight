@@ -22,7 +22,6 @@ Try [`refractor`][refractor]!
 *   [API](#api)
     *   [`lowlight.highlight(language, value[, options])`](#lowlighthighlightlanguage-value-options)
     *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
-    *   [`Result`](#result)
     *   [`lowlight.registerLanguage(language, syntax)`](#lowlightregisterlanguagelanguage-syntax)
     *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
     *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
@@ -51,7 +50,7 @@ Highlight:
 ```js
 import {lowlight} from 'lowlight'
 
-var tree = lowlight.highlight('js', '"use strict";').value
+var tree = lowlight.highlight('js', '"use strict";')
 
 console.dir(tree, {depth: null})
 ```
@@ -59,15 +58,19 @@ console.dir(tree, {depth: null})
 Yields:
 
 ```js
-[
-  {
-    type: 'element',
-    tagName: 'span',
-    properties: {className: ['hljs-meta']},
-    children: [{type: 'text', value: '"use strict"'}]
-  },
-  {type: 'text', value: ';'}
-]
+{
+  type: 'root',
+  data: {language: 'js', relevance: 10},
+  children: [
+    {
+      type: 'element',
+      tagName: 'span',
+      properties: {className: ['hljs-meta']},
+      children: [{type: 'text', value: '"use strict"'}]
+    },
+    {type: 'text', value: ';'}
+  ]
+}
 ```
 
 hast trees can be serialized with [`hast-util-to-html`][to-html]:
@@ -76,7 +79,7 @@ hast trees can be serialized with [`hast-util-to-html`][to-html]:
 import {lowlight} from 'lowlight'
 import toHtml from 'hast-util-to-html'
 
-var tree = lowlight.highlight('js', '"use strict";').value
+var tree = lowlight.highlight('js', '"use strict";')
 
 console.log(toHtml(tree))
 ```
@@ -98,10 +101,10 @@ import unified from 'unified'
 import rehypeStringify from 'rehype-stringify'
 import {lowlight} from 'lowlight'
 
-var tree = lowlight.highlight('js', '"use strict";').value
+var tree = lowlight.highlight('js', '"use strict";')
 
 var processor = unified().use(rehypeStringify)
-var html = processor.stringify({type: 'root', children: tree}).toString()
+var html = processor.stringify(tree).toString()
 
 console.log(html)
 ```
@@ -127,7 +130,11 @@ Parse `value` (`string`) according to the [`language`][names] grammar.
 
 ###### Returns
 
-[`Result`][result].
+A hast [`Root`][root] with two `data` fields:
+
+*   `relevance` (`number`) — How sure **low** is that the given code is in the
+    language
+*   `language` (`string`) — The detected `language` name
 
 ###### Example
 
@@ -140,8 +147,7 @@ console.log(lowlight.highlight('css', 'em { color: red }'))
 Yields:
 
 ```js
-{relevance: 3, language: 'css', value: [Array]}
-
+{type: 'root', data: {language: 'css', relevance: 3}, children: [Array]}
 ```
 
 ### `lowlight.highlightAuto(value[, options])`
@@ -150,14 +156,14 @@ Parse `value` by guessing its grammar.
 
 ###### `options`
 
-*   `prefix` (`string?`, default: `'hljs-'`)
-    — Class prefix
+The options of `lowlight.highlight` are supported, plus:
+
 *   `subset` (`Array.<string>?` default: all registered languages)
     — List of allowed languages
 
 ###### Returns
 
-[`Result`][result]
+The same result as `lowlight.highlight` is returned.
 
 ###### Example
 
@@ -170,21 +176,9 @@ console.log(lowlight.highlightAuto('"hello, " + name + "!"'))
 Yields:
 
 ```js
-{relevance: 3, language: 'applescript', value: [Array]}
+{type: 'root', data: {language: 'applescript', relevance: 3}, children: [Array]}
+
 ```
-
-### `Result`
-
-`Result` is a highlighting result object.
-
-###### Properties
-
-*   `relevance` (`number`)
-    — How sure **low** is that the given code is in the found language
-*   `language` (`string`)
-    — The detected `language` name
-*   `value` ([`Array.<Node>`][hast-node])
-    — Virtual nodes representing the highlighted given code
 
 ### `lowlight.registerLanguage(language, syntax)`
 
@@ -205,7 +199,7 @@ console.log(lowlight.highlight('html', '<em>Emphasis</em>'))
 Yields:
 
 ```js
-{relevance: 2, language: 'html', value: [Array]}
+{type: 'root', data: {language: 'html', relevance: 2}, children: [Array]}
 ```
 
 ### `lowlight.registerAlias(language, alias)`
@@ -277,7 +271,7 @@ import js from 'highlight.js/lib/languages/javascript.js'
 lowlight.registerLanguage('javascript', js)
 
 lowlight.highlight('js', '"use strict";')
-// See `Usage` for the results.
+// See `Use` for the results.
 ```
 
 …when using [browserify][] and minifying with [tinyify][] this results in 24kB
@@ -337,7 +331,7 @@ of code (9kB with GZip).
 
 [unified]: https://github.com/unifiedjs/unified
 
-[hast-node]: https://github.com/syntax-tree/hast#ast
+[root]: https://github.com/syntax-tree/hast#root
 
 [highlight.js]: https://github.com/highlightjs/highlight.js
 
@@ -352,8 +346,6 @@ of code (9kB with GZip).
 [to-hyperscript]: https://github.com/syntax-tree/hast-to-hyperscript
 
 [browser]: #browser
-
-[result]: #result
 
 [prism]: https://github.com/PrismJS/prism
 
