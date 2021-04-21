@@ -261,7 +261,7 @@ console.log(lowlight.listLanguages()) // => ['markdown']
 It is not suggested to use the pre-built files or requiring `lowlight` in the
 browser as that would include 916kB (260kB GZipped) of code.
 
-Instead, require `lowlight/lib/core`, and include only the used highlighters.
+Instead, import `lowlight/lib/core.js`, and include only the used highlighters.
 For example:
 
 ```js
@@ -274,8 +274,7 @@ lowlight.highlight('js', '"use strict";')
 // See `Use` for the results.
 ```
 
-…when using [browserify][] and minifying with [tinyify][] this results in 24kB
-of code (9kB with GZip).
+…when using esbuild this results in 27kB of minified code (10.8kB gzipped).
 
 ## Related
 
@@ -350,7 +349,3 @@ of code (9kB with GZip).
 [prism]: https://github.com/PrismJS/prism
 
 [refractor]: https://github.com/wooorm/refractor
-
-[browserify]: https://github.com/browserify/browserify
-
-[tinyify]: https://github.com/browserify/tinyify
