@@ -23,8 +23,8 @@ Try [`refractor`][refractor]!
     *   [`lowlight.highlight(language, value[, options])`](#lowlighthighlightlanguage-value-options)
     *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
     *   [`Result`](#result)
-    *   [`lowlight.registerLanguage(name, syntax)`](#lowlightregisterlanguagename-syntax)
-    *   [`lowlight.registerAlias(name[, alias])`](#lowlightregisteraliasname-alias)
+    *   [`lowlight.registerLanguage(language, syntax)`](#lowlightregisterlanguagelanguage-syntax)
+    *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
     *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
 *   [Browser](#browser)
 *   [Related](#related)
@@ -187,16 +187,16 @@ Yields:
 *   `relevance` (`number`)
     — How sure **low** is that the given code is in the found language
 *   `language` (`string`)
-    — The detected `language`
+    — The detected `language` name
 *   `value` ([`Array.<Node>`][hast-node])
     — Virtual nodes representing the highlighted given code
 *   `secondBest` ([`Result?`][result])
     — Result of the second-best (based on `relevance`) match.
     Only set by `highlightAuto`, but can still be `null`.
 
-### `lowlight.registerLanguage(name, syntax)`
+### `lowlight.registerLanguage(language, syntax)`
 
-Register a [syntax][] as `name` (`string`).
+Register a [syntax][] as `language` (`string`).
 Useful in the browser or with custom grammars.
 
 ###### Example
@@ -216,22 +216,22 @@ Yields:
 {relevance: 2, language: 'html', value: [Array]}
 ```
 
-### `lowlight.registerAlias(name[, alias])`
+### `lowlight.registerAlias(language, alias)`
 
-Register a new `alias` for the `name` language.
+Register a new `alias` for `language`.
 
 ###### Signatures
 
-*   `registerAlias(name, alias|list)`
+*   `registerAlias(language, alias|list)`
 *   `registerAlias(aliases)`
 
 ###### Parameters
 
-*   `name` (`string`) — [Name][names] of a registered language
+*   `language` (`string`) — [Name][names] of a registered language
 *   `alias` (`string`) — New alias for the registered language
 *   `list` (`Array.<alias>`) — List of aliases
-*   `aliases` (`Object.<alias|list>`) — Map where each key is a `name` and each
-    value an `alias` or a `list`
+*   `aliases` (`Object.<language, alias|list>`) — Map where each key is a
+    `language` and each value an `alias` or a `list`
 
 ###### Example
 

@@ -1,3 +1,9 @@
+/**
+ * @typedef {import('tape').Test} Test
+ * @typedef {import('hast').Root} Root
+ * @typedef {import('../lib/core.js').LowlightResult} LowlightResult
+ */
+
 import fs from 'fs'
 import path from 'path'
 import highlight from 'highlight.js'
@@ -17,6 +23,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       lowlight.highlight(true)
     },
     /Expected `string` for name, got `true`/,
@@ -25,6 +32,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       lowlight.highlight('js', true)
     },
     /Expected `string` for value, got `true`/,
@@ -54,7 +62,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   )
 
   t.deepEqual(
-    lowlight.highlight('js', '# foo', {ignore: true}).value,
+    lowlight.highlight('js', '# foo').value,
     [{type: 'text', value: '# foo'}],
     'should silently ignore illegals'
   )
@@ -150,6 +158,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     })
 
     t.deepEqual(
+      // @ts-ignore yep, it’s an element.
       result.value[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
@@ -164,6 +173,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     })
 
     t.deepEqual(
+      // @ts-ignore yep, it’s an element.
       result.value[0].properties.className,
       ['meta'],
       'should support an empty `prefix`'
@@ -180,6 +190,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
 
   t.throws(
     function () {
+      // @ts-ignore runtime.
       lowlight.highlightAuto(true)
     },
     /Expected `string` for value, got `true`/,
@@ -254,6 +265,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     var result = lowlight.highlightAuto('"use strict";', {prefix: 'foo-'})
 
     t.deepEqual(
+      // @ts-ignore yep, it’s an element.
       result.value[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
@@ -266,6 +278,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     var result = lowlight.highlightAuto('"use strict";', {prefix: ''})
 
     t.deepEqual(
+      // @ts-ignore yep, it’s an element.
       result.value[0].properties.className,
       ['meta'],
       'should support an empty `prefix`'
@@ -341,7 +354,7 @@ test('listLanguages', function (t) {
   )
 
   function mockSyntax() {
-    return {}
+    return {contains: []}
   }
 
   t.end()
@@ -388,30 +401,28 @@ test('aliases', function (t) {
 
   lowlight.registerAlias('markdown', '')
 
-  t.throws(
-    function () {
-      lowlight.highlight('', '')
-    },
-    /Unknown language: `` is not registered/,
-    'empty language was not registered'
-  )
-
   t.end()
 })
 
+/**
+ * @param {Test} t
+ * @param {string} directory
+ * @param {(doc: string, name: string) => LowlightResult} transform
+ */
 function subtest(t, directory, transform) {
   var parts = directory.split('-')
   var language = parts[0]
   var name = parts.slice(1).join('-')
   var input = join(fixtures, directory, inputName)
   var output = join(fixtures, directory, outputName)
+  /** @type {string} */
   var out
 
   var actual = transform(String(fs.readFileSync(input)).trim(), language)
 
   // Create output snapshot if it doesn’t exist yet.
   try {
-    out = fs.readFileSync(output)
+    out = String(fs.readFileSync(output))
   } catch {
     out =
       rehype()
@@ -424,9 +435,7 @@ function subtest(t, directory, transform) {
     fs.writeFileSync(output, out)
   }
 
-  var expected = rehype()
-    .data('settings', {fragment: true})
-    .parse(String(out).trim())
+  var expected = rehype().data('settings', {fragment: true}).parse(out.trim())
 
   removePosition(expected, true)
 

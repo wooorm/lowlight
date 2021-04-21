@@ -1,4 +1,5 @@
 .DS_Store
+*.d.ts
 *.log
 coverage/
 node_modules/
