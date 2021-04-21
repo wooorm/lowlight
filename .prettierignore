@@ -1,5 +1,2 @@
 coverage/
-lowlight.js
-lowlight.min.js
-*.json
 *.md

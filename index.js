@@ -1,299 +1,384 @@
-'use strict'
-
-var low = require('./lib/core.js')
-
-module.exports = low
-
-low.registerLanguage('1c', require('highlight.js/lib/languages/1c'))
-low.registerLanguage('abnf', require('highlight.js/lib/languages/abnf'))
-low.registerLanguage(
-  'accesslog',
-  require('highlight.js/lib/languages/accesslog')
-)
-low.registerLanguage(
-  'actionscript',
-  require('highlight.js/lib/languages/actionscript')
-)
-low.registerLanguage('ada', require('highlight.js/lib/languages/ada'))
-low.registerLanguage(
-  'angelscript',
-  require('highlight.js/lib/languages/angelscript')
-)
-low.registerLanguage('apache', require('highlight.js/lib/languages/apache'))
-low.registerLanguage(
-  'applescript',
-  require('highlight.js/lib/languages/applescript')
-)
-low.registerLanguage('arcade', require('highlight.js/lib/languages/arcade'))
-low.registerLanguage('arduino', require('highlight.js/lib/languages/arduino'))
-low.registerLanguage('armasm', require('highlight.js/lib/languages/armasm'))
-low.registerLanguage('xml', require('highlight.js/lib/languages/xml'))
-low.registerLanguage('asciidoc', require('highlight.js/lib/languages/asciidoc'))
-low.registerLanguage('aspectj', require('highlight.js/lib/languages/aspectj'))
-low.registerLanguage(
-  'autohotkey',
-  require('highlight.js/lib/languages/autohotkey')
-)
-low.registerLanguage('autoit', require('highlight.js/lib/languages/autoit'))
-low.registerLanguage('avrasm', require('highlight.js/lib/languages/avrasm'))
-low.registerLanguage('awk', require('highlight.js/lib/languages/awk'))
-low.registerLanguage('axapta', require('highlight.js/lib/languages/axapta'))
-low.registerLanguage('bash', require('highlight.js/lib/languages/bash'))
-low.registerLanguage('basic', require('highlight.js/lib/languages/basic'))
-low.registerLanguage('bnf', require('highlight.js/lib/languages/bnf'))
-low.registerLanguage(
-  'brainfuck',
-  require('highlight.js/lib/languages/brainfuck')
-)
-low.registerLanguage('c-like', require('highlight.js/lib/languages/c-like'))
-low.registerLanguage('c', require('highlight.js/lib/languages/c'))
-low.registerLanguage('cal', require('highlight.js/lib/languages/cal'))
-low.registerLanguage(
-  'capnproto',
-  require('highlight.js/lib/languages/capnproto')
-)
-low.registerLanguage('ceylon', require('highlight.js/lib/languages/ceylon'))
-low.registerLanguage('clean', require('highlight.js/lib/languages/clean'))
-low.registerLanguage('clojure', require('highlight.js/lib/languages/clojure'))
-low.registerLanguage(
-  'clojure-repl',
-  require('highlight.js/lib/languages/clojure-repl')
-)
-low.registerLanguage('cmake', require('highlight.js/lib/languages/cmake'))
-low.registerLanguage(
-  'coffeescript',
-  require('highlight.js/lib/languages/coffeescript')
-)
-low.registerLanguage('coq', require('highlight.js/lib/languages/coq'))
-low.registerLanguage('cos', require('highlight.js/lib/languages/cos'))
-low.registerLanguage('cpp', require('highlight.js/lib/languages/cpp'))
-low.registerLanguage('crmsh', require('highlight.js/lib/languages/crmsh'))
-low.registerLanguage('crystal', require('highlight.js/lib/languages/crystal'))
-low.registerLanguage('csharp', require('highlight.js/lib/languages/csharp'))
-low.registerLanguage('csp', require('highlight.js/lib/languages/csp'))
-low.registerLanguage('css', require('highlight.js/lib/languages/css'))
-low.registerLanguage('d', require('highlight.js/lib/languages/d'))
-low.registerLanguage('markdown', require('highlight.js/lib/languages/markdown'))
-low.registerLanguage('dart', require('highlight.js/lib/languages/dart'))
-low.registerLanguage('delphi', require('highlight.js/lib/languages/delphi'))
-low.registerLanguage('diff', require('highlight.js/lib/languages/diff'))
-low.registerLanguage('django', require('highlight.js/lib/languages/django'))
-low.registerLanguage('dns', require('highlight.js/lib/languages/dns'))
-low.registerLanguage(
-  'dockerfile',
-  require('highlight.js/lib/languages/dockerfile')
-)
-low.registerLanguage('dos', require('highlight.js/lib/languages/dos'))
-low.registerLanguage('dsconfig', require('highlight.js/lib/languages/dsconfig'))
-low.registerLanguage('dts', require('highlight.js/lib/languages/dts'))
-low.registerLanguage('dust', require('highlight.js/lib/languages/dust'))
-low.registerLanguage('ebnf', require('highlight.js/lib/languages/ebnf'))
-low.registerLanguage('elixir', require('highlight.js/lib/languages/elixir'))
-low.registerLanguage('elm', require('highlight.js/lib/languages/elm'))
-low.registerLanguage('ruby', require('highlight.js/lib/languages/ruby'))
-low.registerLanguage('erb', require('highlight.js/lib/languages/erb'))
-low.registerLanguage(
-  'erlang-repl',
-  require('highlight.js/lib/languages/erlang-repl')
-)
-low.registerLanguage('erlang', require('highlight.js/lib/languages/erlang'))
-low.registerLanguage('excel', require('highlight.js/lib/languages/excel'))
-low.registerLanguage('fix', require('highlight.js/lib/languages/fix'))
-low.registerLanguage('flix', require('highlight.js/lib/languages/flix'))
-low.registerLanguage('fortran', require('highlight.js/lib/languages/fortran'))
-low.registerLanguage('fsharp', require('highlight.js/lib/languages/fsharp'))
-low.registerLanguage('gams', require('highlight.js/lib/languages/gams'))
-low.registerLanguage('gauss', require('highlight.js/lib/languages/gauss'))
-low.registerLanguage('gcode', require('highlight.js/lib/languages/gcode'))
-low.registerLanguage('gherkin', require('highlight.js/lib/languages/gherkin'))
-low.registerLanguage('glsl', require('highlight.js/lib/languages/glsl'))
-low.registerLanguage('gml', require('highlight.js/lib/languages/gml'))
-low.registerLanguage('go', require('highlight.js/lib/languages/go'))
-low.registerLanguage('golo', require('highlight.js/lib/languages/golo'))
-low.registerLanguage('gradle', require('highlight.js/lib/languages/gradle'))
-low.registerLanguage('groovy', require('highlight.js/lib/languages/groovy'))
-low.registerLanguage('haml', require('highlight.js/lib/languages/haml'))
-low.registerLanguage(
-  'handlebars',
-  require('highlight.js/lib/languages/handlebars')
-)
-low.registerLanguage('haskell', require('highlight.js/lib/languages/haskell'))
-low.registerLanguage('haxe', require('highlight.js/lib/languages/haxe'))
-low.registerLanguage('hsp', require('highlight.js/lib/languages/hsp'))
-low.registerLanguage('htmlbars', require('highlight.js/lib/languages/htmlbars'))
-low.registerLanguage('http', require('highlight.js/lib/languages/http'))
-low.registerLanguage('hy', require('highlight.js/lib/languages/hy'))
-low.registerLanguage('inform7', require('highlight.js/lib/languages/inform7'))
-low.registerLanguage('ini', require('highlight.js/lib/languages/ini'))
-low.registerLanguage('irpf90', require('highlight.js/lib/languages/irpf90'))
-low.registerLanguage('isbl', require('highlight.js/lib/languages/isbl'))
-low.registerLanguage('java', require('highlight.js/lib/languages/java'))
-low.registerLanguage(
-  'javascript',
-  require('highlight.js/lib/languages/javascript')
-)
-low.registerLanguage(
-  'jboss-cli',
-  require('highlight.js/lib/languages/jboss-cli')
-)
-low.registerLanguage('json', require('highlight.js/lib/languages/json'))
-low.registerLanguage('julia', require('highlight.js/lib/languages/julia'))
-low.registerLanguage(
-  'julia-repl',
-  require('highlight.js/lib/languages/julia-repl')
-)
-low.registerLanguage('kotlin', require('highlight.js/lib/languages/kotlin'))
-low.registerLanguage('lasso', require('highlight.js/lib/languages/lasso'))
-low.registerLanguage('latex', require('highlight.js/lib/languages/latex'))
-low.registerLanguage('ldif', require('highlight.js/lib/languages/ldif'))
-low.registerLanguage('leaf', require('highlight.js/lib/languages/leaf'))
-low.registerLanguage('less', require('highlight.js/lib/languages/less'))
-low.registerLanguage('lisp', require('highlight.js/lib/languages/lisp'))
-low.registerLanguage(
-  'livecodeserver',
-  require('highlight.js/lib/languages/livecodeserver')
-)
-low.registerLanguage(
-  'livescript',
-  require('highlight.js/lib/languages/livescript')
-)
-low.registerLanguage('llvm', require('highlight.js/lib/languages/llvm'))
-low.registerLanguage('lsl', require('highlight.js/lib/languages/lsl'))
-low.registerLanguage('lua', require('highlight.js/lib/languages/lua'))
-low.registerLanguage('makefile', require('highlight.js/lib/languages/makefile'))
-low.registerLanguage(
-  'mathematica',
-  require('highlight.js/lib/languages/mathematica')
-)
-low.registerLanguage('matlab', require('highlight.js/lib/languages/matlab'))
-low.registerLanguage('maxima', require('highlight.js/lib/languages/maxima'))
-low.registerLanguage('mel', require('highlight.js/lib/languages/mel'))
-low.registerLanguage('mercury', require('highlight.js/lib/languages/mercury'))
-low.registerLanguage('mipsasm', require('highlight.js/lib/languages/mipsasm'))
-low.registerLanguage('mizar', require('highlight.js/lib/languages/mizar'))
-low.registerLanguage('perl', require('highlight.js/lib/languages/perl'))
-low.registerLanguage(
-  'mojolicious',
-  require('highlight.js/lib/languages/mojolicious')
-)
-low.registerLanguage('monkey', require('highlight.js/lib/languages/monkey'))
-low.registerLanguage(
-  'moonscript',
-  require('highlight.js/lib/languages/moonscript')
-)
-low.registerLanguage('n1ql', require('highlight.js/lib/languages/n1ql'))
-low.registerLanguage('nginx', require('highlight.js/lib/languages/nginx'))
-low.registerLanguage('nim', require('highlight.js/lib/languages/nim'))
-low.registerLanguage('nix', require('highlight.js/lib/languages/nix'))
-low.registerLanguage(
-  'node-repl',
-  require('highlight.js/lib/languages/node-repl')
-)
-low.registerLanguage('nsis', require('highlight.js/lib/languages/nsis'))
-low.registerLanguage(
-  'objectivec',
-  require('highlight.js/lib/languages/objectivec')
-)
-low.registerLanguage('ocaml', require('highlight.js/lib/languages/ocaml'))
-low.registerLanguage('openscad', require('highlight.js/lib/languages/openscad'))
-low.registerLanguage('oxygene', require('highlight.js/lib/languages/oxygene'))
-low.registerLanguage('parser3', require('highlight.js/lib/languages/parser3'))
-low.registerLanguage('pf', require('highlight.js/lib/languages/pf'))
-low.registerLanguage('pgsql', require('highlight.js/lib/languages/pgsql'))
-low.registerLanguage('php', require('highlight.js/lib/languages/php'))
-low.registerLanguage(
-  'php-template',
-  require('highlight.js/lib/languages/php-template')
-)
-low.registerLanguage(
-  'plaintext',
-  require('highlight.js/lib/languages/plaintext')
-)
-low.registerLanguage('pony', require('highlight.js/lib/languages/pony'))
-low.registerLanguage(
-  'powershell',
-  require('highlight.js/lib/languages/powershell')
-)
-low.registerLanguage(
-  'processing',
-  require('highlight.js/lib/languages/processing')
-)
-low.registerLanguage('profile', require('highlight.js/lib/languages/profile'))
-low.registerLanguage('prolog', require('highlight.js/lib/languages/prolog'))
-low.registerLanguage(
-  'properties',
-  require('highlight.js/lib/languages/properties')
-)
-low.registerLanguage('protobuf', require('highlight.js/lib/languages/protobuf'))
-low.registerLanguage('puppet', require('highlight.js/lib/languages/puppet'))
-low.registerLanguage(
-  'purebasic',
-  require('highlight.js/lib/languages/purebasic')
-)
-low.registerLanguage('python', require('highlight.js/lib/languages/python'))
-low.registerLanguage(
-  'python-repl',
-  require('highlight.js/lib/languages/python-repl')
-)
-low.registerLanguage('q', require('highlight.js/lib/languages/q'))
-low.registerLanguage('qml', require('highlight.js/lib/languages/qml'))
-low.registerLanguage('r', require('highlight.js/lib/languages/r'))
-low.registerLanguage('reasonml', require('highlight.js/lib/languages/reasonml'))
-low.registerLanguage('rib', require('highlight.js/lib/languages/rib'))
-low.registerLanguage('roboconf', require('highlight.js/lib/languages/roboconf'))
-low.registerLanguage('routeros', require('highlight.js/lib/languages/routeros'))
-low.registerLanguage('rsl', require('highlight.js/lib/languages/rsl'))
-low.registerLanguage(
-  'ruleslanguage',
-  require('highlight.js/lib/languages/ruleslanguage')
-)
-low.registerLanguage('rust', require('highlight.js/lib/languages/rust'))
-low.registerLanguage('sas', require('highlight.js/lib/languages/sas'))
-low.registerLanguage('scala', require('highlight.js/lib/languages/scala'))
-low.registerLanguage('scheme', require('highlight.js/lib/languages/scheme'))
-low.registerLanguage('scilab', require('highlight.js/lib/languages/scilab'))
-low.registerLanguage('scss', require('highlight.js/lib/languages/scss'))
-low.registerLanguage('shell', require('highlight.js/lib/languages/shell'))
-low.registerLanguage('smali', require('highlight.js/lib/languages/smali'))
-low.registerLanguage(
-  'smalltalk',
-  require('highlight.js/lib/languages/smalltalk')
-)
-low.registerLanguage('sml', require('highlight.js/lib/languages/sml'))
-low.registerLanguage('sqf', require('highlight.js/lib/languages/sqf'))
-low.registerLanguage('sql_more', require('highlight.js/lib/languages/sql_more'))
-low.registerLanguage('sql', require('highlight.js/lib/languages/sql'))
-low.registerLanguage('stan', require('highlight.js/lib/languages/stan'))
-low.registerLanguage('stata', require('highlight.js/lib/languages/stata'))
-low.registerLanguage('step21', require('highlight.js/lib/languages/step21'))
-low.registerLanguage('stylus', require('highlight.js/lib/languages/stylus'))
-low.registerLanguage('subunit', require('highlight.js/lib/languages/subunit'))
-low.registerLanguage('swift', require('highlight.js/lib/languages/swift'))
-low.registerLanguage(
-  'taggerscript',
-  require('highlight.js/lib/languages/taggerscript')
-)
-low.registerLanguage('yaml', require('highlight.js/lib/languages/yaml'))
-low.registerLanguage('tap', require('highlight.js/lib/languages/tap'))
-low.registerLanguage('tcl', require('highlight.js/lib/languages/tcl'))
-low.registerLanguage('thrift', require('highlight.js/lib/languages/thrift'))
-low.registerLanguage('tp', require('highlight.js/lib/languages/tp'))
-low.registerLanguage('twig', require('highlight.js/lib/languages/twig'))
-low.registerLanguage(
-  'typescript',
-  require('highlight.js/lib/languages/typescript')
-)
-low.registerLanguage('vala', require('highlight.js/lib/languages/vala'))
-low.registerLanguage('vbnet', require('highlight.js/lib/languages/vbnet'))
-low.registerLanguage('vbscript', require('highlight.js/lib/languages/vbscript'))
-low.registerLanguage(
-  'vbscript-html',
-  require('highlight.js/lib/languages/vbscript-html')
-)
-low.registerLanguage('verilog', require('highlight.js/lib/languages/verilog'))
-low.registerLanguage('vhdl', require('highlight.js/lib/languages/vhdl'))
-low.registerLanguage('vim', require('highlight.js/lib/languages/vim'))
-low.registerLanguage('x86asm', require('highlight.js/lib/languages/x86asm'))
-low.registerLanguage('xl', require('highlight.js/lib/languages/xl'))
-low.registerLanguage('xquery', require('highlight.js/lib/languages/xquery'))
-low.registerLanguage('zephir', require('highlight.js/lib/languages/zephir'))
+import {lowlight} from './lib/core.js'
+import l1c from 'highlight.js/lib/languages/1c.js'
+import abnf from 'highlight.js/lib/languages/abnf.js'
+import accesslog from 'highlight.js/lib/languages/accesslog.js'
+import actionscript from 'highlight.js/lib/languages/actionscript.js'
+import ada from 'highlight.js/lib/languages/ada.js'
+import angelscript from 'highlight.js/lib/languages/angelscript.js'
+import apache from 'highlight.js/lib/languages/apache.js'
+import applescript from 'highlight.js/lib/languages/applescript.js'
+import arcade from 'highlight.js/lib/languages/arcade.js'
+import arduino from 'highlight.js/lib/languages/arduino.js'
+import armasm from 'highlight.js/lib/languages/armasm.js'
+import xml from 'highlight.js/lib/languages/xml.js'
+import asciidoc from 'highlight.js/lib/languages/asciidoc.js'
+import aspectj from 'highlight.js/lib/languages/aspectj.js'
+import autohotkey from 'highlight.js/lib/languages/autohotkey.js'
+import autoit from 'highlight.js/lib/languages/autoit.js'
+import avrasm from 'highlight.js/lib/languages/avrasm.js'
+import awk from 'highlight.js/lib/languages/awk.js'
+import axapta from 'highlight.js/lib/languages/axapta.js'
+import bash from 'highlight.js/lib/languages/bash.js'
+import basic from 'highlight.js/lib/languages/basic.js'
+import bnf from 'highlight.js/lib/languages/bnf.js'
+import brainfuck from 'highlight.js/lib/languages/brainfuck.js'
+import l23 from 'highlight.js/lib/languages/c-like.js'
+import c from 'highlight.js/lib/languages/c.js'
+import cal from 'highlight.js/lib/languages/cal.js'
+import capnproto from 'highlight.js/lib/languages/capnproto.js'
+import ceylon from 'highlight.js/lib/languages/ceylon.js'
+import clean from 'highlight.js/lib/languages/clean.js'
+import clojure from 'highlight.js/lib/languages/clojure.js'
+import l30 from 'highlight.js/lib/languages/clojure-repl.js'
+import cmake from 'highlight.js/lib/languages/cmake.js'
+import coffeescript from 'highlight.js/lib/languages/coffeescript.js'
+import coq from 'highlight.js/lib/languages/coq.js'
+import cos from 'highlight.js/lib/languages/cos.js'
+import cpp from 'highlight.js/lib/languages/cpp.js'
+import crmsh from 'highlight.js/lib/languages/crmsh.js'
+import crystal from 'highlight.js/lib/languages/crystal.js'
+import csharp from 'highlight.js/lib/languages/csharp.js'
+import csp from 'highlight.js/lib/languages/csp.js'
+import css from 'highlight.js/lib/languages/css.js'
+import d from 'highlight.js/lib/languages/d.js'
+import markdown from 'highlight.js/lib/languages/markdown.js'
+import dart from 'highlight.js/lib/languages/dart.js'
+import delphi from 'highlight.js/lib/languages/delphi.js'
+import diff from 'highlight.js/lib/languages/diff.js'
+import django from 'highlight.js/lib/languages/django.js'
+import dns from 'highlight.js/lib/languages/dns.js'
+import dockerfile from 'highlight.js/lib/languages/dockerfile.js'
+import dos from 'highlight.js/lib/languages/dos.js'
+import dsconfig from 'highlight.js/lib/languages/dsconfig.js'
+import dts from 'highlight.js/lib/languages/dts.js'
+import dust from 'highlight.js/lib/languages/dust.js'
+import ebnf from 'highlight.js/lib/languages/ebnf.js'
+import elixir from 'highlight.js/lib/languages/elixir.js'
+import elm from 'highlight.js/lib/languages/elm.js'
+import ruby from 'highlight.js/lib/languages/ruby.js'
+import erb from 'highlight.js/lib/languages/erb.js'
+import l58 from 'highlight.js/lib/languages/erlang-repl.js'
+import erlang from 'highlight.js/lib/languages/erlang.js'
+import excel from 'highlight.js/lib/languages/excel.js'
+import fix from 'highlight.js/lib/languages/fix.js'
+import flix from 'highlight.js/lib/languages/flix.js'
+import fortran from 'highlight.js/lib/languages/fortran.js'
+import fsharp from 'highlight.js/lib/languages/fsharp.js'
+import gams from 'highlight.js/lib/languages/gams.js'
+import gauss from 'highlight.js/lib/languages/gauss.js'
+import gcode from 'highlight.js/lib/languages/gcode.js'
+import gherkin from 'highlight.js/lib/languages/gherkin.js'
+import glsl from 'highlight.js/lib/languages/glsl.js'
+import gml from 'highlight.js/lib/languages/gml.js'
+import go from 'highlight.js/lib/languages/go.js'
+import golo from 'highlight.js/lib/languages/golo.js'
+import gradle from 'highlight.js/lib/languages/gradle.js'
+import groovy from 'highlight.js/lib/languages/groovy.js'
+import haml from 'highlight.js/lib/languages/haml.js'
+import handlebars from 'highlight.js/lib/languages/handlebars.js'
+import haskell from 'highlight.js/lib/languages/haskell.js'
+import haxe from 'highlight.js/lib/languages/haxe.js'
+import hsp from 'highlight.js/lib/languages/hsp.js'
+import htmlbars from 'highlight.js/lib/languages/htmlbars.js'
+import http from 'highlight.js/lib/languages/http.js'
+import hy from 'highlight.js/lib/languages/hy.js'
+import inform7 from 'highlight.js/lib/languages/inform7.js'
+import ini from 'highlight.js/lib/languages/ini.js'
+import irpf90 from 'highlight.js/lib/languages/irpf90.js'
+import isbl from 'highlight.js/lib/languages/isbl.js'
+import java from 'highlight.js/lib/languages/java.js'
+import javascript from 'highlight.js/lib/languages/javascript.js'
+import l89 from 'highlight.js/lib/languages/jboss-cli.js'
+import json from 'highlight.js/lib/languages/json.js'
+import julia from 'highlight.js/lib/languages/julia.js'
+import l92 from 'highlight.js/lib/languages/julia-repl.js'
+import kotlin from 'highlight.js/lib/languages/kotlin.js'
+import lasso from 'highlight.js/lib/languages/lasso.js'
+import latex from 'highlight.js/lib/languages/latex.js'
+import ldif from 'highlight.js/lib/languages/ldif.js'
+import leaf from 'highlight.js/lib/languages/leaf.js'
+import less from 'highlight.js/lib/languages/less.js'
+import lisp from 'highlight.js/lib/languages/lisp.js'
+import livecodeserver from 'highlight.js/lib/languages/livecodeserver.js'
+import livescript from 'highlight.js/lib/languages/livescript.js'
+import llvm from 'highlight.js/lib/languages/llvm.js'
+import lsl from 'highlight.js/lib/languages/lsl.js'
+import lua from 'highlight.js/lib/languages/lua.js'
+import makefile from 'highlight.js/lib/languages/makefile.js'
+import mathematica from 'highlight.js/lib/languages/mathematica.js'
+import matlab from 'highlight.js/lib/languages/matlab.js'
+import maxima from 'highlight.js/lib/languages/maxima.js'
+import mel from 'highlight.js/lib/languages/mel.js'
+import mercury from 'highlight.js/lib/languages/mercury.js'
+import mipsasm from 'highlight.js/lib/languages/mipsasm.js'
+import mizar from 'highlight.js/lib/languages/mizar.js'
+import perl from 'highlight.js/lib/languages/perl.js'
+import mojolicious from 'highlight.js/lib/languages/mojolicious.js'
+import monkey from 'highlight.js/lib/languages/monkey.js'
+import moonscript from 'highlight.js/lib/languages/moonscript.js'
+import n1ql from 'highlight.js/lib/languages/n1ql.js'
+import nginx from 'highlight.js/lib/languages/nginx.js'
+import nim from 'highlight.js/lib/languages/nim.js'
+import nix from 'highlight.js/lib/languages/nix.js'
+import l121 from 'highlight.js/lib/languages/node-repl.js'
+import nsis from 'highlight.js/lib/languages/nsis.js'
+import objectivec from 'highlight.js/lib/languages/objectivec.js'
+import ocaml from 'highlight.js/lib/languages/ocaml.js'
+import openscad from 'highlight.js/lib/languages/openscad.js'
+import oxygene from 'highlight.js/lib/languages/oxygene.js'
+import parser3 from 'highlight.js/lib/languages/parser3.js'
+import pf from 'highlight.js/lib/languages/pf.js'
+import pgsql from 'highlight.js/lib/languages/pgsql.js'
+import php from 'highlight.js/lib/languages/php.js'
+import l131 from 'highlight.js/lib/languages/php-template.js'
+import plaintext from 'highlight.js/lib/languages/plaintext.js'
+import pony from 'highlight.js/lib/languages/pony.js'
+import powershell from 'highlight.js/lib/languages/powershell.js'
+import processing from 'highlight.js/lib/languages/processing.js'
+import profile from 'highlight.js/lib/languages/profile.js'
+import prolog from 'highlight.js/lib/languages/prolog.js'
+import properties from 'highlight.js/lib/languages/properties.js'
+import protobuf from 'highlight.js/lib/languages/protobuf.js'
+import puppet from 'highlight.js/lib/languages/puppet.js'
+import purebasic from 'highlight.js/lib/languages/purebasic.js'
+import python from 'highlight.js/lib/languages/python.js'
+import l143 from 'highlight.js/lib/languages/python-repl.js'
+import q from 'highlight.js/lib/languages/q.js'
+import qml from 'highlight.js/lib/languages/qml.js'
+import r from 'highlight.js/lib/languages/r.js'
+import reasonml from 'highlight.js/lib/languages/reasonml.js'
+import rib from 'highlight.js/lib/languages/rib.js'
+import roboconf from 'highlight.js/lib/languages/roboconf.js'
+import routeros from 'highlight.js/lib/languages/routeros.js'
+import rsl from 'highlight.js/lib/languages/rsl.js'
+import ruleslanguage from 'highlight.js/lib/languages/ruleslanguage.js'
+import rust from 'highlight.js/lib/languages/rust.js'
+import sas from 'highlight.js/lib/languages/sas.js'
+import scala from 'highlight.js/lib/languages/scala.js'
+import scheme from 'highlight.js/lib/languages/scheme.js'
+import scilab from 'highlight.js/lib/languages/scilab.js'
+import scss from 'highlight.js/lib/languages/scss.js'
+import shell from 'highlight.js/lib/languages/shell.js'
+import smali from 'highlight.js/lib/languages/smali.js'
+import smalltalk from 'highlight.js/lib/languages/smalltalk.js'
+import sml from 'highlight.js/lib/languages/sml.js'
+import sqf from 'highlight.js/lib/languages/sqf.js'
+import sqlMore from 'highlight.js/lib/languages/sql_more.js'
+import sql from 'highlight.js/lib/languages/sql.js'
+import stan from 'highlight.js/lib/languages/stan.js'
+import stata from 'highlight.js/lib/languages/stata.js'
+import step21 from 'highlight.js/lib/languages/step21.js'
+import stylus from 'highlight.js/lib/languages/stylus.js'
+import subunit from 'highlight.js/lib/languages/subunit.js'
+import swift from 'highlight.js/lib/languages/swift.js'
+import taggerscript from 'highlight.js/lib/languages/taggerscript.js'
+import yaml from 'highlight.js/lib/languages/yaml.js'
+import tap from 'highlight.js/lib/languages/tap.js'
+import tcl from 'highlight.js/lib/languages/tcl.js'
+import thrift from 'highlight.js/lib/languages/thrift.js'
+import tp from 'highlight.js/lib/languages/tp.js'
+import twig from 'highlight.js/lib/languages/twig.js'
+import typescript from 'highlight.js/lib/languages/typescript.js'
+import vala from 'highlight.js/lib/languages/vala.js'
+import vbnet from 'highlight.js/lib/languages/vbnet.js'
+import vbscript from 'highlight.js/lib/languages/vbscript.js'
+import l183 from 'highlight.js/lib/languages/vbscript-html.js'
+import verilog from 'highlight.js/lib/languages/verilog.js'
+import vhdl from 'highlight.js/lib/languages/vhdl.js'
+import vim from 'highlight.js/lib/languages/vim.js'
+import x86asm from 'highlight.js/lib/languages/x86asm.js'
+import xl from 'highlight.js/lib/languages/xl.js'
+import xquery from 'highlight.js/lib/languages/xquery.js'
+import zephir from 'highlight.js/lib/languages/zephir.js'
+export {lowlight}
+lowlight.registerLanguage('1c', l1c)
+lowlight.registerLanguage('abnf', abnf)
+lowlight.registerLanguage('accesslog', accesslog)
+lowlight.registerLanguage('actionscript', actionscript)
+lowlight.registerLanguage('ada', ada)
+lowlight.registerLanguage('angelscript', angelscript)
+lowlight.registerLanguage('apache', apache)
+lowlight.registerLanguage('applescript', applescript)
+lowlight.registerLanguage('arcade', arcade)
+lowlight.registerLanguage('arduino', arduino)
+lowlight.registerLanguage('armasm', armasm)
+lowlight.registerLanguage('xml', xml)
+lowlight.registerLanguage('asciidoc', asciidoc)
+lowlight.registerLanguage('aspectj', aspectj)
+lowlight.registerLanguage('autohotkey', autohotkey)
+lowlight.registerLanguage('autoit', autoit)
+lowlight.registerLanguage('avrasm', avrasm)
+lowlight.registerLanguage('awk', awk)
+lowlight.registerLanguage('axapta', axapta)
+lowlight.registerLanguage('bash', bash)
+lowlight.registerLanguage('basic', basic)
+lowlight.registerLanguage('bnf', bnf)
+lowlight.registerLanguage('brainfuck', brainfuck)
+lowlight.registerLanguage('c-like', l23)
+lowlight.registerLanguage('c', c)
+lowlight.registerLanguage('cal', cal)
+lowlight.registerLanguage('capnproto', capnproto)
+lowlight.registerLanguage('ceylon', ceylon)
+lowlight.registerLanguage('clean', clean)
+lowlight.registerLanguage('clojure', clojure)
+lowlight.registerLanguage('clojure-repl', l30)
+lowlight.registerLanguage('cmake', cmake)
+lowlight.registerLanguage('coffeescript', coffeescript)
+lowlight.registerLanguage('coq', coq)
+lowlight.registerLanguage('cos', cos)
+lowlight.registerLanguage('cpp', cpp)
+lowlight.registerLanguage('crmsh', crmsh)
+lowlight.registerLanguage('crystal', crystal)
+lowlight.registerLanguage('csharp', csharp)
+lowlight.registerLanguage('csp', csp)
+lowlight.registerLanguage('css', css)
+lowlight.registerLanguage('d', d)
+lowlight.registerLanguage('markdown', markdown)
+lowlight.registerLanguage('dart', dart)
+lowlight.registerLanguage('delphi', delphi)
+lowlight.registerLanguage('diff', diff)
+lowlight.registerLanguage('django', django)
+lowlight.registerLanguage('dns', dns)
+lowlight.registerLanguage('dockerfile', dockerfile)
+lowlight.registerLanguage('dos', dos)
+lowlight.registerLanguage('dsconfig', dsconfig)
+lowlight.registerLanguage('dts', dts)
+lowlight.registerLanguage('dust', dust)
+lowlight.registerLanguage('ebnf', ebnf)
+lowlight.registerLanguage('elixir', elixir)
+lowlight.registerLanguage('elm', elm)
+lowlight.registerLanguage('ruby', ruby)
+lowlight.registerLanguage('erb', erb)
+lowlight.registerLanguage('erlang-repl', l58)
+lowlight.registerLanguage('erlang', erlang)
+lowlight.registerLanguage('excel', excel)
+lowlight.registerLanguage('fix', fix)
+lowlight.registerLanguage('flix', flix)
+lowlight.registerLanguage('fortran', fortran)
+lowlight.registerLanguage('fsharp', fsharp)
+lowlight.registerLanguage('gams', gams)
+lowlight.registerLanguage('gauss', gauss)
+lowlight.registerLanguage('gcode', gcode)
+lowlight.registerLanguage('gherkin', gherkin)
+lowlight.registerLanguage('glsl', glsl)
+lowlight.registerLanguage('gml', gml)
+lowlight.registerLanguage('go', go)
+lowlight.registerLanguage('golo', golo)
+lowlight.registerLanguage('gradle', gradle)
+lowlight.registerLanguage('groovy', groovy)
+lowlight.registerLanguage('haml', haml)
+lowlight.registerLanguage('handlebars', handlebars)
+lowlight.registerLanguage('haskell', haskell)
+lowlight.registerLanguage('haxe', haxe)
+lowlight.registerLanguage('hsp', hsp)
+lowlight.registerLanguage('htmlbars', htmlbars)
+lowlight.registerLanguage('http', http)
+lowlight.registerLanguage('hy', hy)
+lowlight.registerLanguage('inform7', inform7)
+lowlight.registerLanguage('ini', ini)
+lowlight.registerLanguage('irpf90', irpf90)
+lowlight.registerLanguage('isbl', isbl)
+lowlight.registerLanguage('java', java)
+lowlight.registerLanguage('javascript', javascript)
+lowlight.registerLanguage('jboss-cli', l89)
+lowlight.registerLanguage('json', json)
+lowlight.registerLanguage('julia', julia)
+lowlight.registerLanguage('julia-repl', l92)
+lowlight.registerLanguage('kotlin', kotlin)
+lowlight.registerLanguage('lasso', lasso)
+lowlight.registerLanguage('latex', latex)
+lowlight.registerLanguage('ldif', ldif)
+lowlight.registerLanguage('leaf', leaf)
+lowlight.registerLanguage('less', less)
+lowlight.registerLanguage('lisp', lisp)
+lowlight.registerLanguage('livecodeserver', livecodeserver)
+lowlight.registerLanguage('livescript', livescript)
+lowlight.registerLanguage('llvm', llvm)
+lowlight.registerLanguage('lsl', lsl)
+lowlight.registerLanguage('lua', lua)
+lowlight.registerLanguage('makefile', makefile)
+lowlight.registerLanguage('mathematica', mathematica)
+lowlight.registerLanguage('matlab', matlab)
+lowlight.registerLanguage('maxima', maxima)
+lowlight.registerLanguage('mel', mel)
+lowlight.registerLanguage('mercury', mercury)
+lowlight.registerLanguage('mipsasm', mipsasm)
+lowlight.registerLanguage('mizar', mizar)
+lowlight.registerLanguage('perl', perl)
+lowlight.registerLanguage('mojolicious', mojolicious)
+lowlight.registerLanguage('monkey', monkey)
+lowlight.registerLanguage('moonscript', moonscript)
+lowlight.registerLanguage('n1ql', n1ql)
+lowlight.registerLanguage('nginx', nginx)
+lowlight.registerLanguage('nim', nim)
+lowlight.registerLanguage('nix', nix)
+lowlight.registerLanguage('node-repl', l121)
+lowlight.registerLanguage('nsis', nsis)
+lowlight.registerLanguage('objectivec', objectivec)
+lowlight.registerLanguage('ocaml', ocaml)
+lowlight.registerLanguage('openscad', openscad)
+lowlight.registerLanguage('oxygene', oxygene)
+lowlight.registerLanguage('parser3', parser3)
+lowlight.registerLanguage('pf', pf)
+lowlight.registerLanguage('pgsql', pgsql)
+lowlight.registerLanguage('php', php)
+lowlight.registerLanguage('php-template', l131)
+lowlight.registerLanguage('plaintext', plaintext)
+lowlight.registerLanguage('pony', pony)
+lowlight.registerLanguage('powershell', powershell)
+lowlight.registerLanguage('processing', processing)
+lowlight.registerLanguage('profile', profile)
+lowlight.registerLanguage('prolog', prolog)
+lowlight.registerLanguage('properties', properties)
+lowlight.registerLanguage('protobuf', protobuf)
+lowlight.registerLanguage('puppet', puppet)
+lowlight.registerLanguage('purebasic', purebasic)
+lowlight.registerLanguage('python', python)
+lowlight.registerLanguage('python-repl', l143)
+lowlight.registerLanguage('q', q)
+lowlight.registerLanguage('qml', qml)
+lowlight.registerLanguage('r', r)
+lowlight.registerLanguage('reasonml', reasonml)
+lowlight.registerLanguage('rib', rib)
+lowlight.registerLanguage('roboconf', roboconf)
+lowlight.registerLanguage('routeros', routeros)
+lowlight.registerLanguage('rsl', rsl)
+lowlight.registerLanguage('ruleslanguage', ruleslanguage)
+lowlight.registerLanguage('rust', rust)
+lowlight.registerLanguage('sas', sas)
+lowlight.registerLanguage('scala', scala)
+lowlight.registerLanguage('scheme', scheme)
+lowlight.registerLanguage('scilab', scilab)
+lowlight.registerLanguage('scss', scss)
+lowlight.registerLanguage('shell', shell)
+lowlight.registerLanguage('smali', smali)
+lowlight.registerLanguage('smalltalk', smalltalk)
+lowlight.registerLanguage('sml', sml)
+lowlight.registerLanguage('sqf', sqf)
+lowlight.registerLanguage('sql_more', sqlMore)
+lowlight.registerLanguage('sql', sql)
+lowlight.registerLanguage('stan', stan)
+lowlight.registerLanguage('stata', stata)
+lowlight.registerLanguage('step21', step21)
+lowlight.registerLanguage('stylus', stylus)
+lowlight.registerLanguage('subunit', subunit)
+lowlight.registerLanguage('swift', swift)
+lowlight.registerLanguage('taggerscript', taggerscript)
+lowlight.registerLanguage('yaml', yaml)
+lowlight.registerLanguage('tap', tap)
+lowlight.registerLanguage('tcl', tcl)
+lowlight.registerLanguage('thrift', thrift)
+lowlight.registerLanguage('tp', tp)
+lowlight.registerLanguage('twig', twig)
+lowlight.registerLanguage('typescript', typescript)
+lowlight.registerLanguage('vala', vala)
+lowlight.registerLanguage('vbnet', vbnet)
+lowlight.registerLanguage('vbscript', vbscript)
+lowlight.registerLanguage('vbscript-html', l183)
+lowlight.registerLanguage('verilog', verilog)
+lowlight.registerLanguage('vhdl', vhdl)
+lowlight.registerLanguage('vim', vim)
+lowlight.registerLanguage('x86asm', x86asm)
+lowlight.registerLanguage('xl', xl)
+lowlight.registerLanguage('xquery', xquery)
+lowlight.registerLanguage('zephir', zephir)

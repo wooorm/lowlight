@@ -1,25 +1,23 @@
-'use strict'
-
-var fs = require('fs')
-var path = require('path')
-var highlight = require('highlight.js')
-var test = require('tape')
-var rehype = require('rehype')
-var removePosition = require('unist-util-remove-position')
-var low = require('..')
+import fs from 'fs'
+import path from 'path'
+import highlight from 'highlight.js'
+import test from 'tape'
+import rehype from 'rehype'
+import {removePosition} from 'unist-util-remove-position'
+import {lowlight} from '../index.js'
 
 var join = path.join
 
-var fixtures = path.join(__dirname, 'fixture')
+var fixtures = path.join('test', 'fixture')
 var inputName = 'input.txt'
 var outputName = 'output.txt'
 
 test('lowlight.highlight(language, value[, options])', function (t) {
-  var result = low.highlight('js', '')
+  var result = lowlight.highlight('js', '')
 
   t.throws(
     function () {
-      low.highlight(true)
+      lowlight.highlight(true)
     },
     /Expected `string` for name, got `true`/,
     'should throw when not given `string` for `name`'
@@ -27,7 +25,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 
   t.throws(
     function () {
-      low.highlight('js', true)
+      lowlight.highlight('js', true)
     },
     /Expected `string` for value, got `true`/,
     'should throw when not given `string` for `value`'
@@ -35,7 +33,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 
   t.throws(
     function () {
-      low.highlight('fooscript', '')
+      lowlight.highlight('fooscript', '')
     },
     /Unknown language: `fooscript` is not registered/,
     'should throw when given an unknown `language`'
@@ -50,19 +48,19 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   )
 
   t.deepEqual(
-    low.highlight('js', '# foo').value,
+    lowlight.highlight('js', '# foo').value,
     [{type: 'text', value: '# foo'}],
     'should silently ignore illegals'
   )
 
   t.deepEqual(
-    low.highlight('js', '# foo', {ignore: true}).value,
+    lowlight.highlight('js', '# foo', {ignore: true}).value,
     [{type: 'text', value: '# foo'}],
     'should silently ignore illegals'
   )
 
   t.test('fixture', function (t) {
-    var result = low.highlight(
+    var result = lowlight.highlight(
       'java',
       ['public void moveTo(int x, int y, int z);'].join('\n')
     )
@@ -147,7 +145,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   })
 
   t.test('custom `prefix`', function (t) {
-    var result = low.highlight('js', '"use strict";', {
+    var result = lowlight.highlight('js', '"use strict";', {
       prefix: 'foo-'
     })
 
@@ -161,7 +159,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   })
 
   t.test('empty `prefix`', function (t) {
-    var result = low.highlight('js', '"use strict";', {
+    var result = lowlight.highlight('js', '"use strict";', {
       prefix: ''
     })
 
@@ -178,11 +176,11 @@ test('lowlight.highlight(language, value[, options])', function (t) {
 })
 
 test('lowlight.highlightAuto(value[, options])', function (t) {
-  var result = low.highlightAuto('')
+  var result = lowlight.highlightAuto('')
 
   t.throws(
     function () {
-      low.highlightAuto(true)
+      lowlight.highlightAuto(true)
     },
     /Expected `string` for value, got `true`/,
     'should throw when not given a string'
@@ -203,7 +201,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
   )
 
   t.test('fixture', function (t) {
-    var result = low.highlightAuto(['"use strict";'].join('\n'))
+    var result = lowlight.highlightAuto(['"use strict";'].join('\n'))
 
     t.equal(
       result.relevance,
@@ -253,7 +251,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
   })
 
   t.test('custom `prefix`', function (t) {
-    var result = low.highlightAuto('"use strict";', {prefix: 'foo-'})
+    var result = lowlight.highlightAuto('"use strict";', {prefix: 'foo-'})
 
     t.deepEqual(
       result.value[0].properties.className,
@@ -265,7 +263,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
   })
 
   t.test('empty `prefix`', function (t) {
-    var result = low.highlightAuto('"use strict";', {prefix: ''})
+    var result = lowlight.highlightAuto('"use strict";', {prefix: ''})
 
     t.deepEqual(
       result.value[0].properties.className,
@@ -277,12 +275,12 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
   })
 
   t.test('custom `subset`', function (t) {
-    var result = low.highlightAuto('"use strict";', {subset: ['java']})
+    var result = lowlight.highlightAuto('"use strict";', {subset: ['java']})
 
     t.equal(result.language, 'java', 'should support a given custom `subset`')
 
     t.doesNotThrow(function () {
-      result = low.highlightAuto('"use strict";', {
+      result = lowlight.highlightAuto('"use strict";', {
         subset: ['fooscript', 'javascript']
       })
     }, 'should ignore unregistered subset languages (#1)')
@@ -298,7 +296,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
 
   t.test('harder example (coverage)', function (t) {
     subtest(t, 'xml-large', function (doc) {
-      return low.highlightAuto(doc)
+      return lowlight.highlightAuto(doc)
     })
 
     t.end()
@@ -314,7 +312,7 @@ test('fixtures', function (t) {
   while (++index < files.length) {
     if (files[index].charAt(0) !== '.') {
       subtest(t, files[index], function (doc, language) {
-        return low.highlight(language, doc)
+        return lowlight.highlight(language, doc)
       })
     }
   }
@@ -330,15 +328,15 @@ test('listLanguages', function (t) {
   t.equal(expectedLanguages.length, 191, 'should match `readme.md`')
 
   t.deepEqual(
-    low.listLanguages(),
+    lowlight.listLanguages(),
     expectedLanguages,
     'should return the same list of languages as highlight.js'
   )
 
-  low.registerLanguage(mockName, mockSyntax)
+  lowlight.registerLanguage(mockName, mockSyntax)
 
   t.ok(
-    low.listLanguages().includes(mockName),
+    lowlight.listLanguages().includes(mockName),
     'should include any additional languages that are registered'
   )
 
@@ -354,45 +352,45 @@ test('aliases', function (t) {
     .readFileSync(join(fixtures, 'md-sublanguage', inputName))
     .toString()
     .trim()
-  var expected = low.highlight('markdown', input).value
+  var expected = lowlight.highlight('markdown', input).value
 
-  low.registerAlias('markdown', 'mkd')
+  lowlight.registerAlias('markdown', 'mkd')
 
   t.deepEqual(
-    low.highlight('mkd', input).value,
+    lowlight.highlight('mkd', input).value,
     expected,
     'alias must be parsed like original language'
   )
 
-  low.registerAlias('markdown', ['mmkd', 'mmkdown'])
+  lowlight.registerAlias('markdown', ['mmkd', 'mmkdown'])
 
   t.deepEqual(
-    low.highlight('mmkd', input).value,
+    lowlight.highlight('mmkd', input).value,
     expected,
     'alias must be parsed like original language'
   )
 
-  low.registerAlias({markdown: 'mdown'})
+  lowlight.registerAlias({markdown: 'mdown'})
 
   t.deepEqual(
-    low.highlight('mdown', input).value,
+    lowlight.highlight('mdown', input).value,
     expected,
     'alias must be parsed like original language'
   )
 
-  low.registerAlias({markdown: ['mmdown', 'mark']})
+  lowlight.registerAlias({markdown: ['mmdown', 'mark']})
 
   t.deepEqual(
-    low.highlight('mark', input).value,
+    lowlight.highlight('mark', input).value,
     expected,
     'alias must be parsed like original language'
   )
 
-  low.registerAlias('markdown', '')
+  lowlight.registerAlias('markdown', '')
 
   t.throws(
     function () {
-      low.highlight('', '')
+      lowlight.highlight('', '')
     },
     /Unknown language: `` is not registered/,
     'empty language was not registered'
@@ -414,7 +412,7 @@ function subtest(t, directory, transform) {
   // Create output snapshot if it doesn’t exist yet.
   try {
     out = fs.readFileSync(output)
-  } catch (_) {
+  } catch {
     out =
       rehype()
         .data('settings', {

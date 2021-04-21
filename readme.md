@@ -20,18 +20,21 @@ Try [`refractor`][refractor]!
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
-    *   [`low.highlight(language, value[, options])`](#lowhighlightlanguage-value-options)
-    *   [`low.highlightAuto(value[, options])`](#lowhighlightautovalue-options)
+    *   [`lowlight.highlight(language, value[, options])`](#lowlighthighlightlanguage-value-options)
+    *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
     *   [`Result`](#result)
-    *   [`low.registerLanguage(name, syntax)`](#lowregisterlanguagename-syntax)
-    *   [`low.registerAlias(name[, alias])`](#lowregisteraliasname-alias)
-    *   [`low.listLanguages()`](#lowlistlanguages)
+    *   [`lowlight.registerLanguage(name, syntax)`](#lowlightregisterlanguagename-syntax)
+    *   [`lowlight.registerAlias(name[, alias])`](#lowlightregisteraliasname-alias)
+    *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
 *   [Browser](#browser)
 *   [Related](#related)
 *   [Projects](#projects)
 *   [License](#license)
 
 ## Install
+
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
 
 [npm][]:
 
@@ -46,10 +49,11 @@ npm install lowlight
 Highlight:
 
 ```js
-var low = require('lowlight')
-var tree = low.highlight('js', '"use strict";').value
+import {lowlight} from 'lowlight'
 
-console.log(tree)
+var tree = lowlight.highlight('js', '"use strict";').value
+
+console.dir(tree, {depth: null})
 ```
 
 Yields:
@@ -66,11 +70,35 @@ Yields:
 ]
 ```
 
-Or, serialized with [rehype-stringify][]:
+hast trees can be serialized with [`hast-util-to-html`][to-html]:
 
 ```js
-var unified = require('unified')
-var rehypeStringify = require('rehype-stringify')
+import {lowlight} from 'lowlight'
+import toHtml from 'hast-util-to-html'
+
+var tree = lowlight.highlight('js', '"use strict";').value
+
+console.log(toHtml(tree))
+```
+
+Yields:
+
+```html
+<span class="hljs-meta">"use strict"</span>;
+```
+
+hast trees can be turned into other things, like virtual DOMs, with
+[`hast-to-hyperscript`][to-hyperscript].
+
+hast trees are also used throughout the **[rehype][]** (**[unified][]**)
+ecosystem:
+
+```js
+import unified from 'unified'
+import rehypeStringify from 'rehype-stringify'
+import {lowlight} from 'lowlight'
+
+var tree = lowlight.highlight('js', '"use strict";').value
 
 var processor = unified().use(rehypeStringify)
 var html = processor.stringify({type: 'root', children: tree}).toString()
@@ -84,12 +112,12 @@ Yields:
 <span class="hljs-meta">"use strict"</span>;
 ```
 
-> **Tip**: Use [`hast-to-hyperscript`][to-hyperscript] to transform to other
-> virtual DOMs, or DIY.
-
 ## API
 
-### `low.highlight(language, value[, options])`
+This package exports the following identifiers: `lowlight`.
+There is no default export.
+
+### `lowlight.highlight(language, value[, options])`
 
 Parse `value` (`string`) according to the [`language`][names] grammar.
 
@@ -104,18 +132,19 @@ Parse `value` (`string`) according to the [`language`][names] grammar.
 ###### Example
 
 ```js
-var low = require('lowlight')
+import {lowlight} from 'lowlight'
 
-console.log(low.highlight('css', 'em { color: red }'))
+console.log(lowlight.highlight('css', 'em { color: red }'))
 ```
 
 Yields:
 
 ```js
-{relevance: 4, language: 'css', value: [Array]}
+{relevance: 3, language: 'css', value: [Array]}
+
 ```
 
-### `low.highlightAuto(value[, options])`
+### `lowlight.highlightAuto(value[, options])`
 
 Parse `value` by guessing its grammar.
 
@@ -133,9 +162,9 @@ Parse `value` by guessing its grammar.
 ###### Example
 
 ```js
-var low = require('lowlight')
+import {lowlight} from 'lowlight'
 
-console.log(low.highlightAuto('"hello, " + name + "!"'))
+console.log(lowlight.highlightAuto('"hello, " + name + "!"'))
 ```
 
 Yields:
@@ -165,7 +194,7 @@ Yields:
     — Result of the second-best (based on `relevance`) match.
     Only set by `highlightAuto`, but can still be `null`.
 
-### `low.registerLanguage(name, syntax)`
+### `lowlight.registerLanguage(name, syntax)`
 
 Register a [syntax][] as `name` (`string`).
 Useful in the browser or with custom grammars.
@@ -173,12 +202,12 @@ Useful in the browser or with custom grammars.
 ###### Example
 
 ```js
-var low = require('lowlight/lib/core')
-var xml = require('highlight.js/lib/languages/xml')
+import {lowlight} from 'lowlight/lib/core.js'
+import xml from 'highlight.js/lib/languages/xml.js'
 
-low.registerLanguage('xml', xml)
+lowlight.registerLanguage('xml', xml)
 
-console.log(low.highlight('html', '<em>Emphasis</em>'))
+console.log(lowlight.highlight('html', '<em>Emphasis</em>'))
 ```
 
 Yields:
@@ -187,7 +216,7 @@ Yields:
 {relevance: 2, language: 'html', value: [Array]}
 ```
 
-### `low.registerAlias(name[, alias])`
+### `lowlight.registerAlias(name[, alias])`
 
 Register a new `alias` for the `name` language.
 
@@ -207,20 +236,20 @@ Register a new `alias` for the `name` language.
 ###### Example
 
 ```js
-var low = require('lowlight/lib/core')
-var md = require('highlight.js/lib/languages/markdown')
+import {lowlight} from 'lowlight/lib/core.js'
+import md from 'highlight.js/lib/languages/markdown.js'
 
-low.registerLanguage('markdown', md)
+lowlight.registerLanguage('markdown', md)
 
-// low.highlight('mdown', '<em>Emphasis</em>')
+// lowlight.highlight('mdown', '<em>Emphasis</em>')
 // ^ would throw: Error: Unknown language: `mdown` is not registered
 
-low.registerAlias({markdown: ['mdown', 'mkdn', 'mdwn', 'ron']})
-low.highlight('mdown', '<em>Emphasis</em>')
+lowlight.registerAlias({markdown: ['mdown', 'mkdn', 'mdwn', 'ron']})
+lowlight.highlight('mdown', '<em>Emphasis</em>')
 // ^ Works!
 ```
 
-### `low.listLanguages()`
+### `lowlight.listLanguages()`
 
 List all registered languages.
 
@@ -231,14 +260,14 @@ List all registered languages.
 ###### Example
 
 ```js
-var low = require('lowlight/lib/core')
-var md = require('highlight.js/lib/languages/markdown')
+import {lowlight} from 'lowlight/lib/core.js'
+import md from 'highlight.js/lib/languages/markdown.js'
 
-console.log(low.listLanguages()) // => []
+console.log(lowlight.listLanguages()) // => []
 
-low.registerLanguage('markdown', md)
+lowlight.registerLanguage('markdown', md)
 
-console.log(low.listLanguages()) // => ['markdown']
+console.log(lowlight.listLanguages()) // => ['markdown']
 ```
 
 ## Browser
@@ -250,12 +279,12 @@ Instead, require `lowlight/lib/core`, and include only the used highlighters.
 For example:
 
 ```js
-var low = require('lowlight/lib/core')
-var js = require('highlight.js/lib/languages/javascript')
+import {lowlight} from 'lowlight/lib/core.js'
+import js from 'highlight.js/lib/languages/javascript.js'
 
-low.registerLanguage('javascript', js)
+lowlight.registerLanguage('javascript', js)
 
-low.highlight('js', '"use strict";')
+lowlight.highlight('js', '"use strict";')
 // See `Usage` for the results.
 ```
 
@@ -310,7 +339,11 @@ of code (9kB with GZip).
 
 [author]: https://wooorm.com
 
-[rehype-stringify]: https://github.com/rehypejs/rehype/tree/main/packages/rehype-stringify
+[to-html]: https://github.com/syntax-tree/hast-util-to-html
+
+[rehype]: https://github.com/rehypejs/rehype
+
+[unified]: https://github.com/unifiedjs/unified
 
 [hast-node]: https://github.com/syntax-tree/hast#ast
 
