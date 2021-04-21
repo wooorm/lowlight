@@ -219,24 +219,6 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
       'should return the correct language for the fixture'
     )
 
-    t.equal(
-      typeof result.secondBest,
-      'object',
-      'should return a `secondBest` result'
-    )
-
-    t.equal(
-      result.secondBest.language,
-      'typescript',
-      'should return a `secondBest` `language`'
-    )
-
-    t.equal(
-      result.secondBest.relevance,
-      10,
-      'should return a `secondBest` `relevance`'
-    )
-
     t.deepEqual(
       result.value,
       [

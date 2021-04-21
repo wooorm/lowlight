@@ -157,7 +157,7 @@ Parse `value` by guessing its grammar.
 
 ###### Returns
 
-[`Result`][result], with a `secondBest` if found.
+[`Result`][result]
 
 ###### Example
 
@@ -170,12 +170,7 @@ console.log(lowlight.highlightAuto('"hello, " + name + "!"'))
 Yields:
 
 ```js
-{
-  relevance: 3,
-  language: 'applescript',
-  value: [Array],
-  secondBest: {relevance: 3, language: 'basic', value: [Array]}
-}
+{relevance: 3, language: 'applescript', value: [Array]}
 ```
 
 ### `Result`
@@ -190,9 +185,6 @@ Yields:
     — The detected `language` name
 *   `value` ([`Array.<Node>`][hast-node])
     — Virtual nodes representing the highlighted given code
-*   `secondBest` ([`Result?`][result])
-    — Result of the second-best (based on `relevance`) match.
-    Only set by `highlightAuto`, but can still be `null`.
 
 ### `lowlight.registerLanguage(language, syntax)`
 
