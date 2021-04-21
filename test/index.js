@@ -91,57 +91,50 @@ test('lowlight.highlight(language, value[, options])', function (t) {
         {
           type: 'element',
           tagName: 'span',
-          properties: {className: ['hljs-function']},
+          properties: {className: ['hljs-keyword']},
+          children: [{type: 'text', value: 'public'}]
+        },
+        {type: 'text', value: ' '},
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: {className: ['hljs-keyword']},
+          children: [{type: 'text', value: 'void'}]
+        },
+        {type: 'text', value: ' '},
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: {className: ['hljs-title', 'hljs-function']},
+          children: [{type: 'text', value: 'moveTo'}]
+        },
+        {
+          type: 'element',
+          tagName: 'span',
+          properties: {className: ['hljs-params']},
           children: [
+            {type: 'text', value: '('},
             {
               type: 'element',
               tagName: 'span',
-              properties: {className: ['hljs-keyword']},
-              children: [{type: 'text', value: 'public'}]
+              properties: {className: ['hljs-type']},
+              children: [{type: 'text', value: 'int'}]
             },
-            {type: 'text', value: ' '},
+            {type: 'text', value: ' x, '},
             {
               type: 'element',
               tagName: 'span',
-              properties: {className: ['hljs-keyword']},
-              children: [{type: 'text', value: 'void'}]
+              properties: {className: ['hljs-type']},
+              children: [{type: 'text', value: 'int'}]
             },
-            {type: 'text', value: ' '},
+            {type: 'text', value: ' y, '},
             {
               type: 'element',
               tagName: 'span',
-              properties: {className: ['hljs-title']},
-              children: [{type: 'text', value: 'moveTo'}]
+              properties: {className: ['hljs-type']},
+              children: [{type: 'text', value: 'int'}]
             },
-            {
-              type: 'element',
-              tagName: 'span',
-              properties: {className: ['hljs-params']},
-              children: [
-                {type: 'text', value: '('},
-                {
-                  type: 'element',
-                  tagName: 'span',
-                  properties: {className: ['hljs-keyword']},
-                  children: [{type: 'text', value: 'int'}]
-                },
-                {type: 'text', value: ' x, '},
-                {
-                  type: 'element',
-                  tagName: 'span',
-                  properties: {className: ['hljs-keyword']},
-                  children: [{type: 'text', value: 'int'}]
-                },
-                {type: 'text', value: ' y, '},
-                {
-                  type: 'element',
-                  tagName: 'span',
-                  properties: {className: ['hljs-keyword']},
-                  children: [{type: 'text', value: 'int'}]
-                },
-                {type: 'text', value: ' z)'}
-              ]
-            }
+            {type: 'text', value: ' z)'}
           ]
         },
         {type: 'text', value: ';'}
@@ -338,7 +331,7 @@ test('listLanguages', function (t) {
   var mockName = 'testtest'
 
   // If this test fails, update `readme.md`.
-  t.equal(expectedLanguages.length, 191, 'should match `readme.md`')
+  t.equal(expectedLanguages.length, 188, 'should match `readme.md`')
 
   t.deepEqual(
     lowlight.listLanguages(),
@@ -422,6 +415,10 @@ function subtest(t, directory, transform) {
 
   // Create output snapshot if it doesn’t exist yet.
   try {
+    if ('UPDATE' in process.env) {
+      throw new Error('Updating…')
+    }
+
     out = String(fs.readFileSync(output))
   } catch {
     out =

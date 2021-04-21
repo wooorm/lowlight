@@ -37,7 +37,7 @@
   "dependencies": {
     "@types/hast": "^2.0.0",
     "fault": "^2.0.0",
-    "highlight.js": "~10.7.0"
+    "highlight.js": "~11.0.0-alpha0"
   },
   "devDependencies": {
     "@types/tape": "^4.0.0",

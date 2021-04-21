@@ -1,26 +1,26 @@
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">visibleTodoFilter</span>(<span class="hljs-params">state = <span class="hljs-string">'watch'</span>, action</span>) </span>{
-  <span class="hljs-keyword">switch</span> (action.type) {
+  <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) {
   <span class="hljs-keyword">case</span> <span class="hljs-string">'CHANGE_VISIBLE_FILTER'</span>:
-    <span class="hljs-keyword">return</span> action.filter;
+    <span class="hljs-keyword">return</span> action.<span class="hljs-property">filter</span>;
   <span class="hljs-keyword">default</span>:
     <span class="hljs-keyword">return</span> state;
   }
 }
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todos</span>(<span class="hljs-params">state, action</span>) </span>{
-  <span class="hljs-keyword">switch</span> (action.type) {
+  <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) {
   <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TODO'</span>:
     <span class="hljs-keyword">return</span> [...state, {
-      <span class="hljs-attr">text</span>: action.text,
+      <span class="hljs-attr">text</span>: action.<span class="hljs-property">text</span>,
       <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span>
     }];
   <span class="hljs-keyword">case</span> <span class="hljs-string">'COMPLETE_TODO'</span>:
     <span class="hljs-keyword">return</span> [
-      ...state.slice(<span class="hljs-number">0</span>, action.index),
-      <span class="hljs-built_in">Object</span>.assign({}, state[action.index], {
+      ...state.<span class="hljs-property">slice</span>(<span class="hljs-number">0</span>, action.<span class="hljs-property">index</span>),
+      <span class="hljs-built_in">Object</span>.<span class="hljs-property">assign</span>({}, state[action.<span class="hljs-property">index</span>], {
         <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span>
       }),
-      ...state.slice(action.index + <span class="hljs-number">1</span>)
+      ...state.<span class="hljs-property">slice</span>(action.<span class="hljs-property">index</span> + <span class="hljs-number">1</span>)
     ]
   <span class="hljs-attr">default</span>:
     <span class="hljs-keyword">return</span> state;

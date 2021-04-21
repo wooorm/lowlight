@@ -22,14 +22,13 @@ import bash from 'highlight.js/lib/languages/bash.js'
 import basic from 'highlight.js/lib/languages/basic.js'
 import bnf from 'highlight.js/lib/languages/bnf.js'
 import brainfuck from 'highlight.js/lib/languages/brainfuck.js'
-import l23 from 'highlight.js/lib/languages/c-like.js'
 import c from 'highlight.js/lib/languages/c.js'
 import cal from 'highlight.js/lib/languages/cal.js'
 import capnproto from 'highlight.js/lib/languages/capnproto.js'
 import ceylon from 'highlight.js/lib/languages/ceylon.js'
 import clean from 'highlight.js/lib/languages/clean.js'
 import clojure from 'highlight.js/lib/languages/clojure.js'
-import l30 from 'highlight.js/lib/languages/clojure-repl.js'
+import l29 from 'highlight.js/lib/languages/clojure-repl.js'
 import cmake from 'highlight.js/lib/languages/cmake.js'
 import coffeescript from 'highlight.js/lib/languages/coffeescript.js'
 import coq from 'highlight.js/lib/languages/coq.js'
@@ -57,7 +56,7 @@ import elixir from 'highlight.js/lib/languages/elixir.js'
 import elm from 'highlight.js/lib/languages/elm.js'
 import ruby from 'highlight.js/lib/languages/ruby.js'
 import erb from 'highlight.js/lib/languages/erb.js'
-import l58 from 'highlight.js/lib/languages/erlang-repl.js'
+import l57 from 'highlight.js/lib/languages/erlang-repl.js'
 import erlang from 'highlight.js/lib/languages/erlang.js'
 import excel from 'highlight.js/lib/languages/excel.js'
 import fix from 'highlight.js/lib/languages/fix.js'
@@ -79,7 +78,6 @@ import handlebars from 'highlight.js/lib/languages/handlebars.js'
 import haskell from 'highlight.js/lib/languages/haskell.js'
 import haxe from 'highlight.js/lib/languages/haxe.js'
 import hsp from 'highlight.js/lib/languages/hsp.js'
-import htmlbars from 'highlight.js/lib/languages/htmlbars.js'
 import http from 'highlight.js/lib/languages/http.js'
 import hy from 'highlight.js/lib/languages/hy.js'
 import inform7 from 'highlight.js/lib/languages/inform7.js'
@@ -88,10 +86,10 @@ import irpf90 from 'highlight.js/lib/languages/irpf90.js'
 import isbl from 'highlight.js/lib/languages/isbl.js'
 import java from 'highlight.js/lib/languages/java.js'
 import javascript from 'highlight.js/lib/languages/javascript.js'
-import l89 from 'highlight.js/lib/languages/jboss-cli.js'
+import l87 from 'highlight.js/lib/languages/jboss-cli.js'
 import json from 'highlight.js/lib/languages/json.js'
 import julia from 'highlight.js/lib/languages/julia.js'
-import l92 from 'highlight.js/lib/languages/julia-repl.js'
+import l90 from 'highlight.js/lib/languages/julia-repl.js'
 import kotlin from 'highlight.js/lib/languages/kotlin.js'
 import lasso from 'highlight.js/lib/languages/lasso.js'
 import latex from 'highlight.js/lib/languages/latex.js'
@@ -120,7 +118,7 @@ import n1ql from 'highlight.js/lib/languages/n1ql.js'
 import nginx from 'highlight.js/lib/languages/nginx.js'
 import nim from 'highlight.js/lib/languages/nim.js'
 import nix from 'highlight.js/lib/languages/nix.js'
-import l121 from 'highlight.js/lib/languages/node-repl.js'
+import l119 from 'highlight.js/lib/languages/node-repl.js'
 import nsis from 'highlight.js/lib/languages/nsis.js'
 import objectivec from 'highlight.js/lib/languages/objectivec.js'
 import ocaml from 'highlight.js/lib/languages/ocaml.js'
@@ -130,7 +128,7 @@ import parser3 from 'highlight.js/lib/languages/parser3.js'
 import pf from 'highlight.js/lib/languages/pf.js'
 import pgsql from 'highlight.js/lib/languages/pgsql.js'
 import php from 'highlight.js/lib/languages/php.js'
-import l131 from 'highlight.js/lib/languages/php-template.js'
+import l129 from 'highlight.js/lib/languages/php-template.js'
 import plaintext from 'highlight.js/lib/languages/plaintext.js'
 import pony from 'highlight.js/lib/languages/pony.js'
 import powershell from 'highlight.js/lib/languages/powershell.js'
@@ -142,7 +140,7 @@ import protobuf from 'highlight.js/lib/languages/protobuf.js'
 import puppet from 'highlight.js/lib/languages/puppet.js'
 import purebasic from 'highlight.js/lib/languages/purebasic.js'
 import python from 'highlight.js/lib/languages/python.js'
-import l143 from 'highlight.js/lib/languages/python-repl.js'
+import l141 from 'highlight.js/lib/languages/python-repl.js'
 import q from 'highlight.js/lib/languages/q.js'
 import qml from 'highlight.js/lib/languages/qml.js'
 import r from 'highlight.js/lib/languages/r.js'
@@ -163,7 +161,6 @@ import smali from 'highlight.js/lib/languages/smali.js'
 import smalltalk from 'highlight.js/lib/languages/smalltalk.js'
 import sml from 'highlight.js/lib/languages/sml.js'
 import sqf from 'highlight.js/lib/languages/sqf.js'
-import sqlMore from 'highlight.js/lib/languages/sql_more.js'
 import sql from 'highlight.js/lib/languages/sql.js'
 import stan from 'highlight.js/lib/languages/stan.js'
 import stata from 'highlight.js/lib/languages/stata.js'
@@ -182,7 +179,7 @@ import typescript from 'highlight.js/lib/languages/typescript.js'
 import vala from 'highlight.js/lib/languages/vala.js'
 import vbnet from 'highlight.js/lib/languages/vbnet.js'
 import vbscript from 'highlight.js/lib/languages/vbscript.js'
-import l183 from 'highlight.js/lib/languages/vbscript-html.js'
+import l180 from 'highlight.js/lib/languages/vbscript-html.js'
 import verilog from 'highlight.js/lib/languages/verilog.js'
 import vhdl from 'highlight.js/lib/languages/vhdl.js'
 import vim from 'highlight.js/lib/languages/vim.js'
@@ -214,14 +211,13 @@ lowlight.registerLanguage('bash', bash)
 lowlight.registerLanguage('basic', basic)
 lowlight.registerLanguage('bnf', bnf)
 lowlight.registerLanguage('brainfuck', brainfuck)
-lowlight.registerLanguage('c-like', l23)
 lowlight.registerLanguage('c', c)
 lowlight.registerLanguage('cal', cal)
 lowlight.registerLanguage('capnproto', capnproto)
 lowlight.registerLanguage('ceylon', ceylon)
 lowlight.registerLanguage('clean', clean)
 lowlight.registerLanguage('clojure', clojure)
-lowlight.registerLanguage('clojure-repl', l30)
+lowlight.registerLanguage('clojure-repl', l29)
 lowlight.registerLanguage('cmake', cmake)
 lowlight.registerLanguage('coffeescript', coffeescript)
 lowlight.registerLanguage('coq', coq)
@@ -249,7 +245,7 @@ lowlight.registerLanguage('elixir', elixir)
 lowlight.registerLanguage('elm', elm)
 lowlight.registerLanguage('ruby', ruby)
 lowlight.registerLanguage('erb', erb)
-lowlight.registerLanguage('erlang-repl', l58)
+lowlight.registerLanguage('erlang-repl', l57)
 lowlight.registerLanguage('erlang', erlang)
 lowlight.registerLanguage('excel', excel)
 lowlight.registerLanguage('fix', fix)
@@ -271,7 +267,6 @@ lowlight.registerLanguage('handlebars', handlebars)
 lowlight.registerLanguage('haskell', haskell)
 lowlight.registerLanguage('haxe', haxe)
 lowlight.registerLanguage('hsp', hsp)
-lowlight.registerLanguage('htmlbars', htmlbars)
 lowlight.registerLanguage('http', http)
 lowlight.registerLanguage('hy', hy)
 lowlight.registerLanguage('inform7', inform7)
@@ -280,10 +275,10 @@ lowlight.registerLanguage('irpf90', irpf90)
 lowlight.registerLanguage('isbl', isbl)
 lowlight.registerLanguage('java', java)
 lowlight.registerLanguage('javascript', javascript)
-lowlight.registerLanguage('jboss-cli', l89)
+lowlight.registerLanguage('jboss-cli', l87)
 lowlight.registerLanguage('json', json)
 lowlight.registerLanguage('julia', julia)
-lowlight.registerLanguage('julia-repl', l92)
+lowlight.registerLanguage('julia-repl', l90)
 lowlight.registerLanguage('kotlin', kotlin)
 lowlight.registerLanguage('lasso', lasso)
 lowlight.registerLanguage('latex', latex)
@@ -312,7 +307,7 @@ lowlight.registerLanguage('n1ql', n1ql)
 lowlight.registerLanguage('nginx', nginx)
 lowlight.registerLanguage('nim', nim)
 lowlight.registerLanguage('nix', nix)
-lowlight.registerLanguage('node-repl', l121)
+lowlight.registerLanguage('node-repl', l119)
 lowlight.registerLanguage('nsis', nsis)
 lowlight.registerLanguage('objectivec', objectivec)
 lowlight.registerLanguage('ocaml', ocaml)
@@ -322,7 +317,7 @@ lowlight.registerLanguage('parser3', parser3)
 lowlight.registerLanguage('pf', pf)
 lowlight.registerLanguage('pgsql', pgsql)
 lowlight.registerLanguage('php', php)
-lowlight.registerLanguage('php-template', l131)
+lowlight.registerLanguage('php-template', l129)
 lowlight.registerLanguage('plaintext', plaintext)
 lowlight.registerLanguage('pony', pony)
 lowlight.registerLanguage('powershell', powershell)
@@ -334,7 +329,7 @@ lowlight.registerLanguage('protobuf', protobuf)
 lowlight.registerLanguage('puppet', puppet)
 lowlight.registerLanguage('purebasic', purebasic)
 lowlight.registerLanguage('python', python)
-lowlight.registerLanguage('python-repl', l143)
+lowlight.registerLanguage('python-repl', l141)
 lowlight.registerLanguage('q', q)
 lowlight.registerLanguage('qml', qml)
 lowlight.registerLanguage('r', r)
@@ -355,7 +350,6 @@ lowlight.registerLanguage('smali', smali)
 lowlight.registerLanguage('smalltalk', smalltalk)
 lowlight.registerLanguage('sml', sml)
 lowlight.registerLanguage('sqf', sqf)
-lowlight.registerLanguage('sql_more', sqlMore)
 lowlight.registerLanguage('sql', sql)
 lowlight.registerLanguage('stan', stan)
 lowlight.registerLanguage('stata', stata)
@@ -374,7 +368,7 @@ lowlight.registerLanguage('typescript', typescript)
 lowlight.registerLanguage('vala', vala)
 lowlight.registerLanguage('vbnet', vbnet)
 lowlight.registerLanguage('vbscript', vbscript)
-lowlight.registerLanguage('vbscript-html', l183)
+lowlight.registerLanguage('vbscript-html', l180)
 lowlight.registerLanguage('verilog', verilog)
 lowlight.registerLanguage('vhdl', vhdl)
 lowlight.registerLanguage('vim', vim)
