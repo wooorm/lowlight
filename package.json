@@ -37,7 +37,7 @@
   "dependencies": {
     "@types/hast": "^2.0.0",
     "fault": "^2.0.0",
-    "highlight.js": "~11.0.0-alpha0"
+    "highlight.js": "~11.0.0-alpha1"
   },
   "devDependencies": {
     "@types/mdast": "^3.0.0",
@@ -79,6 +79,7 @@
   "xo": {
     "prettier": true,
     "rules": {
+      "node/file-extension-in-import": "off",
       "no-var": "off",
       "prefer-arrow-callback": "off"
     }

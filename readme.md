@@ -16,7 +16,7 @@ There are three builds of lowlight:
 
 *   `lib/core.js` — 0 languages
 *   `lib/common.js` (default) — 35 languages
-*   `lib/all.js` — 188 languages
+*   `lib/all.js` — 190 languages
 
 <!--index end-->
 
@@ -388,6 +388,7 @@ available everywhere!
 *   [ ] `monkey` — Monkey
 *   [ ] `moonscript` (`moon`) — MoonScript
 *   [ ] `n1ql` — N1QL
+*   [ ] `nestedtext` (`nt`) — Nested Text
 *   [ ] `nginx` (`nginxconf`) — Nginx config
 *   [ ] `nim` — Nim
 *   [ ] `nix` (`nixos`) — Nix
@@ -406,7 +407,7 @@ available everywhere!
 *   [x] `plaintext` (`text`, `txt`) — Plain text
 *   [ ] `pony` — Pony
 *   [ ] `powershell` (`ps`, `ps1`) — PowerShell
-*   [ ] `processing` — Processing
+*   [ ] `processing` (`pde`) — Processing
 *   [ ] `profile` — Python profiler
 *   [ ] `prolog` — Prolog
 *   [ ] `properties` — .properties
@@ -457,6 +458,7 @@ available everywhere!
 *   [ ] `verilog` (`v`, `sv`, `svh`) — Verilog
 *   [ ] `vhdl` — VHDL
 *   [ ] `vim` — Vim Script
+*   [ ] `wasm` — WebAssembly
 *   [ ] `x86asm` — Intel x86 Assembly
 *   [ ] `xl` (`tao`) — XL
 *   [x] `xml` (`html`, `xhtml`, `rss`, `atom`, `xjb`, `xsd`, `xsl`, `plist`, `wsf`, `svg`) — HTML, XML

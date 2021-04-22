@@ -76,8 +76,7 @@ console.log(
 function generate(list, base) {
   return [
     ...list.map(
-      (d) =>
-        'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + ".js'"
+      (d) => 'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + "'"
     ),
     "import {lowlight} from './" + base + ".js'",
     'export {lowlight}',

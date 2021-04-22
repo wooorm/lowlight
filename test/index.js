@@ -322,9 +322,6 @@ test('listLanguages', function (t) {
   var expectedLanguages = highlight.listLanguages()
   var mockName = 'testtest'
 
-  // If this test fails, update `readme.md`.
-  t.equal(expectedLanguages.length, 188, 'should match `readme.md`')
-
   t.deepEqual(
     lowlight.listLanguages(),
     expectedLanguages,

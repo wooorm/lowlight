@@ -49,7 +49,7 @@ async function transformer(tree) {
 async function item(name) {
   /** @type {LanguageFn} */
   // type-coverage:ignore-next-line
-  var fn = (await import('highlight.js/lib/languages/' + name + '.js')).default
+  var fn = (await import('highlight.js/lib/languages/' + name)).default
   var mod = fn(hljs)
   /** @type {Array.<PhrasingContent>} */
   var content = [u('inlineCode', name)]
