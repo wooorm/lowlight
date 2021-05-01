@@ -318,6 +318,13 @@ test('fixtures', function (t) {
   t.end()
 })
 
+test('getLanguage', function (t) {
+  t.ok(lowlight.getLanguage('javascript'), 'JavaScript exists');
+  t.notOk(lowlight.getLanguage('made-up'), 'only registered languages are returned');
+
+  t.end();
+})
+
 test('listLanguages', function (t) {
   var expectedLanguages = highlight.listLanguages()
   var mockName = 'testtest'

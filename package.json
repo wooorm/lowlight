@@ -95,5 +95,8 @@
     "atLeast": 100,
     "detail": true,
     "strict": true
+  },
+  "volta": {
+    "node": "12.22.1"
   }
 }
