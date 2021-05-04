@@ -1,13 +1,13 @@
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">visibleTodoFilter</span>(<span class="hljs-params">state = <span class="hljs-string">'watch'</span>, action</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title hljs-function">visibleTodoFilter</span>(<span class="hljs-params">state = <span class="hljs-string">'watch'</span>, action</span>) {
   <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) {
   <span class="hljs-keyword">case</span> <span class="hljs-string">'CHANGE_VISIBLE_FILTER'</span>:
     <span class="hljs-keyword">return</span> action.<span class="hljs-property">filter</span>;
-  <span class="hljs-keyword">default</span>:
+  <span class="hljs-attr">default</span>:
     <span class="hljs-keyword">return</span> state;
   }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">todos</span>(<span class="hljs-params">state, action</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title hljs-function">todos</span>(<span class="hljs-params">state, action</span>) {
   <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) {
   <span class="hljs-keyword">case</span> <span class="hljs-string">'ADD_TODO'</span>:
     <span class="hljs-keyword">return</span> [...state, {
@@ -16,11 +16,11 @@
     }];
   <span class="hljs-keyword">case</span> <span class="hljs-string">'COMPLETE_TODO'</span>:
     <span class="hljs-keyword">return</span> [
-      ...state.<span class="hljs-property">slice</span>(<span class="hljs-number">0</span>, action.<span class="hljs-property">index</span>),
-      <span class="hljs-built_in">Object</span>.<span class="hljs-property">assign</span>({}, state[action.<span class="hljs-property">index</span>], {
+      ...state.<span class="hljs-title hljs-function">slice</span>(<span class="hljs-number">0</span>, action.<span class="hljs-property">index</span>),
+      <span class="hljs-title hljs-class">Object</span>.<span class="hljs-title hljs-function">assign</span>({}, state[action.<span class="hljs-property">index</span>], {
         <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span>
       }),
-      ...state.<span class="hljs-property">slice</span>(action.<span class="hljs-property">index</span> + <span class="hljs-number">1</span>)
+      ...state.<span class="hljs-title hljs-function">slice</span>(action.<span class="hljs-property">index</span> + <span class="hljs-number">1</span>)
     ]
   <span class="hljs-attr">default</span>:
     <span class="hljs-keyword">return</span> state;
@@ -28,5 +28,5 @@
 }
 
 <span class="hljs-keyword">import</span> { combineReducers, createStore } <span class="hljs-keyword">from</span> <span class="hljs-string">'redux'</span>;
-<span class="hljs-keyword">let</span> reducer = combineReducers({ visibleTodoFilter, todos });
-<span class="hljs-keyword">let</span> store = createStore(reducer);
+<span class="hljs-keyword">let</span> reducer = <span class="hljs-title hljs-function">combineReducers</span>({ visibleTodoFilter, todos });
+<span class="hljs-keyword">let</span> store = <span class="hljs-title hljs-function">createStore</span>(reducer);
