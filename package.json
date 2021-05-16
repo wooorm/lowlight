@@ -46,7 +46,7 @@
     "c8": "^7.0.0",
     "chalk": "^4.0.0",
     "estree-util-is-identifier-name": "^2.0.0",
-    "mdast-zone": "^4.0.0",
+    "mdast-zone": "^5.0.0",
     "prettier": "^2.0.0",
     "rehype": "^11.0.0",
     "remark-cli": "^9.0.0",

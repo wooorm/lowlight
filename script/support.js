@@ -8,8 +8,7 @@
 import hljs from 'highlight.js'
 import fs from 'fs'
 import path from 'path'
-// @ts-ignore remove when typed.
-import zone from 'mdast-zone'
+import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 
 /** @type {{common: string[], uncommon: string[]}} */
