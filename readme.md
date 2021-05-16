@@ -16,7 +16,7 @@ There are three builds of lowlight:
 
 *   `lib/core.js` — 0 languages
 *   `lib/common.js` (default) — 35 languages
-*   `lib/all.js` — 190 languages
+*   `lib/all.js` — 191 languages
 
 <!--index end-->
 
@@ -459,6 +459,7 @@ available everywhere!
 *   [ ] `vhdl` — VHDL
 *   [ ] `vim` — Vim Script
 *   [ ] `wasm` — WebAssembly
+*   [ ] `wren` — Wren
 *   [ ] `x86asm` — Intel x86 Assembly
 *   [ ] `xl` (`tao`) — XL
 *   [x] `xml` (`html`, `xhtml`, `rss`, `atom`, `xjb`, `xsd`, `xsl`, `plist`, `wsf`, `svg`) — HTML, XML
