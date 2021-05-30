@@ -56,7 +56,7 @@ Highlight:
 ```js
 import {lowlight} from 'lowlight'
 
-var tree = lowlight.highlight('js', '"use strict";')
+const tree = lowlight.highlight('js', '"use strict";')
 
 console.dir(tree, {depth: null})
 ```
@@ -85,7 +85,7 @@ hast trees can be serialized with [`hast-util-to-html`][to-html]:
 import {lowlight} from 'lowlight'
 import toHtml from 'hast-util-to-html'
 
-var tree = lowlight.highlight('js', '"use strict";')
+const tree = lowlight.highlight('js', '"use strict";')
 
 console.log(toHtml(tree))
 ```
@@ -107,10 +107,10 @@ import unified from 'unified'
 import rehypeStringify from 'rehype-stringify'
 import {lowlight} from 'lowlight'
 
-var tree = lowlight.highlight('js', '"use strict";')
+const tree = lowlight.highlight('js', '"use strict";')
 
-var processor = unified().use(rehypeStringify)
-var html = processor.stringify(tree).toString()
+const processor = unified().use(rehypeStringify)
+const html = processor.stringify(tree).toString()
 
 console.log(html)
 ```

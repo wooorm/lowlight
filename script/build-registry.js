@@ -3,21 +3,21 @@ import path from 'path'
 import chalk from 'chalk'
 import {name as isIdentifier} from 'estree-util-is-identifier-name'
 
-var doc = String(
+let doc = String(
   fs.readFileSync(path.join('node_modules', 'highlight.js', 'lib', 'index.js'))
 )
 
-var category = /\/\*.*?Category: (.*?)\r?\n/s
-var register = /hljs\.registerLanguage\('(.+?)'/g
-var index = -1
+const category = /\/\*.*?Category: (.*?)\r?\n/s
+const register = /hljs\.registerLanguage\('(.+?)'/g
+let index = -1
 /** @type {Array.<string>} */
-var all = []
+const all = []
 /** @type {Array.<string>} */
-var common = []
+const common = []
 /** @type {Array.<string>} */
-var uncommon = []
+let uncommon = []
 /** @type {RegExpMatchArray} */
-var match
+let match
 
 while ((match = register.exec(doc))) all.push(match[1])
 
@@ -90,7 +90,7 @@ function generate(list, base) {
  * @returns {string}
  */
 function id(name) {
-  var cleaned = name.replace(/[_-][a-z]/, (d) => d.charAt(1).toUpperCase())
+  const cleaned = name.replace(/[_-][a-z]/, (d) => d.charAt(1).toUpperCase())
   if (isIdentifier(cleaned)) return cleaned
   if (isIdentifier('$' + cleaned)) return '$' + cleaned
   throw new Error('Could not generate id for `' + name + '`')

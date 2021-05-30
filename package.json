@@ -80,8 +80,6 @@
     "prettier": true,
     "rules": {
       "node/file-extension-in-import": "off",
-      "no-var": "off",
-      "prefer-arrow-callback": "off",
       "unicorn/prefer-node-protocol": "off"
     }
   },

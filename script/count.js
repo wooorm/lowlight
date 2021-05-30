@@ -9,7 +9,9 @@ import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 
 /** @type {{common: string[], uncommon: string[]}} */
-var data = JSON.parse(String(fs.readFileSync(path.join('script', 'data.json'))))
+const data = JSON.parse(
+  String(fs.readFileSync(path.join('script', 'data.json')))
+)
 
 export default function count() {
   return transformer
@@ -28,7 +30,7 @@ function transformer(tree) {
  * @param {Node} end
  */
 function replace(start, _, end) {
-  var {common, uncommon} = data
+  const {common, uncommon} = data
 
   return [
     start,

@@ -12,15 +12,15 @@ import rehype from 'rehype'
 import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
 
-var fixtures = path.join('test', 'fixture')
-var inputName = 'input.txt'
-var outputName = 'output.txt'
+const fixtures = path.join('test', 'fixture')
+const inputName = 'input.txt'
+const outputName = 'output.txt'
 
-test('lowlight.highlight(language, value[, options])', function (t) {
-  var result = lowlight.highlight('js', '')
+test('lowlight.highlight(language, value[, options])', (t) => {
+  const result = lowlight.highlight('js', '')
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       lowlight.highlight(true)
     },
@@ -29,7 +29,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       lowlight.highlight('js', true)
     },
@@ -38,7 +38,7 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   )
 
   t.throws(
-    function () {
+    () => {
       lowlight.highlight('fooscript', '')
     },
     /Unknown language: `fooscript` is not registered/,
@@ -69,8 +69,8 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     'should silently ignore illegals'
   )
 
-  t.test('fixture', function (t) {
-    var result = lowlight.highlight(
+  t.test('fixture', (t) => {
+    const result = lowlight.highlight(
       'java',
       ['public void moveTo(int x, int y, int z);'].join('\n')
     )
@@ -147,8 +147,8 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     t.end()
   })
 
-  t.test('custom `prefix`', function (t) {
-    var result = lowlight.highlight('js', '"use strict";', {
+  t.test('custom `prefix`', (t) => {
+    const result = lowlight.highlight('js', '"use strict";', {
       prefix: 'foo-'
     })
 
@@ -162,8 +162,8 @@ test('lowlight.highlight(language, value[, options])', function (t) {
     t.end()
   })
 
-  t.test('empty `prefix`', function (t) {
-    var result = lowlight.highlight('js', '"use strict";', {
+  t.test('empty `prefix`', (t) => {
+    const result = lowlight.highlight('js', '"use strict";', {
       prefix: ''
     })
 
@@ -180,11 +180,11 @@ test('lowlight.highlight(language, value[, options])', function (t) {
   t.end()
 })
 
-test('lowlight.highlightAuto(value[, options])', function (t) {
-  var result = lowlight.highlightAuto('')
+test('lowlight.highlightAuto(value[, options])', (t) => {
+  const result = lowlight.highlightAuto('')
 
   t.throws(
-    function () {
+    () => {
       // @ts-ignore runtime.
       lowlight.highlightAuto(true)
     },
@@ -210,8 +210,8 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     'should return an empty array for `children` when empty'
   )
 
-  t.test('fixture', function (t) {
-    var result = lowlight.highlightAuto(['"use strict";'].join('\n'))
+  t.test('fixture', (t) => {
+    const result = lowlight.highlightAuto(['"use strict";'].join('\n'))
 
     t.equal(
       result.data.relevance,
@@ -242,8 +242,8 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     t.end()
   })
 
-  t.test('custom `prefix`', function (t) {
-    var result = lowlight.highlightAuto('"use strict";', {prefix: 'foo-'})
+  t.test('custom `prefix`', (t) => {
+    const result = lowlight.highlightAuto('"use strict";', {prefix: 'foo-'})
 
     t.deepEqual(
       // @ts-ignore yep, it’s an element.
@@ -255,8 +255,8 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     t.end()
   })
 
-  t.test('empty `prefix`', function (t) {
-    var result = lowlight.highlightAuto('"use strict";', {prefix: ''})
+  t.test('empty `prefix`', (t) => {
+    const result = lowlight.highlightAuto('"use strict";', {prefix: ''})
 
     t.deepEqual(
       // @ts-ignore yep, it’s an element.
@@ -268,8 +268,8 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     t.end()
   })
 
-  t.test('custom `subset`', function (t) {
-    var result = lowlight.highlightAuto('"use strict";', {subset: ['java']})
+  t.test('custom `subset`', (t) => {
+    let result = lowlight.highlightAuto('"use strict";', {subset: ['java']})
 
     t.equal(
       result.data.language,
@@ -277,7 +277,7 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
       'should support a given custom `subset`'
     )
 
-    t.doesNotThrow(function () {
+    t.doesNotThrow(() => {
       result = lowlight.highlightAuto('"use strict";', {
         subset: ['fooscript', 'javascript']
       })
@@ -292,8 +292,8 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
     t.end()
   })
 
-  t.test('harder example (coverage)', function (t) {
-    subtest(t, 'xml-large', function (doc) {
+  t.test('harder example (coverage)', (t) => {
+    subtest(t, 'xml-large', (doc) => {
       return lowlight.highlightAuto(doc)
     })
 
@@ -303,13 +303,13 @@ test('lowlight.highlightAuto(value[, options])', function (t) {
   t.end()
 })
 
-test('fixtures', function (t) {
-  var files = fs.readdirSync(fixtures)
-  var index = -1
+test('fixtures', (t) => {
+  const files = fs.readdirSync(fixtures)
+  let index = -1
 
   while (++index < files.length) {
     if (files[index].charAt(0) !== '.') {
-      subtest(t, files[index], function (doc, language) {
+      subtest(t, files[index], (doc, language) => {
         return lowlight.highlight(language, doc)
       })
     }
@@ -318,9 +318,9 @@ test('fixtures', function (t) {
   t.end()
 })
 
-test('listLanguages', function (t) {
-  var expectedLanguages = highlight.listLanguages()
-  var mockName = 'testtest'
+test('listLanguages', (t) => {
+  const expectedLanguages = highlight.listLanguages()
+  const mockName = 'testtest'
 
   t.deepEqual(
     lowlight.listLanguages(),
@@ -342,12 +342,12 @@ test('listLanguages', function (t) {
   t.end()
 })
 
-test('aliases', function (t) {
-  var input = fs
+test('aliases', (t) => {
+  const input = fs
     .readFileSync(path.join(fixtures, 'md-sublanguage', inputName))
     .toString()
     .trim()
-  var expected = lowlight.highlight('markdown', input).children
+  const expected = lowlight.highlight('markdown', input).children
 
   lowlight.registerAlias('markdown', 'mkd')
 
@@ -392,15 +392,15 @@ test('aliases', function (t) {
  * @param {(doc: string, name: string) => LowlightRoot} transform
  */
 function subtest(t, directory, transform) {
-  var parts = directory.split('-')
-  var language = parts[0]
-  var name = parts.slice(1).join('-')
-  var input = path.join(fixtures, directory, inputName)
-  var output = path.join(fixtures, directory, outputName)
+  const parts = directory.split('-')
+  const language = parts[0]
+  const name = parts.slice(1).join('-')
+  const input = path.join(fixtures, directory, inputName)
+  const output = path.join(fixtures, directory, outputName)
   /** @type {string} */
-  var out
+  let out
 
-  var actual = transform(String(fs.readFileSync(input)).trim(), language)
+  const actual = transform(String(fs.readFileSync(input)).trim(), language)
 
   // Create output snapshot if it doesn’t exist yet.
   try {
@@ -421,7 +421,7 @@ function subtest(t, directory, transform) {
     fs.writeFileSync(output, out)
   }
 
-  var expected = rehype().data('settings', {fragment: true}).parse(out.trim())
+  const expected = rehype().data('settings', {fragment: true}).parse(out.trim())
 
   removePosition(expected, true)
 

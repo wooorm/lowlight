@@ -12,9 +12,11 @@ import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 
 /** @type {{common: string[], uncommon: string[]}} */
-var data = JSON.parse(String(fs.readFileSync(path.join('script', 'data.json'))))
+const data = JSON.parse(
+  String(fs.readFileSync(path.join('script', 'data.json')))
+)
 
-var promises = Promise.all(
+const promises = Promise.all(
   [...data.common, ...data.uncommon]
     .sort((a, b) => a.localeCompare(b))
     .map((d) => item(d))
@@ -28,7 +30,7 @@ export default function support() {
  * @param {Root} tree
  */
 async function transformer(tree) {
-  var items = await promises
+  const items = await promises
 
   zone(tree, 'support', replace)
 
@@ -48,11 +50,11 @@ async function transformer(tree) {
 async function item(name) {
   /** @type {LanguageFn} */
   // type-coverage:ignore-next-line
-  var fn = (await import('highlight.js/lib/languages/' + name)).default
-  var mod = fn(hljs)
+  const fn = (await import('highlight.js/lib/languages/' + name)).default
+  const mod = fn(hljs)
   /** @type {Array.<PhrasingContent>} */
-  var content = [u('inlineCode', name)]
-  var index = -1
+  const content = [u('inlineCode', name)]
+  let index = -1
 
   if (mod.aliases) {
     content.push(u('text', ' ('))
