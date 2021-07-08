@@ -302,7 +302,7 @@ available everywhere!
 *   [ ] `capnproto` (`capnp`) — Cap’n Proto
 *   [ ] `ceylon` — Ceylon
 *   [ ] `clean` (`icl`, `dcl`) — Clean
-*   [ ] `clojure` (`clj`) — Clojure
+*   [ ] `clojure` (`clj`, `edn`) — Clojure
 *   [ ] `clojure-repl` — Clojure REPL
 *   [ ] `cmake` (`cmake.in`) — CMake
 *   [ ] `coffeescript` (`coffee`, `cson`, `iced`) — CoffeeScript
@@ -326,7 +326,7 @@ available everywhere!
 *   [ ] `dts` — Device Tree
 *   [ ] `dust` (`dst`) — Dust
 *   [ ] `ebnf` — Extended Backus-Naur Form
-*   [ ] `elixir` — Elixir
+*   [ ] `elixir` (`ex`, `exs`) — Elixir
 *   [ ] `elm` — Elm
 *   [ ] `erb` — ERB
 *   [ ] `erlang` (`erl`) — Erlang
@@ -406,7 +406,7 @@ available everywhere!
 *   [x] `php-template` — PHP template
 *   [x] `plaintext` (`text`, `txt`) — Plain text
 *   [ ] `pony` — Pony
-*   [ ] `powershell` (`ps`, `ps1`) — PowerShell
+*   [ ] `powershell` (`pwsh`, `ps`, `ps1`) — PowerShell
 *   [ ] `processing` (`pde`) — Processing
 *   [ ] `profile` — Python profiler
 *   [ ] `prolog` — Prolog
