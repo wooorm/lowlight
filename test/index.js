@@ -421,6 +421,8 @@ function subtest(t, directory, transform) {
     fs.writeFileSync(output, out)
   }
 
+  /** @type {Root} */
+  // @ts-expect-error: fine.
   const expected = rehype().data('settings', {fragment: true}).parse(out.trim())
 
   removePosition(expected, true)
