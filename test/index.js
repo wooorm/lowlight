@@ -1,6 +1,5 @@
 /**
  * @typedef {import('tape').Test} Test
- * @typedef {import('hast').Root} Root
  * @typedef {import('../lib/core.js').LowlightRoot} LowlightRoot
  */
 
@@ -8,7 +7,7 @@ import fs from 'fs'
 import path from 'path'
 import highlight from 'highlight.js'
 import test from 'tape'
-import rehype from 'rehype'
+import {rehype} from 'rehype'
 import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
 
@@ -421,8 +420,6 @@ function subtest(t, directory, transform) {
     fs.writeFileSync(output, out)
   }
 
-  /** @type {Root} */
-  // @ts-expect-error: fine.
   const expected = rehype().data('settings', {fragment: true}).parse(out.trim())
 
   removePosition(expected, true)
