@@ -1,5 +1,4 @@
 /**
- * @typedef {import('unist').Node} Node
  * @typedef {import('mdast').Root} Root
  * @typedef {import('mdast').PhrasingContent} PhrasingContent
  * @typedef {import('highlight.js').LanguageFn} LanguageFn
@@ -32,16 +31,11 @@ export default function support() {
 async function transformer(tree) {
   const items = await promises
 
-  zone(tree, 'support', replace)
-
-  /**
-   * @param {Node} start
-   * @param {Array.<Node>} _
-   * @param {Node} end
-   */
-  function replace(start, _, end) {
-    return [start, u('list', {spread: false}, items), end]
-  }
+  zone(tree, 'support', (start, _, end) => [
+    start,
+    u('list', {spread: false}, items),
+    end
+  ])
 }
 
 /**

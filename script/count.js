@@ -1,5 +1,4 @@
 /**
- * @typedef {import('unist').Node} Node
  * @typedef {import('mdast').Root} Root
  */
 
@@ -21,39 +20,32 @@ export default function count() {
  * @param {Root} tree
  */
 function transformer(tree) {
-  zone(tree, 'index', replace)
-}
+  zone(tree, 'index', (start, _, end) => {
+    const {common, uncommon} = data
 
-/**
- * @param {Node} start
- * @param {Array.<Node>} _
- * @param {Node} end
- */
-function replace(start, _, end) {
-  const {common, uncommon} = data
-
-  return [
-    start,
-    u('list', {spread: false}, [
-      u('listItem', [
-        u('paragraph', [
-          u('inlineCode', 'lib/core.js'),
-          u('text', ' — 0 languages')
+    return [
+      start,
+      u('list', {spread: false}, [
+        u('listItem', [
+          u('paragraph', [
+            u('inlineCode', 'lib/core.js'),
+            u('text', ' — 0 languages')
+          ])
+        ]),
+        u('listItem', [
+          u('paragraph', [
+            u('inlineCode', 'lib/common.js'),
+            u('text', ' (default) — ' + common.length + ' languages')
+          ])
+        ]),
+        u('listItem', [
+          u('paragraph', [
+            u('inlineCode', 'lib/all.js'),
+            u('text', ' — ' + (common.length + uncommon.length) + ' languages')
+          ])
         ])
       ]),
-      u('listItem', [
-        u('paragraph', [
-          u('inlineCode', 'lib/common.js'),
-          u('text', ' (default) — ' + common.length + ' languages')
-        ])
-      ]),
-      u('listItem', [
-        u('paragraph', [
-          u('inlineCode', 'lib/all.js'),
-          u('text', ' — ' + (common.length + uncommon.length) + ' languages')
-        ])
-      ])
-    ]),
-    end
-  ]
+      end
+    ]
+  })
 }
