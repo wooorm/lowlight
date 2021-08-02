@@ -36,7 +36,7 @@
   "dependencies": {
     "@types/hast": "^2.0.0",
     "fault": "^2.0.0",
-    "highlight.js": "~11.1.0"
+    "highlight.js": "~11.2.0"
   },
   "devDependencies": {
     "@types/mdast": "^3.0.0",
