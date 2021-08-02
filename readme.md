@@ -83,7 +83,7 @@ hast trees can be serialized with [`hast-util-to-html`][to-html]:
 
 ```js
 import {lowlight} from 'lowlight'
-import toHtml from 'hast-util-to-html'
+import {toHtml} from 'hast-util-to-html'
 
 const tree = lowlight.highlight('js', '"use strict";')
 
@@ -103,7 +103,7 @@ hast trees are also used throughout the **[rehype][]** (**[unified][]**)
 ecosystem:
 
 ```js
-import unified from 'unified'
+import {unified} from 'unified'
 import rehypeStringify from 'rehype-stringify'
 import {lowlight} from 'lowlight'
 

@@ -292,9 +292,7 @@ test('lowlight.highlightAuto(value[, options])', (t) => {
   })
 
   t.test('harder example (coverage)', (t) => {
-    subtest(t, 'xml-large', (doc) => {
-      return lowlight.highlightAuto(doc)
-    })
+    subtest(t, 'xml-large', (doc) => lowlight.highlightAuto(doc))
 
     t.end()
   })
@@ -308,9 +306,9 @@ test('fixtures', (t) => {
 
   while (++index < files.length) {
     if (files[index].charAt(0) !== '.') {
-      subtest(t, files[index], (doc, language) => {
-        return lowlight.highlight(language, doc)
-      })
+      subtest(t, files[index], (doc, language) =>
+        lowlight.highlight(language, doc)
+      )
     }
   }
 
