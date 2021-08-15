@@ -4,8 +4,8 @@
  * @typedef {import('highlight.js').LanguageFn} LanguageFn
  */
 
-import path from 'path'
-import fs from 'fs'
+import path from 'node:path'
+import fs from 'node:fs'
 import hljs from 'highlight.js'
 import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'

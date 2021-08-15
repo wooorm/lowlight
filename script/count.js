@@ -2,8 +2,8 @@
  * @typedef {import('mdast').Root} Root
  */
 
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 

@@ -3,8 +3,9 @@
  * @typedef {import('../lib/core.js').LowlightRoot} LowlightRoot
  */
 
-import fs from 'fs'
-import path from 'path'
+import process from 'node:process'
+import fs from 'node:fs'
+import path from 'node:path'
 import highlight from 'highlight.js'
 import test from 'tape'
 import {rehype} from 'rehype'
