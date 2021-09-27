@@ -253,7 +253,7 @@ Is an `alias` or `language` registered.
 
 ###### Returns
 
-`Boolean`.
+`boolean`.
 
 ###### Example
 
