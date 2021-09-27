@@ -384,6 +384,18 @@ test('aliases', (t) => {
   t.end()
 })
 
+test('registered', (t) => {
+  t.deepEqual(lowlight.registered('javascript'), true)
+  t.deepEqual(lowlight.registered('diyjs'), false)
+
+  lowlight.registerAlias('javascript', 'diyjs')
+
+  t.deepEqual(lowlight.registered('diyjs'), true)
+
+  lowlight.registerAlias('javascript', '')
+  t.end()
+})
+
 /**
  * @param {Test} t
  * @param {string} directory

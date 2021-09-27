@@ -32,6 +32,7 @@ Try [`refractor`][refractor]!
     *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
     *   [`lowlight.registerLanguage(language, syntax)`](#lowlightregisterlanguagelanguage-syntax)
     *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
+    *   [`lowlight.registered(aliasOrlanguage)`](#lowlightregisteredaliasorlanguage)
     *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
 *   [Syntaxes](#syntaxes)
 *   [Related](#related)
@@ -239,6 +240,33 @@ lowlight.registerLanguage('markdown', md)
 lowlight.registerAlias({markdown: ['mdown', 'mkdn', 'mdwn', 'ron']})
 lowlight.highlight('mdown', '<em>Emphasis</em>')
 // ^ Works!
+```
+
+### `lowlight.registered(aliasOrlanguage)`
+
+Is an `alias` or `language` registered.
+
+###### Parameters
+
+*   `aliasOrlanguage` (`string`) — [Name][names] of a registered language
+    or its alias
+
+###### Returns
+
+`boolean`.
+
+###### Example
+
+```js
+import {lowlight} from 'lowlight/lib/core.js'
+import javascript from 'highlight.js/lib/languages/javascript.js'
+
+lowlight.registerLanguage('javascript', javascript)
+
+lowlight.registered('js') // return false
+
+lowlight.registerAlias('javascript', 'js')
+lowlight.registered('js') // return true
 ```
 
 ### `lowlight.listLanguages()`
