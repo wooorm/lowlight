@@ -363,7 +363,7 @@ available everywhere!
 *   [ ] `fix` — FIX
 *   [ ] `flix` — Flix
 *   [ ] `fortran` (`f90`, `f95`) — Fortran
-*   [ ] `fsharp` (`fs`) — F#
+*   [ ] `fsharp` (`fs`, `f#`) — F#
 *   [ ] `gams` (`gms`) — GAMS
 *   [ ] `gauss` (`gss`) — GAUSS
 *   [ ] `gcode` (`nc`) — G-code (ISO 6983)
