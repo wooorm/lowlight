@@ -62,12 +62,12 @@
     "xo": "^0.46.0"
   },
   "scripts": {
-    "prepack": "npm run build && npm run format",
-    "build": "rimraf \"{lib/**,test/**,script/**,}*.d.ts\" && tsc && type-coverage",
-    "generate": "node script/build-registry",
+    "generate": "node script/build-registry.js",
+    "prepublishOnly": "npm run build && npm run format",
+    "build": "rimraf \"{lib,script,test}/**/*.d.ts\" \"*.d.ts\" && tsc && type-coverage",
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
-    "test-api": "node test/index.js",
-    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov node test/index.js",
+    "test-api": "node --conditions development test/index.js",
+    "test-coverage": "c8 --check-coverage --branches 100 --functions 100 --lines 100 --statements 100 --reporter lcov npm run test-api",
     "test": "npm run generate && npm run build && npm run format && npm run test-coverage"
   },
   "prettier": {
@@ -94,6 +94,7 @@
   "typeCoverage": {
     "atLeast": 100,
     "detail": true,
-    "strict": true
+    "strict": true,
+    "ignoreCatch": true
   }
 }

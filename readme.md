@@ -165,7 +165,7 @@ Parse `value` by guessing its grammar.
 
 The options of `lowlight.highlight` are supported, plus:
 
-*   `subset` (`Array.<string>?` default: all registered languages)
+*   `subset` (`Array<string>?` default: all registered languages)
     — List of allowed languages
 
 ###### Returns
@@ -222,8 +222,8 @@ Register a new `alias` for `language`.
 
 *   `language` (`string`) — [Name][names] of a registered language
 *   `alias` (`string`) — New alias for the registered language
-*   `list` (`Array.<alias>`) — List of aliases
-*   `aliases` (`Object.<language, alias|list>`) — Map where each key is a
+*   `list` (`Array<alias>`) — List of aliases
+*   `aliases` (`Record<language, alias|list>`) — Map where each key is a
     `language` and each value an `alias` or a `list`
 
 ###### Example
@@ -275,7 +275,7 @@ List all registered languages.
 
 ###### Returns
 
-`Array.<string>`.
+`Array<string>`.
 
 ###### Example
 

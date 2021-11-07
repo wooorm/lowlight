@@ -1,7 +1,7 @@
-.DS_Store
-*.d.ts
-*.log
 coverage/
 node_modules/
+*.d.ts
+*.log
 script/data.json
+.DS_Store
 yarn.lock

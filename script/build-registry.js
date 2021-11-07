@@ -3,26 +3,26 @@ import path from 'node:path'
 import chalk from 'chalk'
 import {name as isIdentifier} from 'estree-util-is-identifier-name'
 
-let doc = String(
+const doc = String(
   fs.readFileSync(path.join('node_modules', 'highlight.js', 'lib', 'index.js'))
 )
 
 const category = /\/\*.*?Category: (.*?)\r?\n/s
 const register = /hljs\.registerLanguage\('(.+?)'/g
 let index = -1
-/** @type {Array.<string>} */
+/** @type {Array<string>} */
 const all = []
-/** @type {Array.<string>} */
+/** @type {Array<string>} */
 const common = []
-/** @type {Array.<string>} */
+/** @type {Array<string>} */
 let uncommon = []
-/** @type {RegExpMatchArray} */
+/** @type {RegExpMatchArray|null} */
 let match
 
 while ((match = register.exec(doc))) all.push(match[1])
 
 while (++index < all.length) {
-  doc = String(
+  const doc = String(
     fs.readFileSync(
       path.join(
         'node_modules',
@@ -34,7 +34,7 @@ while (++index < all.length) {
     )
   )
 
-  match = category.exec(doc)
+  const match = category.exec(doc)
 
   if (match && match[1].split(/,\s?/).includes('common')) {
     common.push(all[index])
@@ -69,7 +69,7 @@ console.log(
 )
 
 /**
- * @param {Array.<string>} list
+ * @param {Array<string>} list
  * @param {string} base
  * @returns {string}
  */

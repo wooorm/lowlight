@@ -21,7 +21,7 @@ test('lowlight.highlight(language, value[, options])', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       lowlight.highlight(true)
     },
     /Expected `string` for name, got `true`/,
@@ -30,7 +30,7 @@ test('lowlight.highlight(language, value[, options])', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       lowlight.highlight('js', true)
     },
     /Expected `string` for value, got `true`/,
@@ -153,7 +153,7 @@ test('lowlight.highlight(language, value[, options])', (t) => {
     })
 
     t.deepEqual(
-      // @ts-ignore yep, it’s an element.
+      // @ts-expect-error yep, it’s an element.
       result.children[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
@@ -168,7 +168,7 @@ test('lowlight.highlight(language, value[, options])', (t) => {
     })
 
     t.deepEqual(
-      // @ts-ignore yep, it’s an element.
+      // @ts-expect-error yep, it’s an element.
       result.children[0].properties.className,
       ['meta'],
       'should support an empty `prefix`'
@@ -185,7 +185,7 @@ test('lowlight.highlightAuto(value[, options])', (t) => {
 
   t.throws(
     () => {
-      // @ts-ignore runtime.
+      // @ts-expect-error runtime.
       lowlight.highlightAuto(true)
     },
     /Expected `string` for value, got `true`/,
@@ -246,7 +246,7 @@ test('lowlight.highlightAuto(value[, options])', (t) => {
     const result = lowlight.highlightAuto('"use strict";', {prefix: 'foo-'})
 
     t.deepEqual(
-      // @ts-ignore yep, it’s an element.
+      // @ts-expect-error yep, it’s an element.
       result.children[0].properties.className,
       ['foo-meta'],
       'should support a given custom `prefix`'
@@ -259,7 +259,7 @@ test('lowlight.highlightAuto(value[, options])', (t) => {
     const result = lowlight.highlightAuto('"use strict";', {prefix: ''})
 
     t.deepEqual(
-      // @ts-ignore yep, it’s an element.
+      // @ts-expect-error yep, it’s an element.
       result.children[0].properties.className,
       ['meta'],
       'should support an empty `prefix`'

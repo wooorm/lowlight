@@ -46,7 +46,7 @@ async function item(name) {
   // type-coverage:ignore-next-line
   const fn = (await import('highlight.js/lib/languages/' + name)).default
   const mod = fn(hljs)
-  /** @type {Array.<PhrasingContent>} */
+  /** @type {Array<PhrasingContent>} */
   const content = [u('inlineCode', name)]
   let index = -1
 
