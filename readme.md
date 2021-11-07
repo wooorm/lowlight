@@ -1,3 +1,5 @@
+<!--lint disable no-html-->
+
 # lowlight
 
 [![Build][build-badge]][build]
@@ -5,26 +7,12 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Virtual syntax highlighting for virtual DOMs and non-HTML things, with language
-auto-detection.
-Perfect for [React][], [VDOM][], and others.
-
-Lowlight is built to work with all syntaxes supported by [highlight.js][].
-There are three builds of lowlight:
-
-<!--index start-->
-
-*   `lib/core.js` — 0 languages
-*   `lib/common.js` (default) — 35 languages
-*   `lib/all.js` — 191 languages
-
-<!--index end-->
-
-Want to use [Prism][] instead?
-Try [`refractor`][refractor]!
+Virtual syntax highlighting for virtual DOMs and non-HTML things.
 
 ## Contents
 
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
@@ -34,25 +22,74 @@ Try [`refractor`][refractor]!
     *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
     *   [`lowlight.registered(aliasOrlanguage)`](#lowlightregisteredaliasorlanguage)
     *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
-*   [Syntaxes](#syntaxes)
+*   [Examples](#examples)
+    *   [Example: serializing hast as html](#example-serializing-hast-as-html)
+    *   [Example: turning hast into react nodes](#example-turning-hast-into-react-nodes)
+*   [Types](#types)
+*   [Data](#data)
+*   [CSS](#css)
+*   [Compatibility](#compatibility)
+*   [Security](#security)
 *   [Related](#related)
 *   [Projects](#projects)
+*   [Contribute](#contribute)
 *   [License](#license)
+
+## What is this?
+
+This package wraps [highlight.js][] to output objects (ASTs) instead of a string
+of HTML.
+
+`highlight.js`, through lowlight, supports 190+ programming languages.
+Supporting all of them requires a lot of code.
+That’s why there are three entry points for lowlight:
+
+<!--index start-->
+
+*   `lib/core.js` — 0 languages
+*   `lib/common.js` (default) — 35 languages
+*   `lib/all.js` — 191 languages
+
+<!--index end-->
+
+Bundled, minified, and gzipped, those are roughly 9.7 kB, 47 kB, and 290 kB.
+
+## When should I use this?
+
+This package is useful when you want to perform syntax highlighting in a place
+where serialized HTML wouldn’t work or wouldn’t work well.
+For example, you can use lowlight when you want to show code in a CLI by
+rendering to ANSI sequences, when you’re using virtual DOM frameworks (such as
+React or Preact) so that diffing can be performant, or when you’re working with
+ASTs (rehype).
+
+A different package, [`refractor`][refractor], does the same as lowlight uses
+[Prism][] instead.
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, or 16.0+), install with [npm][]:
 
 ```sh
 npm install lowlight
 ```
 
-## Use
+In Deno with [Skypack][]:
 
-Highlight:
+```js
+import {lowlight} from 'https://cdn.skypack.dev/lowlight@2?dts'
+```
+
+In browsers with [Skypack][]:
+
+```html
+<script type="module">
+  import {lowlight} from 'https://cdn.skypack.dev/lowlight@2?min'
+</script>
+```
+
+## Use
 
 ```js
 import {lowlight} from 'lowlight'
@@ -80,68 +117,32 @@ Yields:
 }
 ```
 
-hast trees can be serialized with [`hast-util-to-html`][to-html]:
-
-```js
-import {lowlight} from 'lowlight'
-import {toHtml} from 'hast-util-to-html'
-
-const tree = lowlight.highlight('js', '"use strict";')
-
-console.log(toHtml(tree))
-```
-
-Yields:
-
-```html
-<span class="hljs-meta">"use strict"</span>;
-```
-
-hast trees can be turned into other things, like virtual DOMs, with
-[`hast-to-hyperscript`][to-hyperscript].
-
-hast trees are also used throughout the **[rehype][]** (**[unified][]**)
-ecosystem:
-
-```js
-import {unified} from 'unified'
-import rehypeStringify from 'rehype-stringify'
-import {lowlight} from 'lowlight'
-
-const tree = lowlight.highlight('js', '"use strict";')
-
-const processor = unified().use(rehypeStringify)
-const html = processor.stringify(tree).toString()
-
-console.log(html)
-```
-
-Yields:
-
-```html
-<span class="hljs-meta">"use strict"</span>;
-```
-
 ## API
 
-This package exports the following identifiers: `lowlight`.
+This package exports the following identifier: `lowlight`.
 There is no default export.
 
 ### `lowlight.highlight(language, value[, options])`
 
-Parse `value` (`string`) according to the [`language`][names] grammar.
+Highlight `value` (code) as `language` (name).
 
-###### `options`
+###### Parameters
 
-*   `prefix` (`string?`, default: `'hljs-'`) — Class prefix
+*   `language` (`string`)
+    — programming language [name][names]
+*   `value` (`string`)
+    — code to highlight
+*   `options.prefix` (`string?`, default: `'hljs-'`)
+    — class prefix
 
 ###### Returns
 
-A hast [`Root`][root] with two `data` fields:
+A hast [`Root`][root] node with the following `data` fields:
 
-*   `relevance` (`number`) — How sure **low** is that the given code is in the
-    language
-*   `language` (`string`) — The detected `language` name
+*   `relevance` (`number`)
+    — how sure lowlight is that the given code is in the language
+*   `language` (`string`)
+    — detected programming language name
 
 ###### Example
 
@@ -159,14 +160,16 @@ Yields:
 
 ### `lowlight.highlightAuto(value[, options])`
 
-Parse `value` by guessing its grammar.
+Highlight `value` (code) and guess its programming language.
 
-###### `options`
+###### Parameters
 
-The options of `lowlight.highlight` are supported, plus:
-
-*   `subset` (`Array<string>?` default: all registered languages)
-    — List of allowed languages
+*   `value` (`string`)
+    — code to highlight
+*   `options.prefix` (`string?`, default: `'hljs-'`)
+    — class prefix
+*   `options.subset` (`Array<string>`, default: all registered language names)
+    — list of allowed languages
 
 ###### Returns
 
@@ -189,8 +192,19 @@ Yields:
 
 ### `lowlight.registerLanguage(language, syntax)`
 
-Register a [syntax][] as `language` (`string`).
-Useful in the browser or with custom grammars.
+Register a language.
+
+###### Parameters
+
+*   `language` (`string`)
+    — programming language name
+*   `syntax` ([`HighlightSyntax`][syntax])
+    — `highlight.js` syntax
+
+###### Note
+
+`highlight.js` operates as a singleton: once you register a language in one
+place, it’ll be available everywhere.
 
 ###### Example
 
@@ -211,7 +225,7 @@ Yields:
 
 ### `lowlight.registerAlias(language, alias)`
 
-Register a new `alias` for `language`.
+Register aliases for already registered languages.
 
 ###### Signatures
 
@@ -220,11 +234,14 @@ Register a new `alias` for `language`.
 
 ###### Parameters
 
-*   `language` (`string`) — [Name][names] of a registered language
-*   `alias` (`string`) — New alias for the registered language
-*   `list` (`Array<alias>`) — List of aliases
-*   `aliases` (`Record<language, alias|list>`) — Map where each key is a
-    `language` and each value an `alias` or a `list`
+*   `language` (`string`)
+    — programming language [name][names]
+*   `alias` (`string`)
+    — new aliases for the programming language
+*   `list` (`Array<string>`)
+    — list of aliases
+*   `aliases` (`Record<language, alias|list>`)
+    — map of `language`s to `alias`es or `list`s
 
 ###### Example
 
@@ -244,16 +261,16 @@ lowlight.highlight('mdown', '<em>Emphasis</em>')
 
 ### `lowlight.registered(aliasOrlanguage)`
 
-Is an `alias` or `language` registered.
+Check whether an `alias` or `language` is registered.
 
 ###### Parameters
 
-*   `aliasOrlanguage` (`string`) — [Name][names] of a registered language
-    or its alias
+*   `aliasOrlanguage` (`string`)
+    — [name][names] of a registered language or alias
 
 ###### Returns
 
-`boolean`.
+Whether `aliasOrlanguage` is registered (`boolean`).
 
 ###### Example
 
@@ -271,11 +288,11 @@ lowlight.registered('js') // return true
 
 ### `lowlight.listLanguages()`
 
-List all registered languages.
+List registered languages.
 
 ###### Returns
 
-`Array<string>`.
+Names of registered language (`Array<string>`).
 
 ###### Example
 
@@ -290,16 +307,78 @@ lowlight.registerLanguage('markdown', md)
 console.log(lowlight.listLanguages()) // => ['markdown']
 ```
 
-## Syntaxes
+## Examples
+
+### Example: serializing hast as html
+
+hast trees as returned by lowlight can be serialized with
+[`hast-util-to-html`][hast-util-to-html]:
+
+```js
+import {lowlight} from 'lowlight'
+import {toHtml} from 'hast-util-to-html'
+
+const tree = lowlight.highlight('js', '"use strict";')
+
+console.log(toHtml(tree))
+```
+
+Yields:
+
+```html
+<span class="hljs-meta">"use strict"</span>;
+```
+
+### Example: turning hast into react nodes
+
+hast trees as returned by lowlight can be turned into React (or Preact) with
+[`hast-to-hyperscript`][hast-to-hyperscript]:
+
+```js
+import {lowlight} from 'lowlight'
+import {toH} from 'hast-to-hyperscript'
+import React from 'react'
+
+const tree = lowlight.highlight('js', '"use strict";')
+const react = toH(React.createElement, tree)
+
+console.log(react)
+```
+
+Yields:
+
+```js
+{
+  '$$typeof': Symbol(react.element),
+  type: 'div',
+  key: 'h-1',
+  ref: null,
+  props: { children: [ [Object], ';' ] },
+  _owner: null,
+  _store: {}
+}
+```
+
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports additional `Root`, `Options`, and `AutoOptions` types that models
+their respective interface.
+
+<!--Old name of the following section:-->
+
+<a name="syntaxes"></a>
+
+## Data
 
 If you’re using `lowlight/lib/core.js`, no syntaxes are included.
-Checked syntaxes are included if you import `lowlight` (or
+Checked syntaxes are included if you import `lowlight` (or explicitly
 `lowlight/lib/common.js`).
-Unchecked syntaxes are available through `lowlight/lib/all.js`
+Unchecked syntaxes are available through `lowlight/lib/all.js`.
+You can import `core` or `common` and manually add more languages as you please.
 
-Note that highlight.js works as a singleton.
-That means that if you register a syntax anywhere in your project, it’ll become
-available everywhere!
+`highlight.js` operates as a singleton: once you register a language in one
+place, it’ll be available everywhere.
 
 <!--support start-->
 
@@ -497,25 +576,51 @@ available everywhere!
 
 <!--support end-->
 
+## CSS
+
+`lowlight` does not inject CSS for the syntax highlighted code (because well,
+lowlight doesn’t have to be turned into HTML and might not run in a browser!).
+If you are in a browser, you can use any `highlight.js` theme.
+For example, to get GitHub Dark from cdnjs:
+
+```html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css">
+```
+
+## Compatibility
+
+This package is at least compatible with all maintained versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, and 16.0+.
+It also works in Deno and modern browsers.
+
+## Security
+
+This package is safe.
+
 ## Related
 
-*   [`refractor`][refractor] — Same, but based on [Prism][]
+*   [`wooorm/refractor`][refractor]
+    — the same as lowlight but with [Prism][]
 
 ## Projects
 
 *   [`emphasize`](https://github.com/wooorm/emphasize)
-    — Syntax highlighting in ANSI, for the terminal
+    — syntax highlighting in ANSI (for the terminal)
 *   [`react-lowlight`](https://github.com/rexxars/react-lowlight)
-    — Syntax highlighter for [React][]
+    — syntax highlighter for [React][]
 *   [`react-syntax-highlighter`](https://github.com/conorhastings/react-syntax-highlighter)
     — [React][] component for syntax highlighting
 *   [`rehype-highlight`](https://github.com/rehypejs/rehype-highlight)
-    — Syntax highlighting in [**rehype**](https://github.com/rehypejs/rehype)
-*   [`remark-highlight.js`](https://github.com/ben-eb/remark-highlight.js)
-    — Syntax highlighting in [**remark**](https://github.com/remarkjs/remark)
+    — [**rehype**](https://github.com/rehypejs/rehype) plugin to highlight code
+    blocks
 *   [`jstransformer-lowlight`](https://github.com/ai/jstransformer-lowlight)
-    — Syntax highlighting for [JSTransformers](https://github.com/jstransformers)
+    — syntax highlighting for [JSTransformers](https://github.com/jstransformers)
     and [Pug](https://pugjs.org/language/filters.html)
+
+## Contribute
+
+Yes please!
+See [How to Contribute to Open Source][contribute].
 
 ## License
 
@@ -541,15 +646,17 @@ available everywhere!
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[skypack]: https://www.skypack.dev
+
 [license]: license
 
 [author]: https://wooorm.com
 
-[to-html]: https://github.com/syntax-tree/hast-util-to-html
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
 
-[rehype]: https://github.com/rehypejs/rehype
+[typescript]: https://www.typescriptlang.org
 
-[unified]: https://github.com/unifiedjs/unified
+[contribute]: https://opensource.guide/how-to-contribute/
 
 [root]: https://github.com/syntax-tree/hast#root
 
@@ -561,10 +668,10 @@ available everywhere!
 
 [react]: https://facebook.github.io/react/
 
-[vdom]: https://github.com/Matt-Esch/virtual-dom
-
-[to-hyperscript]: https://github.com/syntax-tree/hast-to-hyperscript
-
 [prism]: https://github.com/PrismJS/prism
 
 [refractor]: https://github.com/wooorm/refractor
+
+[hast-util-to-html]: https://github.com/syntax-tree/hast-util-to-html
+
+[hast-to-hyperscript]: https://github.com/syntax-tree/hast-to-hyperscript

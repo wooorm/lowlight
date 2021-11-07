@@ -1,6 +1,6 @@
 /**
  * @typedef {import('tape').Test} Test
- * @typedef {import('../lib/core.js').LowlightRoot} LowlightRoot
+ * @typedef {import('../lib/core.js').Root} Root
  */
 
 import process from 'node:process'
@@ -399,7 +399,7 @@ test('registered', (t) => {
 /**
  * @param {Test} t
  * @param {string} directory
- * @param {(doc: string, name: string) => LowlightRoot} transform
+ * @param {(doc: string, name: string) => Root} transform
  */
 function subtest(t, directory, transform) {
   const parts = directory.split('-')
