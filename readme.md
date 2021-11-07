@@ -63,8 +63,8 @@ rendering to ANSI sequences, when you’re using virtual DOM frameworks (such as
 React or Preact) so that diffing can be performant, or when you’re working with
 ASTs (rehype).
 
-A different package, [`refractor`][refractor], does the same as lowlight uses
-[Prism][] instead.
+A different package, [`refractor`][refractor], does the same as lowlight but
+uses [Prism][] instead.
 
 ## Install
 
@@ -363,7 +363,7 @@ Yields:
 
 This package is fully typed with [TypeScript][].
 It exports additional `Root`, `Options`, and `AutoOptions` types that models
-their respective interface.
+their respective interfaces.
 
 <!--Old name of the following section:-->
 
