@@ -469,7 +469,7 @@ place, it’ll be available everywhere.
 *   [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
 *   [x] `json` — JSON
 *   [ ] `julia` — Julia
-*   [ ] `julia-repl` — Julia REPL
+*   [ ] `julia-repl` (`jldoctest`) — Julia REPL
 *   [x] `kotlin` (`kt`, `kts`) — Kotlin
 *   [ ] `lasso` (`ls`, `lassoscript`) — Lasso
 *   [ ] `latex` (`tex`) — LaTeX
