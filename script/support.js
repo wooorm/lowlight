@@ -42,26 +42,27 @@ async function transformer(tree) {
  * @param {string} name
  */
 async function item(name) {
-  /** @type {LanguageFn} */
+  /** @type {{default: LanguageFn}} */
   // type-coverage:ignore-next-line
-  const fn = (await import('highlight.js/lib/languages/' + name)).default
-  const mod = fn(hljs)
+  const mod = await import('highlight.js/lib/languages/' + name)
+  const fn = mod.default
+  const language = fn(hljs)
   /** @type {Array<PhrasingContent>} */
   const content = [u('inlineCode', name)]
   let index = -1
 
-  if (mod.aliases) {
+  if (language.aliases) {
     content.push(u('text', ' ('))
 
-    while (++index < mod.aliases.length) {
+    while (++index < language.aliases.length) {
       if (index) content.push(u('text', ', '))
-      content.push(u('inlineCode', mod.aliases[index]))
+      content.push(u('inlineCode', language.aliases[index]))
     }
 
     content.push(u('text', ')'))
   }
 
-  content.push(u('text', ' — ' + mod.name))
+  content.push(u('text', ' — ' + language.name))
 
   return u('listItem', {checked: data.common.includes(name)}, [
     u('paragraph', content)

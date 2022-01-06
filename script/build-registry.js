@@ -79,8 +79,9 @@ function generate(list, base) {
       (d) => 'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + "'"
     ),
     "import {lowlight} from './" + base + ".js'",
-    'export {lowlight}',
     ...list.map((d) => "lowlight.registerLanguage('" + d + "', " + id(d) + ')'),
+    '',
+    "export {lowlight} from './" + base + ".js'",
     ''
   ].join('\n')
 }
