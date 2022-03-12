@@ -48,7 +48,7 @@ That’s why there are three entry points for lowlight:
 
 *   `lib/core.js` — 0 languages
 *   `lib/common.js` (default) — 35 languages
-*   `lib/all.js` — 191 languages
+*   `lib/all.js` — 192 languages
 
 <!--index end-->
 
@@ -452,6 +452,7 @@ place, it’ll be available everywhere.
 *   [x] `go` (`golang`) — Go
 *   [ ] `golo` — Golo
 *   [ ] `gradle` — Gradle
+*   [ ] `graphql` (`gql`) — GraphQL
 *   [ ] `groovy` — Groovy
 *   [ ] `haml` — HAML
 *   [ ] `handlebars` (`hbs`, `html.hbs`, `html.handlebars`, `htmlbars`) — Handlebars

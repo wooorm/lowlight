@@ -1,4 +1,4 @@
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span></span>
+<span class="hljs-keyword">def</span> <span class="hljs-title hljs-function">foo</span>()
   msg = <span class="hljs-string">&lt;&lt;-HTML
   &lt;div>
     &lt;h4><span class="hljs-subst">#{bar}</span>&lt;/h4>
@@ -6,7 +6,7 @@
   HTML</span>
 <span class="hljs-keyword">end</span>
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">baz</span><span class="hljs-params">()</span></span>
+<span class="hljs-keyword">def</span> <span class="hljs-title hljs-function">baz</span>()
   msg = <span class="hljs-string">&lt;&lt;~FOO
   &lt;div>
     &lt;h4><span class="hljs-subst">#{bar}</span>&lt;/h4>

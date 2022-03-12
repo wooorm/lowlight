@@ -1,4 +1,4 @@
-<span class="hljs-meta">&lt;?xml version="1.0"?></span>
+<span class="hljs-meta">&lt;?xml version=<span class="hljs-string">"1.0"</span>?></span>
 <span class="hljs-tag">&lt;<span class="hljs-name">response</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"ok"</span> <span class="hljs-attr">xml:lang</span>=<span class="hljs-string">"en"</span>></span>
   <span class="hljs-tag">&lt;<span class="hljs-name">text</span>></span>Ok<span class="hljs-tag">&lt;/<span class="hljs-name">text</span>></span>
   <span class="hljs-tag">&lt;<span class="hljs-name">comment</span> <span class="hljs-attr">html_allowed</span>=<span class="hljs-string">"true"</span>/></span>
