@@ -107,7 +107,7 @@ test('lowlight.highlight(language, value[, options])', (t) => {
         {
           type: 'element',
           tagName: 'span',
-          properties: {className: ['hljs-title', 'hljs-function']},
+          properties: {className: ['hljs-title', 'function_']},
           children: [{type: 'text', value: 'moveTo'}]
         },
         {
