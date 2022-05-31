@@ -65,6 +65,8 @@ ASTs (rehype).
 
 A different package, [`refractor`][refractor], does the same as lowlight but
 uses [Prism][] instead.
+If you’re looking for a *really good* (but rather heavy) highlighter, try
+[`starry-night`][starry-night].
 
 ## Install
 
@@ -600,8 +602,10 @@ This package is safe.
 
 ## Related
 
-*   [`wooorm/refractor`][refractor]
+*   [`refractor`][refractor]
     — the same as lowlight but with [Prism][]
+*   [`starry-night`][starry-night]
+    — similar but like GitHub and really good
 
 ## Projects
 
@@ -672,6 +676,8 @@ See [How to Contribute to Open Source][contribute].
 [prism]: https://github.com/PrismJS/prism
 
 [refractor]: https://github.com/wooorm/refractor
+
+[starry-night]: https://github.com/wooorm/starry-night
 
 [hast-util-to-html]: https://github.com/syntax-tree/hast-util-to-html
 
