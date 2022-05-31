@@ -7,7 +7,7 @@ import path from 'node:path'
 import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 
-/** @type {{common: string[], uncommon: string[]}} */
+/** @type {{common: Array<string>, uncommon: Array<string>}} */
 const data = JSON.parse(
   String(fs.readFileSync(path.join('script', 'data.json')))
 )
