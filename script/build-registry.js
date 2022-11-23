@@ -75,6 +75,9 @@ console.log(
  */
 function generate(list, base) {
   return [
+    '// @ts-expect-error: this registers types for the language files.',
+    "/** @typedef {import('highlight.js/types/index.js')} DoNotTochItRegistersLanguageFiles */",
+    '',
     ...list.map(
       (d) => 'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + "'"
     ),
