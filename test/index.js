@@ -3,18 +3,17 @@
  * @typedef {import('../lib/core.js').Root} Root
  */
 
+import fs from 'node:fs/promises'
 import process from 'node:process'
-import fs from 'node:fs'
-import path from 'node:path'
 import highlight from 'highlight.js'
 import test from 'tape'
 import {rehype} from 'rehype'
 import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
 
-const fixtures = path.join('test', 'fixture')
-const inputName = 'input.txt'
-const outputName = 'output.txt'
+/* eslint-disable no-await-in-loop */
+
+const fixtures = new URL('fixture/', import.meta.url)
 
 test('lowlight.highlight(language, value[, options])', (t) => {
   const result = lowlight.highlight('js', '')
@@ -292,8 +291,8 @@ test('lowlight.highlightAuto(value[, options])', (t) => {
     t.end()
   })
 
-  t.test('harder example (coverage)', (t) => {
-    subtest(t, 'xml-large', (doc) => lowlight.highlightAuto(doc))
+  t.test('harder example (coverage)', async (t) => {
+    await subtest(t, 'xml-large', (doc) => lowlight.highlightAuto(doc))
 
     t.end()
   })
@@ -301,13 +300,13 @@ test('lowlight.highlightAuto(value[, options])', (t) => {
   t.end()
 })
 
-test('fixtures', (t) => {
-  const files = fs.readdirSync(fixtures)
+test('fixtures', async (t) => {
+  const files = await fs.readdir(fixtures)
   let index = -1
 
   while (++index < files.length) {
     if (files[index].charAt(0) !== '.') {
-      subtest(t, files[index], (doc, language) =>
+      await subtest(t, files[index], (doc, language) =>
         lowlight.highlight(language, doc)
       )
     }
@@ -340,11 +339,10 @@ test('listLanguages', (t) => {
   t.end()
 })
 
-test('aliases', (t) => {
-  const input = fs
-    .readFileSync(path.join(fixtures, 'md-sublanguage', inputName))
-    .toString()
-    .trim()
+test('aliases', async (t) => {
+  const input = String(
+    await fs.readFile(new URL('md-sublanguage/input.txt', fixtures))
+  ).trim()
   const expected = lowlight.highlight('markdown', input).children
 
   lowlight.registerAlias('markdown', 'mkd')
@@ -401,16 +399,16 @@ test('registered', (t) => {
  * @param {string} directory
  * @param {(doc: string, name: string) => Root} transform
  */
-function subtest(t, directory, transform) {
+async function subtest(t, directory, transform) {
   const parts = directory.split('-')
   const language = parts[0]
   const name = parts.slice(1).join('-')
-  const input = path.join(fixtures, directory, inputName)
-  const output = path.join(fixtures, directory, outputName)
+  const input = new URL(directory + '/input.txt', fixtures)
+  const output = new URL(directory + '/output.txt', fixtures)
   /** @type {string} */
   let out
 
-  const actual = transform(String(fs.readFileSync(input)).trim(), language)
+  const actual = transform(String(await fs.readFile(input)).trim(), language)
 
   // Create output snapshot if it doesn’t exist yet.
   try {
@@ -418,7 +416,7 @@ function subtest(t, directory, transform) {
       throw new Error('Updating…')
     }
 
-    out = String(fs.readFileSync(output))
+    out = String(await fs.readFile(output))
   } catch {
     out =
       rehype()
@@ -428,7 +426,7 @@ function subtest(t, directory, transform) {
         })
         .stringify(actual) + '\n'
 
-    fs.writeFileSync(output, out)
+    await fs.writeFile(output, out)
   }
 
   const expected = rehype().data('settings', {fragment: true}).parse(out.trim())
@@ -441,3 +439,5 @@ function subtest(t, directory, transform) {
     'should correctly process ' + name + ' in ' + language
   )
 }
+
+/* eslint-enable no-await-in-loop */

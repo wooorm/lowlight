@@ -1,31 +1,24 @@
 /**
  * @typedef {import('mdast').Root} Root
+ * @typedef {import('mdast').List} List
  */
 
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from 'node:fs/promises'
 import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 
 /** @type {{common: Array<string>, uncommon: Array<string>}} */
 const data = JSON.parse(
-  String(fs.readFileSync(path.join('script', 'data.json')))
+  String(await fs.readFile(new URL('data.json', import.meta.url)))
 )
 
+/** @type {import('unified').Plugin<[], Root>} */
 export default function count() {
-  return transformer
-}
-
-/**
- * @param {Root} tree
- */
-function transformer(tree) {
-  zone(tree, 'index', (start, _, end) => {
-    const {common, uncommon} = data
-
-    return [
-      start,
-      u('list', {spread: false}, [
+  return function (tree) {
+    zone(tree, 'index', (start, _, end) => {
+      const {common, uncommon} = data
+      /** @type {List} */
+      const list = u('list', {spread: false}, [
         u('listItem', [
           u('paragraph', [
             u('inlineCode', 'lib/core.js'),
@@ -44,8 +37,9 @@ function transformer(tree) {
             u('text', ' — ' + (common.length + uncommon.length) + ' languages')
           ])
         ])
-      ]),
-      end
-    ]
-  })
+      ])
+
+      return [start, list, end]
+    })
+  }
 }

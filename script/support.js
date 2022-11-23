@@ -1,18 +1,18 @@
 /**
  * @typedef {import('mdast').Root} Root
+ * @typedef {import('mdast').ListItem} ListItem
  * @typedef {import('mdast').PhrasingContent} PhrasingContent
  * @typedef {import('highlight.js').LanguageFn} LanguageFn
  */
 
-import path from 'node:path'
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import hljs from 'highlight.js'
 import {zone} from 'mdast-zone'
 import {u} from 'unist-builder'
 
 /** @type {{common: Array<string>, uncommon: Array<string>}} */
 const data = JSON.parse(
-  String(fs.readFileSync(path.join('script', 'data.json')))
+  String(await fs.readFile(new URL('data.json', import.meta.url)))
 )
 
 const promises = Promise.all(
@@ -21,25 +21,22 @@ const promises = Promise.all(
     .map((d) => item(d))
 )
 
+/** @type {import('unified').Plugin<[], Root>} */
 export default function support() {
-  return transformer
-}
+  return async function (tree) {
+    const items = await promises
 
-/**
- * @param {Root} tree
- */
-async function transformer(tree) {
-  const items = await promises
-
-  zone(tree, 'support', (start, _, end) => [
-    start,
-    u('list', {spread: false}, items),
-    end
-  ])
+    zone(tree, 'support', (start, _, end) => [
+      start,
+      u('list', {spread: false}, items),
+      end
+    ])
+  }
 }
 
 /**
  * @param {string} name
+ * @returns {Promise<ListItem>}
  */
 async function item(name) {
   /** @type {{default: LanguageFn}} */

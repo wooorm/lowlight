@@ -1,11 +1,11 @@
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from 'node:fs/promises'
 import chalk from 'chalk'
 import {name as isIdentifier} from 'estree-util-is-identifier-name'
 
-const doc = String(
-  fs.readFileSync(path.join('node_modules', 'highlight.js', 'lib', 'index.js'))
-)
+/* eslint-disable no-await-in-loop */
+
+const base = new URL('../node_modules/highlight.js/', import.meta.url)
+const doc = String(await fs.readFile(new URL('lib/index.js', base)))
 
 const category = /\/\*.*?Category: (.*?)\r?\n/s
 const register = /hljs\.registerLanguage\('(.+?)'/g
@@ -23,15 +23,7 @@ while ((match = register.exec(doc))) all.push(match[1])
 
 while (++index < all.length) {
   const doc = String(
-    fs.readFileSync(
-      path.join(
-        'node_modules',
-        'highlight.js',
-        'lib',
-        'languages',
-        all[index] + '.js'
-      )
-    )
+    await fs.readFile(new URL('lib/languages/' + all[index] + '.js', base))
   )
 
   const match = category.exec(doc)
@@ -47,11 +39,17 @@ uncommon = all
   .filter((d) => !common.includes(d))
   .sort((a, b) => a.localeCompare(b))
 
-fs.writeFileSync(path.join('lib', 'common.js'), generate(common, 'core'))
-fs.writeFileSync(path.join('lib', 'all.js'), generate(uncommon, 'common'))
+await fs.writeFile(
+  new URL('../lib/common.js', import.meta.url),
+  generate(common, 'core')
+)
+await fs.writeFile(
+  new URL('../lib/all.js', import.meta.url),
+  generate(uncommon, 'common')
+)
 
-fs.writeFileSync(
-  path.join('script', 'data.json'),
+await fs.writeFile(
+  new URL('../script/data.json', import.meta.url),
   JSON.stringify({common, uncommon}, null, 2) + '\n'
 )
 
@@ -82,6 +80,7 @@ function generate(list, base) {
       (d) => 'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + "'"
     ),
     "import {lowlight} from './" + base + ".js'",
+    '',
     ...list.map((d) => "lowlight.registerLanguage('" + d + "', " + id(d) + ')'),
     '',
     "export {lowlight} from './" + base + ".js'",
@@ -99,3 +98,5 @@ function id(name) {
   if (isIdentifier('$' + cleaned)) return '$' + cleaned
   throw new Error('Could not generate id for `' + name + '`')
 }
+
+/* eslint-enable no-await-in-loop */
