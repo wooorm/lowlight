@@ -531,14 +531,14 @@ place, it’ll be available everywhere.
 *   [ ] `reasonml` (`re`) — ReasonML
 *   [ ] `rib` — RenderMan RIB
 *   [ ] `roboconf` (`graph`, `instances`) — Roboconf
-*   [ ] `routeros` (`mikrotik`) — Microtik RouterOS script
+*   [ ] `routeros` (`mikrotik`) — MikroTik RouterOS script
 *   [ ] `rsl` — RenderMan RSL
 *   [x] `ruby` (`rb`, `gemspec`, `podspec`, `thor`, `irb`) — Ruby
 *   [ ] `ruleslanguage` — Oracle Rules Language
 *   [x] `rust` (`rs`) — Rust
 *   [ ] `sas` — SAS
 *   [ ] `scala` — Scala
-*   [ ] `scheme` — Scheme
+*   [ ] `scheme` (`scm`) — Scheme
 *   [ ] `scilab` (`sci`) — Scilab
 *   [x] `scss` — SCSS
 *   [x] `shell` (`console`, `shellsession`) — Shell Session
