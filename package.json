@@ -25,6 +25,7 @@
     "Shu Uesugi <shu@chibicode.com>"
   ],
   "sideEffects": [
+    "index.js",
     "lib/all.js",
     "lib/common.js"
   ],
