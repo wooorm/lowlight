@@ -2559,7 +2559,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"highlight.js@npm:~11.7.0":
+"highlight.js@npm:^11.7.0":
   version: 11.7.0
   resolution: "highlight.js@npm:11.7.0"
   checksum: 19e3fb8b56f4b361b057a8523b989dfeb6479bbd1e29cec3fac6fa5c78d09927d5fa61b7dba6631fdb57cfdca9b3084aa4da49405ceaf4a67f67beae2ed5b77d
@@ -3432,7 +3432,7 @@ __metadata:
     chalk: ^5.0.0
     estree-util-is-identifier-name: ^2.0.0
     fault: ^2.0.0
-    highlight.js: ~11.7.0
+    highlight.js: ^11.7.0
     mdast-zone: ^5.0.0
     prettier: ^2.0.0
     rehype: ^12.0.0
@@ -3443,6 +3443,8 @@ __metadata:
     unist-builder: ^3.0.0
     unist-util-remove-position: ^4.0.0
     xo: ^0.53.0
+  peerDependencies:
+    highlight.js: ">=11.0.0"
   languageName: unknown
   linkType: soft
 
