@@ -2,6 +2,8 @@ coverage/
 node_modules/
 *.d.ts
 *.log
+.yarn/*
+!.yarn/plugins
+!.yarn/releases
 script/data.json
 .DS_Store
-yarn.lock

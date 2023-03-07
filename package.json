@@ -69,6 +69,7 @@
     "test-coverage": "c8 --check-coverage --100 --reporter lcov npm run test-api",
     "test": "npm run generate && npm run build && npm run format && npm run test-coverage"
   },
+  "packageManager": "yarn@3.4.1",
   "prettier": {
     "tabWidth": 2,
     "useTabs": false,
