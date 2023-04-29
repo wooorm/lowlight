@@ -467,7 +467,7 @@ place, it’ll be available everywhere.
 *   [ ] `irpf90` — IRPF90
 *   [ ] `isbl` — ISBL
 *   [x] `java` (`jsp`) — Java
-*   [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — Javascript
+*   [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — JavaScript
 *   [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
 *   [x] `json` — JSON
 *   [ ] `julia` — Julia
@@ -520,7 +520,7 @@ place, it’ll be available everywhere.
 *   [ ] `profile` — Python profiler
 *   [ ] `prolog` — Prolog
 *   [ ] `properties` — .properties
-*   [ ] `protobuf` — Protocol Buffers
+*   [ ] `protobuf` (`proto`) — Protocol Buffers
 *   [ ] `puppet` (`pp`) — Puppet
 *   [ ] `purebasic` (`pb`, `pbi`) — PureBASIC
 *   [x] `python` (`py`, `gyp`, `ipython`) — Python
@@ -559,7 +559,7 @@ place, it’ll be available everywhere.
 *   [ ] `thrift` — Thrift
 *   [ ] `tp` — TP
 *   [ ] `twig` (`craftcms`) — Twig
-*   [x] `typescript` (`ts`, `tsx`) — TypeScript
+*   [x] `typescript` (`ts`, `tsx`, `mts`, `cts`) — TypeScript
 *   [ ] `vala` — Vala
 *   [x] `vbnet` (`vb`) — Visual Basic .NET
 *   [ ] `vbscript` (`vbs`) — VBScript

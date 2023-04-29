@@ -40,7 +40,7 @@
   "dependencies": {
     "@types/hast": "^2.0.0",
     "fault": "^2.0.0",
-    "highlight.js": "~11.7.0"
+    "highlight.js": "~11.8.0"
   },
   "devDependencies": {
     "@types/mdast": "^3.0.0",
