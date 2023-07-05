@@ -5,15 +5,30 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import process from 'node:process'
-import test from 'node:test'
-import highlight from 'highlight.js'
+import test, {beforeEach, mock} from 'node:test'
+import highlight from 'highlight.js/lib/core'
+import coffeescript from 'highlight.js/lib/languages/coffeescript'
+import haskell from 'highlight.js/lib/languages/haskell'
+import http from 'highlight.js/lib/languages/http'
+import pgsql from 'highlight.js/lib/languages/pgsql'
 import {rehype} from 'rehype'
 import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
 
+// Register test language which are not covered by lib/common.js
+lowlight.registerLanguage('coffee', coffeescript)
+lowlight.registerLanguage('haskell', haskell)
+lowlight.registerLanguage('http', http)
+lowlight.registerLanguage('pgsql', pgsql)
+
 /* eslint-disable no-await-in-loop */
 
 const fixtures = new URL('fixture/', import.meta.url)
+
+beforeEach(() => {
+  mock.reset()
+  mock.method(highlight, 'configure')
+})
 
 test('lowlight.highlight(language, value[, options])', async (t) => {
   const result = lowlight.highlight('js', '')
@@ -42,6 +57,13 @@ test('lowlight.highlight(language, value[, options])', async (t) => {
     },
     /Unknown language: `fooscript` is not registered/,
     'should throw when given an unknown `language`'
+  )
+
+  assert.equal(
+    // @ts-expect-error mocked function
+    highlight.configure.mock.calls.length,
+    0,
+    'should not call the global configure method'
   )
 
   assert.equal(
@@ -294,20 +316,18 @@ test('fixtures', async () => {
 })
 
 test('listLanguages', () => {
-  const expectedLanguages = highlight.listLanguages()
   const mockName = 'testtest'
-
-  assert.deepEqual(
-    lowlight.listLanguages(),
-    expectedLanguages,
-    'should return the same list of languages as highlight.js'
-  )
 
   lowlight.registerLanguage(mockName, mockSyntax)
 
   assert.ok(
     lowlight.listLanguages().includes(mockName),
     'should include any additional languages that are registered'
+  )
+
+  assert.ok(
+    !highlight.listLanguages().includes(mockName),
+    'should *not* include any additional languages that are registered at lowlight'
   )
 
   function mockSyntax() {
