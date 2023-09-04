@@ -11,7 +11,8 @@ import coffeescript from 'highlight.js/lib/languages/coffeescript'
 import haskell from 'highlight.js/lib/languages/haskell'
 import http from 'highlight.js/lib/languages/http'
 import pgsql from 'highlight.js/lib/languages/pgsql'
-import {rehype} from 'rehype'
+import {fromHtml} from 'hast-util-from-html'
+import {toHtml} from 'hast-util-to-html'
 import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
 
@@ -411,17 +412,12 @@ async function subtest(directory, transform) {
     out = String(await fs.readFile(output))
   } catch {
     out =
-      rehype()
-        .data('settings', {
-          characterReferences: {useNamedReferences: true},
-          fragment: true
-        })
-        .stringify(actual) + '\n'
+      toHtml(actual, {characterReferences: {useNamedReferences: true}}) + '\n'
 
     await fs.writeFile(output, out)
   }
 
-  const expected = rehype().data('settings', {fragment: true}).parse(out.trim())
+  const expected = fromHtml(out.trim(), {fragment: true})
 
   removePosition(expected, {force: true})
 

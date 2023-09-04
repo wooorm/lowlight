@@ -8,7 +8,6 @@
 import fs from 'node:fs/promises'
 import hljs from 'highlight.js'
 import {zone} from 'mdast-zone'
-import {u} from 'unist-builder'
 
 /** @type {{common: Array<string>, uncommon: Array<string>}} */
 const data = JSON.parse(
@@ -28,7 +27,7 @@ export default function support() {
 
     zone(tree, 'support', (start, _, end) => [
       start,
-      u('list', {spread: false}, items),
+      {type: 'list', spread: false, children: items},
       end
     ])
   }
@@ -45,23 +44,25 @@ async function item(name) {
   const fn = mod.default
   const language = fn(hljs)
   /** @type {Array<PhrasingContent>} */
-  const content = [u('inlineCode', name)]
+  const content = [{type: 'inlineCode', value: name}]
   let index = -1
 
   if (language.aliases) {
-    content.push(u('text', ' ('))
+    content.push({type: 'text', value: ' ('})
 
     while (++index < language.aliases.length) {
-      if (index) content.push(u('text', ', '))
-      content.push(u('inlineCode', language.aliases[index]))
+      if (index) content.push({type: 'text', value: ', '})
+      content.push({type: 'inlineCode', value: language.aliases[index]})
     }
 
-    content.push(u('text', ')'))
+    content.push({type: 'text', value: ')'})
   }
 
-  content.push(u('text', ' — ' + language.name))
+  content.push({type: 'text', value: ' — ' + language.name})
 
-  return u('listItem', {checked: data.common.includes(name)}, [
-    u('paragraph', content)
-  ])
+  return {
+    type: 'listItem',
+    checked: data.common.includes(name),
+    children: [{type: 'paragraph', children: content}]
+  }
 }

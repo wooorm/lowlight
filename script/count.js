@@ -5,7 +5,6 @@
 
 import fs from 'node:fs/promises'
 import {zone} from 'mdast-zone'
-import {u} from 'unist-builder'
 
 /** @type {{common: Array<string>, uncommon: Array<string>}} */
 const data = JSON.parse(
@@ -18,26 +17,55 @@ export default function count() {
     zone(tree, 'index', (start, _, end) => {
       const {common, uncommon} = data
       /** @type {List} */
-      const list = u('list', {spread: false}, [
-        u('listItem', [
-          u('paragraph', [
-            u('inlineCode', 'lib/core.js'),
-            u('text', ' — 0 languages')
-          ])
-        ]),
-        u('listItem', [
-          u('paragraph', [
-            u('inlineCode', 'lib/common.js'),
-            u('text', ' (default) — ' + common.length + ' languages')
-          ])
-        ]),
-        u('listItem', [
-          u('paragraph', [
-            u('inlineCode', 'lib/all.js'),
-            u('text', ' — ' + (common.length + uncommon.length) + ' languages')
-          ])
-        ])
-      ])
+      const list = {
+        type: 'list',
+        spread: false,
+        children: [
+          {
+            type: 'listItem',
+            children: [
+              {
+                type: 'paragraph',
+                children: [
+                  {type: 'inlineCode', value: 'lib/core.js'},
+                  {type: 'text', value: ' — 0 languages'}
+                ]
+              }
+            ]
+          },
+          {
+            type: 'listItem',
+            children: [
+              {
+                type: 'paragraph',
+                children: [
+                  {type: 'inlineCode', value: 'lib/common.js'},
+                  {
+                    type: 'text',
+                    value: ' (default) — ' + common.length + ' languages'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            type: 'listItem',
+            children: [
+              {
+                type: 'paragraph',
+                children: [
+                  {type: 'inlineCode', value: 'lib/all.js'},
+                  {
+                    type: 'text',
+                    value:
+                      ' — ' + (common.length + uncommon.length) + ' languages'
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
 
       return [start, list, end]
     })
