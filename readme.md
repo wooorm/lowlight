@@ -7,7 +7,8 @@
 [![Downloads][downloads-badge]][downloads]
 [![Size][size-badge]][size]
 
-Virtual syntax highlighting for virtual DOMs and non-HTML things.
+Virtual syntax highlighting for virtual DOMs and non-HTML things based on
+[`highlight.js`][highlight-js].
 
 ## Contents
 
@@ -16,15 +17,21 @@ Virtual syntax highlighting for virtual DOMs and non-HTML things.
 *   [Install](#install)
 *   [Use](#use)
 *   [API](#api)
+    *   [`all`](#all)
+    *   [`common`](#common)
+    *   [`createLowlight([grammars])`](#createlowlightgrammars)
     *   [`lowlight.highlight(language, value[, options])`](#lowlighthighlightlanguage-value-options)
     *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
-    *   [`lowlight.registerLanguage(language, syntax)`](#lowlightregisterlanguagelanguage-syntax)
+    *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
+    *   [`lowlight.register(grammars)`](#lowlightregistergrammars)
     *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
     *   [`lowlight.registered(aliasOrlanguage)`](#lowlightregisteredaliasorlanguage)
-    *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
+    *   [`AutoOptions`](#autooptions)
+    *   [`LanguageFn`](#languagefn)
+    *   [`Options`](#options)
 *   [Examples](#examples)
     *   [Example: serializing hast as html](#example-serializing-hast-as-html)
-    *   [Example: turning hast into react nodes](#example-turning-hast-into-react-nodes)
+    *   [Example: turning hast into preact, react, etc](#example-turning-hast-into-preact-react-etc)
 *   [Types](#types)
 *   [Data](#data)
 *   [CSS](#css)
@@ -37,22 +44,9 @@ Virtual syntax highlighting for virtual DOMs and non-HTML things.
 
 ## What is this?
 
-This package wraps [highlight.js][] to output objects (ASTs) instead of a string
-of HTML.
-
-`highlight.js`, through lowlight, supports 190+ programming languages.
-Supporting all of them requires a lot of code.
-That’s why there are three entry points for lowlight:
-
-<!--index start-->
-
-*   `lib/core.js` — 0 languages
-*   `lib/common.js` (default) — 37 languages
-*   `lib/all.js` — 192 languages
-
-<!--index end-->
-
-Bundled, minified, and gzipped, those are roughly 9.7 kB, 47 kB, and 290 kB.
+This package uses [`highlight.js`][highlight-js] for syntax highlighting and
+outputs objects (ASTs) instead of a string of HTML.
+It optionally supports about 190+ programming languages.
 
 ## When should I use this?
 
@@ -63,15 +57,15 @@ rendering to ANSI sequences, when you’re using virtual DOM frameworks (such as
 React or Preact) so that diffing can be performant, or when you’re working with
 ASTs (rehype).
 
-A different package, [`refractor`][refractor], does the same as lowlight but
-uses [Prism][] instead.
-If you’re looking for a *really good* (but rather heavy) highlighter, try
+You can use the similar [`refractor`][refractor] if you want to use [Prism][]
+grammars instead.
+If you’re looking for a *really good* (but rather heavy) alternative, use
 [`starry-night`][starry-night].
 
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 14.14+, 16.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install lowlight
@@ -80,25 +74,27 @@ npm install lowlight
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {lowlight} from 'https://esm.sh/lowlight@2'
+import {all, common, createLowlight} from 'https://esm.sh/lowlight@2'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {lowlight} from 'https://esm.sh/lowlight@2?bundle'
+  import {all, common, createLowlight} from 'https://esm.sh/lowlight@2?bundle'
 </script>
 ```
 
 ## Use
 
 ```js
-import {lowlight} from 'lowlight'
+import {common, createLowlight} from 'lowlight'
+
+const lowlight = createLowlight(common)
 
 const tree = lowlight.highlight('js', '"use strict";')
 
-console.dir(tree, {depth: null})
+console.dir(tree, {depth: undefined})
 ```
 
 Yields:
@@ -121,8 +117,31 @@ Yields:
 
 ## API
 
-This package exports the identifier `lowlight`.
+This package exports the identifiers [`all`][api-all],
+[`common`][api-common], and
+[`createLowlight`][api-create-lowlight].
 There is no default export.
+
+### `all`
+
+Map of all (±190) grammars ([`Record<string, LanguageFn>`][api-language-fn]).
+
+### `common`
+
+Map of common (37) grammars ([`Record<string, LanguageFn>`][api-language-fn]).
+
+### `createLowlight([grammars])`
+
+Create a `lowlight` instance.
+
+###### Parameters
+
+*   `grammars` ([`Record<string, LanguageFn>`][api-language-fn], optional)
+    — grammars to add
+
+###### Returns
+
+Lowlight (`Lowlight`).
 
 ### `lowlight.highlight(language, value[, options])`
 
@@ -134,22 +153,21 @@ Highlight `value` (code) as `language` (name).
     — programming language [name][names]
 *   `value` (`string`)
     — code to highlight
-*   `options.prefix` (`string?`, default: `'hljs-'`)
-    — class prefix
+*   `options` ([`Options`][api-options], optional)
+    — configuration
 
 ###### Returns
 
-A hast [`Root`][root] node with the following `data` fields:
-
-*   `relevance` (`number`)
-    — how sure lowlight is that the given code is in the language
-*   `language` (`string`)
-    — detected programming language name
+Tree ([`Root`][hast-root]); with the following `data` fields: `language`
+(`string`), detected programming language name; `relevance` (`number`), how
+sure lowlight is that the given code is in the language.
 
 ###### Example
 
 ```js
-import {lowlight} from 'lowlight'
+import {common, createLowlight} from 'lowlight'
+
+const lowlight = createLowlight(common)
 
 console.log(lowlight.highlight('css', 'em { color: red }'))
 ```
@@ -168,19 +186,21 @@ Highlight `value` (code) and guess its programming language.
 
 *   `value` (`string`)
     — code to highlight
-*   `options.prefix` (`string?`, default: `'hljs-'`)
-    — class prefix
-*   `options.subset` (`Array<string>`, default: all registered language names)
-    — list of allowed languages
+*   `options` ([`AutoOptions`][api-auto-options], optional)
+    — configuration
 
 ###### Returns
 
-The same result as `lowlight.highlight` is returned.
+Tree ([`Root`][hast-root]); with the following `data` fields: `language`
+(`string`), detected programming language name; `relevance` (`number`), how
+sure lowlight is that the given code is in the language.
 
 ###### Example
 
 ```js
-import {lowlight} from 'lowlight'
+import {common, createLowlight} from 'lowlight'
+
+const lowlight = createLowlight(common)
 
 console.log(lowlight.highlightAuto('"hello, " + name + "!"'))
 ```
@@ -188,34 +208,65 @@ console.log(lowlight.highlightAuto('"hello, " + name + "!"'))
 Yields:
 
 ```js
-{type: 'root', children: [Array], data: {language: 'applescript', relevance: 3}}
-
+{type: 'root', children: [Array], data: {language: 'arduino', relevance: 2}}
 ```
 
-### `lowlight.registerLanguage(language, syntax)`
+### `lowlight.listLanguages()`
 
-Register a language.
+List registered languages.
 
-###### Parameters
+###### Returns
 
-*   `language` (`string`)
-    — programming language name
-*   `syntax` ([`HighlightSyntax`][syntax])
-    — `highlight.js` syntax
-
-###### Note
-
-`highlight.js` operates as a singleton: once you register a language in one
-place, it’ll be available everywhere.
+[Names][] of registered language (`Array<string>`).
 
 ###### Example
 
 ```js
-import {lowlight} from 'lowlight/lib/core.js'
-import xml from 'highlight.js/lib/languages/xml.js'
+import {createLowlight} from 'lowlight'
+import markdown from 'highlight.js/lib/languages/markdown'
 
-lowlight.registerLanguage('xml', xml)
+const lowlight = createLowlight()
 
+console.log(lowlight.listLanguages()) // => []
+
+lowlight.register({markdown})
+
+console.log(lowlight.listLanguages()) // => ['markdown']
+```
+
+### `lowlight.register(grammars)`
+
+Register languages.
+
+###### Signatures
+
+*   `register(name, grammar)`
+*   `register(grammars)`
+
+###### Parameters
+
+*   `name` (`string`)
+    — programming language [name][names]
+*   `grammar` ([`LanguageFn`][api-language-fn])
+    — grammar
+*   `grammars` ([`Record<string, LanguageFn>`][api-language-fn], optional)
+    — grammars
+
+###### Returns
+
+Nothing (`undefined`).
+
+###### Example
+
+```js
+import {createLowlight} from 'lowlight'
+import xml from 'highlight.js/lib/languages/xml'
+
+const lowlight = createLowlight()
+
+lowlight.register({xml})
+
+// Note: `html` is an alias for `xml`.
 console.log(lowlight.highlight('html', '<em>Emphasis</em>'))
 ```
 
@@ -227,31 +278,35 @@ Yields:
 
 ### `lowlight.registerAlias(language, alias)`
 
-Register aliases for already registered languages.
+Register aliases.
 
 ###### Signatures
 
-*   `registerAlias(language, alias | list)`
 *   `registerAlias(aliases)`
+*   `registerAlias(name, alias)`
 
 ###### Parameters
 
-*   `language` (`string`)
+*   `aliases` (`Record<string, Array<string> | string>`)
+    — map of programming language [names][] to one or more aliases
+*   `name` (`string`)
     — programming language [name][names]
-*   `alias` (`string`)
-    — new aliases for the programming language
-*   `list` (`Array<string>`)
-    — list of aliases
-*   `aliases` (`Record<language, alias | list>`)
-    — map of `language`s to `alias`es or `list`s
+*   `alias` (`Array<string> | string`)
+    — one or more aliases for the programming language
+
+###### Returns
+
+Nothing (`undefined`).
 
 ###### Example
 
 ```js
-import {lowlight} from 'lowlight/lib/core.js'
-import md from 'highlight.js/lib/languages/markdown.js'
+import {createLowlight} from 'lowlight'
+import markdown from 'highlight.js/lib/languages/markdown'
 
-lowlight.registerLanguage('markdown', md)
+const lowlight = createLowlight()
+
+lowlight.register({markdown})
 
 // lowlight.highlight('mdown', '<em>Emphasis</em>')
 // ^ would throw: Error: Unknown language: `mdown` is not registered
@@ -263,51 +318,60 @@ lowlight.highlight('mdown', '<em>Emphasis</em>')
 
 ### `lowlight.registered(aliasOrlanguage)`
 
-Check whether an `alias` or `language` is registered.
+Check whether an alias or name is registered.
 
 ###### Parameters
 
 *   `aliasOrlanguage` (`string`)
-    — [name][names] of a registered language or alias
+    — [name][names] of a language or alias for one
 
 ###### Returns
 
-Whether `aliasOrlanguage` is registered (`boolean`).
+Whether `aliasOrName` is registered (`boolean`).
 
 ###### Example
 
 ```js
-import {lowlight} from 'lowlight/lib/core.js'
-import javascript from 'highlight.js/lib/languages/javascript.js'
+import {createLowlight} from 'lowlight'
+import javascript from 'highlight.js/lib/languages/javascript'
 
-lowlight.registerLanguage('javascript', javascript)
+const lowlight = createLowlight({javascript})
 
-lowlight.registered('js') // return false
+console.log(lowlight.registered('funkyscript')) // => `false`
 
-lowlight.registerAlias('javascript', 'js')
-lowlight.registered('js') // return true
+lowlight.registerAlias({javascript: 'funkyscript'})
+console.log(lowlight.registered('funkyscript')) // => `true`
 ```
 
-### `lowlight.listLanguages()`
+### `AutoOptions`
 
-List registered languages.
+Configuration for `highlightAuto` (TypeScript type).
 
-###### Returns
+###### Fields
 
-Names of registered language (`Array<string>`).
+*   `prefix` (`string`, default: `'hljs-'`)
+    — class prefix
+*   `subset` (`Array<string>`, default: all registered languages)
+    — list of allowed languages
 
-###### Example
+### `LanguageFn`
 
-```js
-import {lowlight} from 'lowlight/lib/core.js'
-import md from 'highlight.js/lib/languages/markdown.js'
+Highlight.js grammar (TypeScript type).
 
-console.log(lowlight.listLanguages()) // => []
+###### Type
 
-lowlight.registerLanguage('markdown', md)
-
-console.log(lowlight.listLanguages()) // => ['markdown']
+```ts
+export type {LanguageFn} from 'highlight.js'
 ```
+
+### `Options`
+
+Configuration for `highlight` (TypeScript type).
+
+###### Fields
+
+*   `prefix` (`string`, default: `'hljs-'`)
+    — class prefix
 
 ## Examples
 
@@ -317,8 +381,10 @@ hast trees as returned by lowlight can be serialized with
 [`hast-util-to-html`][hast-util-to-html]:
 
 ```js
-import {lowlight} from 'lowlight'
+import {common, createLowlight} from 'lowlight'
 import {toHtml} from 'hast-util-to-html'
+
+const lowlight = createLowlight(common)
 
 const tree = lowlight.highlight('js', '"use strict";')
 
@@ -331,31 +397,34 @@ Yields:
 <span class="hljs-meta">"use strict"</span>;
 ```
 
-### Example: turning hast into react nodes
+### Example: turning hast into preact, react, etc
 
-hast trees as returned by lowlight can be turned into React (or Preact) with
-[`hast-to-hyperscript`][hast-to-hyperscript]:
+hast trees as returned by lowlight can be turned into nodes of any framework
+that supports JSX, such as preact, react, solid, svelte, vue, and more, with
+[`hast-util-to-jsx-runtime`][hast-util-to-jsx-runtime]:
 
 ```js
-import {lowlight} from 'lowlight'
-import {toH} from 'hast-to-hyperscript'
-import React from 'react'
+import {toJsxRuntime} from 'hast-util-to-jsx-runtime'
+// @ts-expect-error: react types don’t type these.
+import {Fragment, jsx, jsxs} from 'react/jsx-runtime'
+import {common, createLowlight} from 'lowlight'
+
+const lowlight = createLowlight(common)
 
 const tree = lowlight.highlight('js', '"use strict";')
-const react = toH(React.createElement, tree)
 
-console.log(react)
+console.log(toJsxRuntime(tree, {Fragment, jsx, jsxs}))
 ```
 
 Yields:
 
 ```js
 {
-  '$$typeof': Symbol(react.element),
-  type: 'div',
-  key: 'h-1',
+  $$typeof: Symbol(react.element),
+  type: Symbol(react.fragment),
+  key: null,
   ref: null,
-  props: { children: [ [Object], ';' ] },
+  props: {children: [[Object], ';']},
   _owner: null,
   _store: {}
 }
@@ -364,7 +433,29 @@ Yields:
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional types `Root`, `Options`, and `AutoOptions`.
+It exports the additional types
+[`AutoOptions`][api-auto-options],
+[`LanguageFn`][api-language-fn], and
+[`Options`][api-options].
+
+It also registers `root.data` with `@types/hast`.
+If you’re working with the data fields, make sure to import this package
+somewhere in your types, as that registers the new fields on the file.
+
+```js
+/**
+ * @typedef {import('hast').Root} Root
+ *
+ * @typedef {import('lowlight')}
+ */
+
+import {VFile} from 'vfile'
+
+/** @type {Root} */
+const root = {type: 'root', children: []}
+
+console.log(root.data?.language) //=> TS now knows that this is a `string?`.
+```
 
 <!--Old name of the following section:-->
 
@@ -372,14 +463,14 @@ It exports the additional types `Root`, `Options`, and `AutoOptions`.
 
 ## Data
 
-If you’re using `lowlight/lib/core.js`, no syntaxes are included.
-Checked syntaxes are included if you import `lowlight` (or explicitly
-`lowlight/lib/common.js`).
-Unchecked syntaxes are available through `lowlight/lib/all.js`.
-You can import `core` or `common` and manually add more languages as you please.
+If you’re using `createLowlight()`, no syntaxes are included yet.
+You can import `all` or `common` and pass them, such as with
+`createLowlight(all)`.
+Checked syntaxes are included in `common`.
+All syntaxes are included in `all`.
 
-`highlight.js` operates as a singleton: once you register a language in one
-place, it’ll be available everywhere.
+You can also manually import syntaxes from `highlight.js/lib/languages/xxx`,
+where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 
 <!--support start-->
 
@@ -586,14 +677,17 @@ If you are in a browser, you can use any `highlight.js` theme.
 For example, to get GitHub Dark from cdnjs:
 
 ```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
 ```
 
 ## Compatibility
 
-This package is at least compatible with all maintained versions of Node.js.
-As of now, that is Node.js 14.14+ and 16.0+.
-It also works in Deno and modern browsers.
+This package is compatible with maintained versions of Node.js.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line,
+`lowlight@^2`, compatible with Node.js 12.
 
 ## Security
 
@@ -662,11 +756,9 @@ See [How to Contribute to Open Source][contribute].
 
 [contribute]: https://opensource.guide/how-to-contribute/
 
-[root]: https://github.com/syntax-tree/hast#root
+[hast-root]: https://github.com/syntax-tree/hast#root
 
-[highlight.js]: https://github.com/highlightjs/highlight.js
-
-[syntax]: https://github.com/highlightjs/highlight.js/blob/main/docs/language-guide.rst
+[highlight-js]: https://github.com/highlightjs/highlight.js
 
 [names]: https://github.com/highlightjs/highlight.js/blob/main/SUPPORTED_LANGUAGES.md
 
@@ -680,4 +772,16 @@ See [How to Contribute to Open Source][contribute].
 
 [hast-util-to-html]: https://github.com/syntax-tree/hast-util-to-html
 
-[hast-to-hyperscript]: https://github.com/syntax-tree/hast-to-hyperscript
+[hast-util-to-jsx-runtime]: https://github.com/syntax-tree/hast-util-to-jsx-runtime
+
+[api-all]: #all
+
+[api-auto-options]: #autooptions
+
+[api-common]: #common
+
+[api-create-lowlight]: #createlowlightgrammars
+
+[api-language-fn]: #languagefn
+
+[api-options]: #options
