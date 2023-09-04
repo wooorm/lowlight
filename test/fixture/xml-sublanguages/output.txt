@@ -1,6 +1,6 @@
-<span class="hljs-comment">&lt;!-- Well, more like HTML... --></span>
-<span class="hljs-tag">&lt;<span class="hljs-name">style</span>></span><span class="css">
+<span class="hljs-comment">&#x3C;!-- Well, more like HTML... --></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">style</span>></span><span class="css">
 <span class="hljs-selector-class">.foo</span> {
   <span class="hljs-attribute">color</span>: red;
 }
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>></span>
+</span><span class="hljs-tag">&#x3C;/<span class="hljs-name">style</span>></span>

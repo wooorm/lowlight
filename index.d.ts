@@ -4,7 +4,6 @@ export {lowlight} from './lib/common.js'
 
 // Register data on hast.
 declare module 'hast' {
-  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface RootData {
     /**
      * Field exposed by `lowlight` to contain the detected programming language

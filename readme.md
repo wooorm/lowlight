@@ -106,7 +106,6 @@ Yields:
 ```js
 {
   type: 'root',
-  data: {language: 'js', relevance: 10},
   children: [
     {
       type: 'element',
@@ -115,7 +114,8 @@ Yields:
       children: [{type: 'text', value: '"use strict"'}]
     },
     {type: 'text', value: ';'}
-  ]
+  ],
+  data: {language: 'js', relevance: 10}
 }
 ```
 
@@ -157,7 +157,7 @@ console.log(lowlight.highlight('css', 'em { color: red }'))
 Yields:
 
 ```js
-{type: 'root', data: {language: 'css', relevance: 3}, children: [Array]}
+{type: 'root', children: [Array], data: {language: 'css', relevance: 3}}
 ```
 
 ### `lowlight.highlightAuto(value[, options])`
@@ -188,7 +188,7 @@ console.log(lowlight.highlightAuto('"hello, " + name + "!"'))
 Yields:
 
 ```js
-{type: 'root', data: {language: 'applescript', relevance: 3}, children: [Array]}
+{type: 'root', children: [Array], data: {language: 'applescript', relevance: 3}}
 
 ```
 
@@ -222,7 +222,7 @@ console.log(lowlight.highlight('html', '<em>Emphasis</em>'))
 Yields:
 
 ```js
-{type: 'root', data: {language: 'html', relevance: 2}, children: [Array]}
+{type: 'root', children: [Array], data: {language: 'html', relevance: 2}}
 ```
 
 ### `lowlight.registerAlias(language, alias)`
@@ -231,7 +231,7 @@ Register aliases for already registered languages.
 
 ###### Signatures
 
-*   `registerAlias(language, alias|list)`
+*   `registerAlias(language, alias | list)`
 *   `registerAlias(aliases)`
 
 ###### Parameters
@@ -242,7 +242,7 @@ Register aliases for already registered languages.
     — new aliases for the programming language
 *   `list` (`Array<string>`)
     — list of aliases
-*   `aliases` (`Record<language, alias|list>`)
+*   `aliases` (`Record<language, alias | list>`)
     — map of `language`s to `alias`es or `list`s
 
 ###### Example

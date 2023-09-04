@@ -1,6 +1,6 @@
 /**
- * @typedef {import('mdast').Root} Root
  * @typedef {import('mdast').List} List
+ * @typedef {import('mdast').Root} Root
  */
 
 import fs from 'node:fs/promises'
@@ -11,10 +11,23 @@ const data = JSON.parse(
   String(await fs.readFile(new URL('data.json', import.meta.url)))
 )
 
-/** @type {import('unified').Plugin<[], Root>} */
+/**
+ * Generate count.
+ *
+ * @returns
+ *   Transform.
+ */
 export default function count() {
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {undefined}
+   *   Nothing.
+   */
   return function (tree) {
-    zone(tree, 'index', (start, _, end) => {
+    zone(tree, 'index', function (start, _, end) {
       const {common, uncommon} = data
       /** @type {List} */
       const list = {

@@ -5,15 +5,13 @@
 import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import process from 'node:process'
-import test, {beforeEach, mock} from 'node:test'
+import test from 'node:test'
+import {toHtml} from 'hast-util-to-html'
 import highlight from 'highlight.js/lib/core'
 import coffeescript from 'highlight.js/lib/languages/coffeescript'
 import haskell from 'highlight.js/lib/languages/haskell'
 import http from 'highlight.js/lib/languages/http'
 import pgsql from 'highlight.js/lib/languages/pgsql'
-import {fromHtml} from 'hast-util-from-html'
-import {toHtml} from 'hast-util-to-html'
-import {removePosition} from 'unist-util-remove-position'
 import {lowlight} from '../index.js'
 
 // Register test language which are not covered by lib/common.js
@@ -22,226 +20,225 @@ lowlight.registerLanguage('haskell', haskell)
 lowlight.registerLanguage('http', http)
 lowlight.registerLanguage('pgsql', pgsql)
 
-/* eslint-disable no-await-in-loop */
-
 const fixtures = new URL('fixture/', import.meta.url)
 
-beforeEach(() => {
-  mock.reset()
-  mock.method(highlight, 'configure')
+test('lowlight', async function (t) {
+  await t.test('should expose the public api (all)', async function () {
+    assert.deepEqual(Object.keys(await import('../lib/all.js')).sort(), [
+      'lowlight'
+    ])
+  })
+
+  await t.test('should expose the public api (common)', async function () {
+    assert.deepEqual(Object.keys(await import('../lib/common.js')).sort(), [
+      'lowlight'
+    ])
+  })
+
+  await t.test('should expose the public api (core)', async function () {
+    assert.deepEqual(Object.keys(await import('../lib/core.js')).sort(), [
+      'lowlight'
+    ])
+  })
+
+  await t.test('should expose the public api (default)', async function () {
+    assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
+      'lowlight'
+    ])
+  })
 })
 
-test('lowlight.highlight(language, value[, options])', async (t) => {
-  const result = lowlight.highlight('js', '')
+test('lowlight.aliases', async function (t) {
+  const input = String(
+    await fs.readFile(new URL('md-sublanguage/input.txt', fixtures))
+  ).trimEnd()
+  const expected = lowlight.highlight('markdown', input).children
 
-  assert.throws(
-    () => {
-      // @ts-expect-error runtime.
-      lowlight.highlight(true)
-    },
-    /Expected `string` for name, got `true`/,
-    'should throw when not given `string` for `name`'
+  await t.test('should support a single alias', async function () {
+    lowlight.registerAlias('markdown', 'mkd')
+
+    assert.deepEqual(lowlight.highlight('mkd', input).children, expected)
+  })
+
+  await t.test('should support a list of aliases', async function () {
+    lowlight.registerAlias('markdown', ['mmkd', 'mmkdown'])
+
+    assert.deepEqual(lowlight.highlight('mmkd', input).children, expected)
+  })
+
+  await t.test('should support a map of aliases to strings', async function () {
+    lowlight.registerAlias({markdown: 'mdown'})
+
+    assert.deepEqual(lowlight.highlight('mdown', input).children, expected)
+  })
+
+  await t.test(
+    'should support a map of aliases to lists of strings',
+    async function () {
+      lowlight.registerAlias({markdown: ['mmdown', 'mark']})
+
+      assert.deepEqual(lowlight.highlight('mark', input).children, expected)
+    }
+  )
+})
+
+test('lowlight.highlight', async function (t) {
+  await t.test(
+    'should throw when not given `string` for `name`',
+    async function () {
+      assert.throws(function () {
+        // @ts-expect-error: check how the runtime handles incorrect `name`.
+        lowlight.highlight(true)
+      }, /expected `string` as `name`/)
+    }
   )
 
-  assert.throws(
-    () => {
-      // @ts-expect-error runtime.
-      lowlight.highlight('js', true)
-    },
-    /Expected `string` for value, got `true`/,
-    'should throw when not given `string` for `value`'
+  await t.test(
+    'should throw when not given `string` for `value`',
+    async function () {
+      assert.throws(function () {
+        // @ts-expect-error: check how the runtime handles incorrect `value`.
+        lowlight.highlight('js', true)
+      }, /expected `string` as `value`/)
+    }
   )
 
-  assert.throws(
-    () => {
-      lowlight.highlight('fooscript', '')
-    },
-    /Unknown language: `fooscript` is not registered/,
-    'should throw when given an unknown `language`'
+  await t.test(
+    'should throw when given an unknown `language`',
+    async function () {
+      assert.throws(function () {
+        lowlight.highlight('fooscript', '')
+      }, /Unknown language: `fooscript` is not registered/)
+    }
   )
 
-  assert.equal(
-    // @ts-expect-error mocked function
-    highlight.configure.mock.calls.length,
-    0,
-    'should not call the global configure method'
+  await t.test(
+    'should return an empty root for `children` when empty',
+    async function () {
+      assert.deepEqual(lowlight.highlight('js', ''), {
+        type: 'root',
+        children: [],
+        data: {language: 'js', relevance: 0}
+      })
+    }
   )
 
-  assert.equal(
-    result.data?.relevance,
-    0,
-    'should return a `0` for `data.relevance` when empty'
-  )
+  await t.test('should silently ignore illegals', async function () {
+    assert.deepEqual(lowlight.highlight('js', '# foo').children, [
+      {type: 'text', value: '# foo'}
+    ])
+  })
 
-  assert.deepEqual(
-    result.children,
-    [],
-    'should return an empty array for `children` when empty'
-  )
+  await t.test('should silently ignore illegals', async function () {
+    assert.deepEqual(lowlight.highlight('js', '# foo').children, [
+      {type: 'text', value: '# foo'}
+    ])
+  })
 
-  assert.deepEqual(
-    lowlight.highlight('js', '# foo').children,
-    [{type: 'text', value: '# foo'}],
-    'should silently ignore illegals'
-  )
-
-  assert.deepEqual(
-    lowlight.highlight('js', '# foo').children,
-    [{type: 'text', value: '# foo'}],
-    'should silently ignore illegals'
-  )
-
-  await t.test('fixture', () => {
-    const result = lowlight.highlight(
-      'java',
-      ['public void moveTo(int x, int y, int z);'].join('\n')
-    )
-
-    assert.equal(
-      result.data?.relevance,
-      6,
-      'should return the correct relevance for the fixture'
-    )
-
-    assert.equal(
-      result.data?.language,
-      'java',
-      'should return the correct language for the fixture'
-    )
-
+  await t.test('should work', async function () {
     assert.deepEqual(
-      result.children,
-      [
-        {
-          type: 'element',
-          tagName: 'span',
-          properties: {className: ['hljs-keyword']},
-          children: [{type: 'text', value: 'public'}]
-        },
-        {type: 'text', value: ' '},
-        {
-          type: 'element',
-          tagName: 'span',
-          properties: {className: ['hljs-keyword']},
-          children: [{type: 'text', value: 'void'}]
-        },
-        {type: 'text', value: ' '},
-        {
-          type: 'element',
-          tagName: 'span',
-          properties: {className: ['hljs-title', 'function_']},
-          children: [{type: 'text', value: 'moveTo'}]
-        },
-        {
-          type: 'element',
-          tagName: 'span',
-          properties: {className: ['hljs-params']},
-          children: [
-            {type: 'text', value: '('},
-            {
-              type: 'element',
-              tagName: 'span',
-              properties: {className: ['hljs-type']},
-              children: [{type: 'text', value: 'int'}]
-            },
-            {type: 'text', value: ' x, '},
-            {
-              type: 'element',
-              tagName: 'span',
-              properties: {className: ['hljs-type']},
-              children: [{type: 'text', value: 'int'}]
-            },
-            {type: 'text', value: ' y, '},
-            {
-              type: 'element',
-              tagName: 'span',
-              properties: {className: ['hljs-type']},
-              children: [{type: 'text', value: 'int'}]
-            },
-            {type: 'text', value: ' z)'}
-          ]
-        },
-        {type: 'text', value: ';'}
-      ],
-      'should return the correct AST for the fixture'
+      lowlight.highlight('java', 'public void moveTo(int x, int y, int z);'),
+      {
+        type: 'root',
+        children: [
+          {
+            type: 'element',
+            tagName: 'span',
+            properties: {className: ['hljs-keyword']},
+            children: [{type: 'text', value: 'public'}]
+          },
+          {type: 'text', value: ' '},
+          {
+            type: 'element',
+            tagName: 'span',
+            properties: {className: ['hljs-keyword']},
+            children: [{type: 'text', value: 'void'}]
+          },
+          {type: 'text', value: ' '},
+          {
+            type: 'element',
+            tagName: 'span',
+            properties: {className: ['hljs-title', 'function_']},
+            children: [{type: 'text', value: 'moveTo'}]
+          },
+          {
+            type: 'element',
+            tagName: 'span',
+            properties: {className: ['hljs-params']},
+            children: [
+              {type: 'text', value: '('},
+              {
+                type: 'element',
+                tagName: 'span',
+                properties: {className: ['hljs-type']},
+                children: [{type: 'text', value: 'int'}]
+              },
+              {type: 'text', value: ' x, '},
+              {
+                type: 'element',
+                tagName: 'span',
+                properties: {className: ['hljs-type']},
+                children: [{type: 'text', value: 'int'}]
+              },
+              {type: 'text', value: ' y, '},
+              {
+                type: 'element',
+                tagName: 'span',
+                properties: {className: ['hljs-type']},
+                children: [{type: 'text', value: 'int'}]
+              },
+              {type: 'text', value: ' z)'}
+            ]
+          },
+          {type: 'text', value: ';'}
+        ],
+        data: {language: 'java', relevance: 6}
+      }
     )
   })
 
-  await t.test('custom `prefix`', () => {
+  await t.test('should support a given custom `prefix`', async function () {
     const result = lowlight.highlight('js', '"use strict";', {
       prefix: 'foo-'
     })
+    const child = result.children[0]
+    assert(child?.type === 'element')
 
-    assert.deepEqual(
-      // @ts-expect-error yep, it’s an element.
-      result.children[0].properties.className,
-      ['foo-meta'],
-      'should support a given custom `prefix`'
-    )
+    assert.deepEqual(child.properties, {className: ['foo-meta']})
   })
 
-  await t.test('empty `prefix`', () => {
+  await t.test('should support an empty `prefix`', async function () {
     const result = lowlight.highlight('js', '"use strict";', {
       prefix: ''
     })
+    const child = result.children[0]
+    assert(child?.type === 'element')
 
-    assert.deepEqual(
-      // @ts-expect-error yep, it’s an element.
-      result.children[0].properties.className,
-      ['meta'],
-      'should support an empty `prefix`'
-    )
+    assert.deepEqual(child.properties, {className: ['meta']})
   })
 })
 
-test('lowlight.highlightAuto(value[, options])', async (t) => {
-  const result = lowlight.highlightAuto('')
-
-  assert.throws(
-    () => {
-      // @ts-expect-error runtime.
+test('lowlight.highlightAuto', async function (t) {
+  await t.test('should throw when not given a string', async function () {
+    assert.throws(function () {
+      // @ts-expect-error: check how the runtime handles incorrect `value`.
       lowlight.highlightAuto(true)
-    },
-    /Expected `string` for value, got `true`/,
-    'should throw when not given a string'
-  )
+    }, /expected `string` as `value`/)
+  })
 
-  assert.equal(
-    result.data?.relevance,
-    0,
-    'should return a `0` for `relevance` when empty'
-  )
+  await t.test('should work on empty code', async function () {
+    const result = lowlight.highlightAuto('')
+    assert.deepEqual(result, {
+      children: [],
+      data: {language: undefined, relevance: 0},
+      type: 'root'
+    })
+  })
 
-  assert.equal(
-    result.data?.language,
-    undefined,
-    'should return `undefined` for `language` when empty'
-  )
-
-  assert.deepEqual(
-    result.children,
-    [],
-    'should return an empty array for `children` when empty'
-  )
-
-  await t.test('fixture', () => {
-    const result = lowlight.highlightAuto(['"use strict";'].join('\n'))
-
-    assert.equal(
-      result.data?.relevance,
-      10,
-      'should return the correct relevance for the fixture'
-    )
-
-    assert.equal(
-      result.data?.language,
-      'javascript',
-      'should return the correct language for the fixture'
-    )
-
-    assert.deepEqual(
-      result.children,
-      [
+  await t.test('should work', async function () {
+    assert.deepEqual(lowlight.highlightAuto('"use strict";'), {
+      type: 'root',
+      children: [
         {
           type: 'element',
           tagName: 'span',
@@ -250,182 +247,132 @@ test('lowlight.highlightAuto(value[, options])', async (t) => {
         },
         {type: 'text', value: ';'}
       ],
-      'should return the correct AST for the fixture'
-    )
+      data: {language: 'javascript', relevance: 10}
+    })
   })
 
-  await t.test('custom `prefix`', () => {
+  await t.test('should support a given custom `prefix`', async function () {
     const result = lowlight.highlightAuto('"use strict";', {prefix: 'foo-'})
+    const child = result.children[0]
+    assert(child?.type === 'element')
 
-    assert.deepEqual(
-      // @ts-expect-error yep, it’s an element.
-      result.children[0].properties.className,
-      ['foo-meta'],
-      'should support a given custom `prefix`'
-    )
+    assert.deepEqual(child.properties, {className: ['foo-meta']})
   })
 
-  await t.test('empty `prefix`', () => {
+  await t.test('empty `prefix`', async function () {
     const result = lowlight.highlightAuto('"use strict";', {prefix: ''})
+    const child = result.children[0]
+    assert(child?.type === 'element')
 
+    assert.deepEqual(child.properties, {className: ['meta']})
+  })
+
+  await t.test('should support a given custom `subset`', async function () {
     assert.deepEqual(
-      // @ts-expect-error yep, it’s an element.
-      result.children[0].properties.className,
-      ['meta'],
-      'should support an empty `prefix`'
+      lowlight.highlightAuto('"use strict";', {subset: ['java']}).data,
+      {language: 'java', relevance: 1}
     )
   })
 
-  await t.test('custom `subset`', () => {
-    let result = lowlight.highlightAuto('"use strict";', {subset: ['java']})
+  await t.test(
+    'should ignore unregistered subset languages',
+    async function () {
+      assert.deepEqual(
+        lowlight.highlightAuto('"use strict";', {
+          subset: ['fooscript', 'javascript']
+        }).data,
+        {language: 'javascript', relevance: 10}
+      )
+    }
+  )
 
-    assert.equal(
-      result.data?.language,
-      'java',
-      'should support a given custom `subset`'
-    )
+  await t.test('should work on a harder example', async function () {
+    const input = String(
+      await fs.readFile(new URL('xml-large/input.txt', fixtures))
+    ).trimEnd()
+    const expected = String(
+      await fs.readFile(new URL('xml-large/output.txt', fixtures))
+    ).trimEnd()
 
-    assert.doesNotThrow(() => {
-      result = lowlight.highlightAuto('"use strict";', {
-        subset: ['fooscript', 'javascript']
-      })
-    }, 'should ignore unregistered subset languages (#1)')
-
-    assert.equal(
-      result.data?.language,
-      'javascript',
-      'should ignore unregistered subset languages (#2)'
-    )
-  })
-
-  await t.test('harder example (coverage)', async () => {
-    await subtest('xml-large', (doc) => lowlight.highlightAuto(doc))
+    assert.equal(toHtml(lowlight.highlightAuto(input)), expected)
   })
 })
 
-test('fixtures', async () => {
+test('lowlight.listLanguages', async function (t) {
+  await t.test('should list languages', async function () {
+    assert.ok(Array.isArray(lowlight.listLanguages()))
+  })
+
+  await t.test(
+    'should include any additional languages that are registered',
+    async function () {
+      lowlight.registerLanguage('testtest', function () {
+        return {contains: []}
+      })
+
+      assert.ok(lowlight.listLanguages().includes('testtest'))
+    }
+  )
+
+  await t.test(
+    'should *not* include any additional languages that are registered at lowlight',
+    async function () {
+      assert.ok(!highlight.listLanguages().includes('testtest'))
+    }
+  )
+})
+
+test('registered', async function (t) {
+  await t.test('should support `registered`', async function () {
+    assert.deepEqual(
+      [lowlight.registered('javascript'), lowlight.registered('diyjs')],
+      [true, false]
+    )
+  })
+
+  await t.test('should include newly registered aliases', async function () {
+    lowlight.registerAlias('javascript', 'diyjs')
+
+    assert.deepEqual(lowlight.registered('diyjs'), true)
+  })
+})
+
+test('fixtures', async function (t) {
   const files = await fs.readdir(fixtures)
   let index = -1
 
   while (++index < files.length) {
-    if (files[index].charAt(0) !== '.') {
-      await subtest(files[index], (doc, language) =>
-        lowlight.highlight(language, doc)
-      )
-    }
-  }
-})
+    const folder = files[index]
 
-test('listLanguages', () => {
-  const mockName = 'testtest'
-
-  lowlight.registerLanguage(mockName, mockSyntax)
-
-  assert.ok(
-    lowlight.listLanguages().includes(mockName),
-    'should include any additional languages that are registered'
-  )
-
-  assert.ok(
-    !highlight.listLanguages().includes(mockName),
-    'should *not* include any additional languages that are registered at lowlight'
-  )
-
-  function mockSyntax() {
-    return {contains: []}
-  }
-})
-
-test('aliases', async () => {
-  const input = String(
-    await fs.readFile(new URL('md-sublanguage/input.txt', fixtures))
-  ).trim()
-  const expected = lowlight.highlight('markdown', input).children
-
-  lowlight.registerAlias('markdown', 'mkd')
-
-  assert.deepEqual(
-    lowlight.highlight('mkd', input).children,
-    expected,
-    'alias must be parsed like original language'
-  )
-
-  lowlight.registerAlias('markdown', ['mmkd', 'mmkdown'])
-
-  assert.deepEqual(
-    lowlight.highlight('mmkd', input).children,
-    expected,
-    'alias must be parsed like original language'
-  )
-
-  lowlight.registerAlias({markdown: 'mdown'})
-
-  assert.deepEqual(
-    lowlight.highlight('mdown', input).children,
-    expected,
-    'alias must be parsed like original language'
-  )
-
-  lowlight.registerAlias({markdown: ['mmdown', 'mark']})
-
-  assert.deepEqual(
-    lowlight.highlight('mark', input).children,
-    expected,
-    'alias must be parsed like original language'
-  )
-
-  lowlight.registerAlias('markdown', '')
-})
-
-test('registered', () => {
-  assert.deepEqual(lowlight.registered('javascript'), true)
-  assert.deepEqual(lowlight.registered('diyjs'), false)
-
-  lowlight.registerAlias('javascript', 'diyjs')
-
-  assert.deepEqual(lowlight.registered('diyjs'), true)
-
-  lowlight.registerAlias('javascript', '')
-})
-
-/**
- * @param {string} directory
- * @param {(doc: string, name: string) => Root} transform
- */
-async function subtest(directory, transform) {
-  const parts = directory.split('-')
-  const language = parts[0]
-  const name = parts.slice(1).join('-')
-  const input = new URL(directory + '/input.txt', fixtures)
-  const output = new URL(directory + '/output.txt', fixtures)
-  /** @type {string} */
-  let out
-
-  const actual = transform(String(await fs.readFile(input)).trim(), language)
-
-  // Create output snapshot if it doesn’t exist yet.
-  try {
-    if ('UPDATE' in process.env) {
-      throw new Error('Updating…')
+    if (folder.charAt(0) === '.') {
+      continue
     }
 
-    out = String(await fs.readFile(output))
-  } catch {
-    out =
-      toHtml(actual, {characterReferences: {useNamedReferences: true}}) + '\n'
+    const [language, ...nameParts] = folder.split('-')
+    const name = nameParts.join('-')
 
-    await fs.writeFile(output, out)
+    await t.test(name, async function () {
+      const inputUrl = new URL(folder + '/input.txt', fixtures)
+      const expectedUrl = new URL(folder + '/output.txt', fixtures)
+      const input = String(await fs.readFile(inputUrl)).trimEnd()
+      /** @type {string} */
+      let expectedHtml
+
+      const actual = lowlight.highlight(language, input)
+      const actualHtml = toHtml(actual) + '\n'
+
+      try {
+        expectedHtml = String(await fs.readFile(expectedUrl))
+
+        if ('UPDATE' in process.env) {
+          throw new Error('Updating…')
+        }
+      } catch {
+        expectedHtml = actualHtml
+        await fs.writeFile(expectedUrl, expectedHtml)
+      }
+
+      assert.equal(actualHtml, expectedHtml)
+    })
   }
-
-  const expected = fromHtml(out.trim(), {fragment: true})
-
-  removePosition(expected, {force: true})
-
-  assert.deepEqual(
-    actual.children,
-    expected.children,
-    'should correctly process ' + name + ' in ' + language
-  )
-}
-
-/* eslint-enable no-await-in-loop */
+})

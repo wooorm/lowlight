@@ -1,8 +1,9 @@
 /**
- * @typedef {import('mdast').Root} Root
+ * @typedef {import('highlight.js').LanguageFn} LanguageFn
+ *
  * @typedef {import('mdast').ListItem} ListItem
  * @typedef {import('mdast').PhrasingContent} PhrasingContent
- * @typedef {import('highlight.js').LanguageFn} LanguageFn
+ * @typedef {import('mdast').Root} Root
  */
 
 import fs from 'node:fs/promises'
@@ -14,32 +15,46 @@ const data = JSON.parse(
   String(await fs.readFile(new URL('data.json', import.meta.url)))
 )
 
-const promises = Promise.all(
+const items = await Promise.all(
   [...data.common, ...data.uncommon]
-    .sort((a, b) => a.localeCompare(b))
-    .map((d) => item(d))
+    .sort(function (a, b) {
+      return a.localeCompare(b)
+    })
+    .map(function (d) {
+      return item(d)
+    })
 )
 
-/** @type {import('unified').Plugin<[], Root>} */
+/**
+ * Generate support.
+ *
+ * @returns
+ *   Transform.
+ */
 export default function support() {
+  /**
+   * Transform.
+   *
+   * @param {Root} tree
+   *   Tree.
+   * @returns {Promise<undefined>}
+   *   Nothing.
+   */
   return async function (tree) {
-    const items = await promises
-
-    zone(tree, 'support', (start, _, end) => [
-      start,
-      {type: 'list', spread: false, children: items},
-      end
-    ])
+    zone(tree, 'support', function (start, _, end) {
+      return [start, {type: 'list', spread: false, children: items}, end]
+    })
   }
 }
 
 /**
  * @param {string} name
+ *   Name.
  * @returns {Promise<ListItem>}
+ *   List item.
  */
 async function item(name) {
   /** @type {{default: LanguageFn}} */
-  // type-coverage:ignore-next-line
   const mod = await import('highlight.js/lib/languages/' + name)
   const fn = mod.default
   const language = fn(hljs)
