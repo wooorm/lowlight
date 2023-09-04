@@ -291,7 +291,7 @@ test('lowlight.listLanguages', async function (t) {
   await t.test('should include newly registered languages', async function () {
     const lowlight = createLowlight()
 
-    lowlight.registerLanguage('testtest', function () {
+    lowlight.register('testtest', function () {
       return {contains: []}
     })
 
@@ -311,7 +311,7 @@ test('registered', async function (t) {
 
   await t.test('should support `registered`', async function () {
     assert.equal(lowlight.registered('javascript'), false)
-    lowlight.registerLanguage('javascript', javascript)
+    lowlight.register('javascript', javascript)
     assert.equal(lowlight.registered('javascript'), true)
   })
 
