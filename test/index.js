@@ -1,7 +1,3 @@
-/**
- * @typedef {import('hast').Root} Root
- */
-
 import assert from 'node:assert/strict'
 import fs from 'node:fs/promises'
 import process from 'node:process'
@@ -10,13 +6,13 @@ import {toHtml} from 'hast-util-to-html'
 import highlight from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import markdown from 'highlight.js/lib/languages/markdown'
-import {all, common, createLowlight} from '../index.js'
+import {all, common, createLowlight} from 'lowlight'
 
 const fixtures = new URL('fixture/', import.meta.url)
 
 test('lowlight', async function (t) {
-  await t.test('should expose the public api (default)', async function () {
-    assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('lowlight')).sort(), [
       'all',
       'common',
       'createLowlight'

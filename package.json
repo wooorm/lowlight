@@ -24,14 +24,9 @@
     "Ezra Lalonde <ezra@usefuliftrue.com>",
     "Shu Uesugi <shu@chibicode.com>"
   ],
-  "sideEffects": [
-    "index.js",
-    "lib/all.js",
-    "lib/common.js"
-  ],
+  "sideEffects": false,
   "type": "module",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "exports": "./index.js",
   "files": [
     "lib/",
     "index.d.ts",
