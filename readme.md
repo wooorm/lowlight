@@ -74,14 +74,14 @@ npm install lowlight
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import {all, common, createLowlight} from 'https://esm.sh/lowlight@2'
+import {all, common, createLowlight} from 'https://esm.sh/lowlight@3'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import {all, common, createLowlight} from 'https://esm.sh/lowlight@2?bundle'
+  import {all, common, createLowlight} from 'https://esm.sh/lowlight@3?bundle'
 </script>
 ```
 
