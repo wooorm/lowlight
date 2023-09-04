@@ -8,47 +8,25 @@ import process from 'node:process'
 import test from 'node:test'
 import {toHtml} from 'hast-util-to-html'
 import highlight from 'highlight.js/lib/core'
-import coffeescript from 'highlight.js/lib/languages/coffeescript'
-import haskell from 'highlight.js/lib/languages/haskell'
-import http from 'highlight.js/lib/languages/http'
-import pgsql from 'highlight.js/lib/languages/pgsql'
-import {lowlight} from '../index.js'
-
-// Register test language which are not covered by lib/common.js
-lowlight.registerLanguage('coffee', coffeescript)
-lowlight.registerLanguage('haskell', haskell)
-lowlight.registerLanguage('http', http)
-lowlight.registerLanguage('pgsql', pgsql)
+import javascript from 'highlight.js/lib/languages/javascript'
+import markdown from 'highlight.js/lib/languages/markdown'
+import {all, common, createLowlight} from '../index.js'
 
 const fixtures = new URL('fixture/', import.meta.url)
 
 test('lowlight', async function (t) {
-  await t.test('should expose the public api (all)', async function () {
-    assert.deepEqual(Object.keys(await import('../lib/all.js')).sort(), [
-      'lowlight'
-    ])
-  })
-
-  await t.test('should expose the public api (common)', async function () {
-    assert.deepEqual(Object.keys(await import('../lib/common.js')).sort(), [
-      'lowlight'
-    ])
-  })
-
-  await t.test('should expose the public api (core)', async function () {
-    assert.deepEqual(Object.keys(await import('../lib/core.js')).sort(), [
-      'lowlight'
-    ])
-  })
-
   await t.test('should expose the public api (default)', async function () {
     assert.deepEqual(Object.keys(await import('../index.js')).sort(), [
-      'lowlight'
+      'all',
+      'common',
+      'createLowlight'
     ])
   })
 })
 
 test('lowlight.aliases', async function (t) {
+  const lowlight = createLowlight({markdown})
+
   const input = String(
     await fs.readFile(new URL('md-sublanguage/input.txt', fixtures))
   ).trimEnd()
@@ -83,6 +61,8 @@ test('lowlight.aliases', async function (t) {
 })
 
 test('lowlight.highlight', async function (t) {
+  const lowlight = createLowlight(common)
+
   await t.test(
     'should throw when not given `string` for `name`',
     async function () {
@@ -219,6 +199,8 @@ test('lowlight.highlight', async function (t) {
 })
 
 test('lowlight.highlightAuto', async function (t) {
+  const lowlight = createLowlight(common)
+
   await t.test('should throw when not given a string', async function () {
     assert.throws(function () {
       // @ts-expect-error: check how the runtime handles incorrect `value`.
@@ -300,22 +282,28 @@ test('lowlight.highlightAuto', async function (t) {
 
 test('lowlight.listLanguages', async function (t) {
   await t.test('should list languages', async function () {
-    assert.ok(Array.isArray(lowlight.listLanguages()))
+    assert.deepEqual(createLowlight().listLanguages(), [])
+  })
+
+  await t.test('should list languages', async function () {
+    assert.deepEqual(
+      createLowlight(common).listLanguages(),
+      Object.keys(common)
+    )
+  })
+
+  await t.test('should include newly registered languages', async function () {
+    const lowlight = createLowlight()
+
+    lowlight.registerLanguage('testtest', function () {
+      return {contains: []}
+    })
+
+    assert.ok(lowlight.listLanguages().includes('testtest'))
   })
 
   await t.test(
-    'should include any additional languages that are registered',
-    async function () {
-      lowlight.registerLanguage('testtest', function () {
-        return {contains: []}
-      })
-
-      assert.ok(lowlight.listLanguages().includes('testtest'))
-    }
-  )
-
-  await t.test(
-    'should *not* include any additional languages that are registered at lowlight',
+    'should not include languages registered w/ lowlight in highlight',
     async function () {
       assert.ok(!highlight.listLanguages().includes('testtest'))
     }
@@ -323,21 +311,23 @@ test('lowlight.listLanguages', async function (t) {
 })
 
 test('registered', async function (t) {
+  const lowlight = createLowlight()
+
   await t.test('should support `registered`', async function () {
-    assert.deepEqual(
-      [lowlight.registered('javascript'), lowlight.registered('diyjs')],
-      [true, false]
-    )
+    assert.equal(lowlight.registered('javascript'), false)
+    lowlight.registerLanguage('javascript', javascript)
+    assert.equal(lowlight.registered('javascript'), true)
   })
 
   await t.test('should include newly registered aliases', async function () {
+    assert.deepEqual(lowlight.registered('diyjs'), false)
     lowlight.registerAlias('javascript', 'diyjs')
-
     assert.deepEqual(lowlight.registered('diyjs'), true)
   })
 })
 
 test('fixtures', async function (t) {
+  const lowlight = createLowlight(all)
   const files = await fs.readdir(fixtures)
   let index = -1
 

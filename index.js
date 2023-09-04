@@ -1,2 +1,4 @@
 // Note: types exposed from `index.d.ts`.
-export {lowlight} from './lib/common.js'
+export {grammars as all} from './lib/all.js'
+export {grammars as common} from './lib/common.js'
+export {createLowlight} from './lib/core.js'

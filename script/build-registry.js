@@ -45,7 +45,7 @@ uncommon = all
 
 await fs.writeFile(
   new URL('../lib/common.js', import.meta.url),
-  generate(common, 'core')
+  generate(common)
 )
 await fs.writeFile(
   new URL('../lib/all.js', import.meta.url),
@@ -73,26 +73,32 @@ console.log(
 /**
  * @param {Array<string>} list
  *   List.
- * @param {string} base
- *   Base name.
+ * @param {string | undefined} [base]
+ *   Base name (optional).
  * @returns {string}
  *   Code.
  */
 function generate(list, base) {
   return [
-    '// @ts-expect-error: this registers types for the language files.',
-    "/** @typedef {import('highlight.js/types/index.js')} DoNotTochItRegistersLanguageFiles */",
+    '/**',
+    " * @typedef {import('highlight.js').LanguageFn} LanguageFn",
+    ' */',
+    '',
+    ...(base ? ["import {grammars as base} from './" + base + ".js'"] : []),
     '',
     ...list.map(function (d) {
       return 'import ' + id(d) + " from 'highlight.js/lib/languages/" + d + "'"
     }),
-    "import {lowlight} from './" + base + ".js'",
     '',
-    ...list.map(function (d) {
-      return "lowlight.registerLanguage('" + d + "', " + id(d) + ')'
-    }),
-    '',
-    "export {lowlight} from './" + base + ".js'",
+    '/**',
+    ' * Map of grammars.',
+    ' *',
+    ' * @type {Record<string, LanguageFn>}',
+    ' */',
+    'export const grammars = {',
+    ...(base ? [' ...base,'] : []),
+    ...list.map((d) => "  '" + d + "': " + id(d) + ','),
+    '}',
     ''
   ].join('\n')
 }

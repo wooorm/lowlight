@@ -1,6 +1,8 @@
+export type {LanguageFn} from 'highlight.js'
 export type {AutoOptions, Options} from './lib/core.js'
-
-export {lowlight} from './lib/common.js'
+export {grammars as all} from './lib/all.js'
+export {grammars as common} from './lib/common.js'
+export {createLowlight} from './lib/core.js'
 
 // Register data on hast.
 declare module 'hast' {
