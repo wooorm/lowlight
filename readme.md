@@ -24,7 +24,7 @@ Virtual syntax highlighting for virtual DOMs and non-HTML things based on
     *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
     *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
     *   [`lowlight.register(grammars)`](#lowlightregistergrammars)
-    *   [`lowlight.registerAlias(language, alias)`](#lowlightregisteraliaslanguage-alias)
+    *   [`lowlight.registerAlias(aliases)`](#lowlightregisteraliasaliases)
     *   [`lowlight.registered(aliasOrlanguage)`](#lowlightregisteredaliasorlanguage)
     *   [`AutoOptions`](#autooptions)
     *   [`LanguageFn`](#languagefn)
@@ -46,7 +46,7 @@ Virtual syntax highlighting for virtual DOMs and non-HTML things based on
 
 This package uses [`highlight.js`][highlight-js] for syntax highlighting and
 outputs objects (ASTs) instead of a string of HTML.
-It optionally supports about 190+ programming languages.
+It can support 190+ programming languages.
 
 ## When should I use this?
 
@@ -276,7 +276,7 @@ Yields:
 {type: 'root', children: [Array], data: {language: 'html', relevance: 2}}
 ```
 
-### `lowlight.registerAlias(language, alias)`
+### `lowlight.registerAlias(aliases)`
 
 Register aliases.
 
@@ -361,7 +361,7 @@ Highlight.js grammar (TypeScript type).
 ###### Type
 
 ```ts
-export type {LanguageFn} from 'highlight.js'
+type {LanguageFn} from 'highlight.js'
 ```
 
 ### `Options`
