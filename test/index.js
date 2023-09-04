@@ -1,5 +1,5 @@
 /**
- * @typedef {import('../lib/core.js').Root} Root
+ * @typedef {import('hast').Root} Root
  */
 
 import assert from 'node:assert/strict'
@@ -67,7 +67,7 @@ test('lowlight.highlight(language, value[, options])', async (t) => {
   )
 
   assert.equal(
-    result.data.relevance,
+    result.data?.relevance,
     0,
     'should return a `0` for `data.relevance` when empty'
   )
@@ -97,13 +97,13 @@ test('lowlight.highlight(language, value[, options])', async (t) => {
     )
 
     assert.equal(
-      result.data.relevance,
+      result.data?.relevance,
       6,
       'should return the correct relevance for the fixture'
     )
 
     assert.equal(
-      result.data.language,
+      result.data?.language,
       'java',
       'should return the correct language for the fixture'
     )
@@ -206,15 +206,15 @@ test('lowlight.highlightAuto(value[, options])', async (t) => {
   )
 
   assert.equal(
-    result.data.relevance,
+    result.data?.relevance,
     0,
     'should return a `0` for `relevance` when empty'
   )
 
   assert.equal(
-    result.data.language,
-    null,
-    'should return `null` for `language` when empty'
+    result.data?.language,
+    undefined,
+    'should return `undefined` for `language` when empty'
   )
 
   assert.deepEqual(
@@ -227,13 +227,13 @@ test('lowlight.highlightAuto(value[, options])', async (t) => {
     const result = lowlight.highlightAuto(['"use strict";'].join('\n'))
 
     assert.equal(
-      result.data.relevance,
+      result.data?.relevance,
       10,
       'should return the correct relevance for the fixture'
     )
 
     assert.equal(
-      result.data.language,
+      result.data?.language,
       'javascript',
       'should return the correct language for the fixture'
     )
@@ -279,7 +279,7 @@ test('lowlight.highlightAuto(value[, options])', async (t) => {
     let result = lowlight.highlightAuto('"use strict";', {subset: ['java']})
 
     assert.equal(
-      result.data.language,
+      result.data?.language,
       'java',
       'should support a given custom `subset`'
     )
@@ -291,7 +291,7 @@ test('lowlight.highlightAuto(value[, options])', async (t) => {
     }, 'should ignore unregistered subset languages (#1)')
 
     assert.equal(
-      result.data.language,
+      result.data?.language,
       'javascript',
       'should ignore unregistered subset languages (#2)'
     )
@@ -413,8 +413,8 @@ async function subtest(directory, transform) {
     out =
       rehype()
         .data('settings', {
-          fragment: true,
-          entities: {useNamedReferences: true}
+          characterReferences: {useNamedReferences: true},
+          fragment: true
         })
         .stringify(actual) + '\n'
 
@@ -423,7 +423,7 @@ async function subtest(directory, transform) {
 
   const expected = rehype().data('settings', {fragment: true}).parse(out.trim())
 
-  removePosition(expected, true)
+  removePosition(expected, {force: true})
 
   assert.deepEqual(
     actual.children,
