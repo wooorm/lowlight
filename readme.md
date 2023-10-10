@@ -663,7 +663,7 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 *   [ ] `x86asm` — Intel x86 Assembly
 *   [ ] `xl` (`tao`) — XL
 *   [x] `xml` (`html`, `xhtml`, `rss`, `atom`, `xjb`, `xsd`, `xsl`, `plist`, `wsf`, `svg`) — HTML, XML
-*   [ ] `xquery` (`xpath`, `xq`) — XQuery
+*   [ ] `xquery` (`xpath`, `xq`, `xqm`) — XQuery
 *   [x] `yaml` (`yml`) — YAML
 *   [ ] `zephir` (`zep`) — Zephir
 
