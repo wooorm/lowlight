@@ -1,6 +1,6 @@
 {
   "name": "lowlight",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Virtual syntax highlighting for virtual DOMs and non-HTML things",
   "license": "MIT",
   "keywords": [
