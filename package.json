@@ -41,18 +41,18 @@
     "@types/mdast": "^4.0.0",
     "@types/node": "^20.0.0",
     "@types/unist": "^3.0.0",
-    "c8": "^8.0.0",
+    "c8": "^10.0.0",
     "chalk": "^5.0.0",
     "estree-util-is-identifier-name": "^3.0.0",
     "hast-util-to-html": "^9.0.0",
     "mdast-zone": "^6.0.0",
     "prettier": "^3.0.0",
-    "remark-cli": "^11.0.0",
-    "remark-preset-wooorm": "^9.0.0",
+    "remark-cli": "^12.0.0",
+    "remark-preset-wooorm": "^10.0.0",
     "type-coverage": "^2.0.0",
-    "typescript": "^5.0.0",
+    "typescript": "^5.5.1-rc",
     "unified": "^11.0.0",
-    "xo": "^0.56.0"
+    "xo": "^0.58.0"
   },
   "scripts": {
     "build": "tsc --build --clean && tsc --build && type-coverage",

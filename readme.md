@@ -12,35 +12,35 @@ Virtual syntax highlighting for virtual DOMs and non-HTML things based on
 
 ## Contents
 
-*   [What is this?](#what-is-this)
-*   [When should I use this?](#when-should-i-use-this)
-*   [Install](#install)
-*   [Use](#use)
-*   [API](#api)
-    *   [`all`](#all)
-    *   [`common`](#common)
-    *   [`createLowlight([grammars])`](#createlowlightgrammars)
-    *   [`lowlight.highlight(language, value[, options])`](#lowlighthighlightlanguage-value-options)
-    *   [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
-    *   [`lowlight.listLanguages()`](#lowlightlistlanguages)
-    *   [`lowlight.register(grammars)`](#lowlightregistergrammars)
-    *   [`lowlight.registerAlias(aliases)`](#lowlightregisteraliasaliases)
-    *   [`lowlight.registered(aliasOrlanguage)`](#lowlightregisteredaliasorlanguage)
-    *   [`AutoOptions`](#autooptions)
-    *   [`LanguageFn`](#languagefn)
-    *   [`Options`](#options)
-*   [Examples](#examples)
-    *   [Example: serializing hast as html](#example-serializing-hast-as-html)
-    *   [Example: turning hast into preact, react, etc](#example-turning-hast-into-preact-react-etc)
-*   [Types](#types)
-*   [Data](#data)
-*   [CSS](#css)
-*   [Compatibility](#compatibility)
-*   [Security](#security)
-*   [Related](#related)
-*   [Projects](#projects)
-*   [Contribute](#contribute)
-*   [License](#license)
+* [What is this?](#what-is-this)
+* [When should I use this?](#when-should-i-use-this)
+* [Install](#install)
+* [Use](#use)
+* [API](#api)
+  * [`all`](#all)
+  * [`common`](#common)
+  * [`createLowlight([grammars])`](#createlowlightgrammars)
+  * [`lowlight.highlight(language, value[, options])`](#lowlighthighlightlanguage-value-options)
+  * [`lowlight.highlightAuto(value[, options])`](#lowlighthighlightautovalue-options)
+  * [`lowlight.listLanguages()`](#lowlightlistlanguages)
+  * [`lowlight.register(grammars)`](#lowlightregistergrammars)
+  * [`lowlight.registerAlias(aliases)`](#lowlightregisteraliasaliases)
+  * [`lowlight.registered(aliasOrlanguage)`](#lowlightregisteredaliasorlanguage)
+  * [`AutoOptions`](#autooptions)
+  * [`LanguageFn`](#languagefn)
+  * [`Options`](#options)
+* [Examples](#examples)
+  * [Example: serializing hast as html](#example-serializing-hast-as-html)
+  * [Example: turning hast into preact, react, etc](#example-turning-hast-into-preact-react-etc)
+* [Types](#types)
+* [Data](#data)
+* [CSS](#css)
+* [Compatibility](#compatibility)
+* [Security](#security)
+* [Related](#related)
+* [Projects](#projects)
+* [Contribute](#contribute)
+* [License](#license)
 
 ## What is this?
 
@@ -136,8 +136,8 @@ Create a `lowlight` instance.
 
 ###### Parameters
 
-*   `grammars` ([`Record<string, LanguageFn>`][api-language-fn], optional)
-    — grammars to add
+* `grammars` ([`Record<string, LanguageFn>`][api-language-fn], optional)
+  — grammars to add
 
 ###### Returns
 
@@ -149,12 +149,12 @@ Highlight `value` (code) as `language` (name).
 
 ###### Parameters
 
-*   `language` (`string`)
-    — programming language [name][names]
-*   `value` (`string`)
-    — code to highlight
-*   `options` ([`Options`][api-options], optional)
-    — configuration
+* `language` (`string`)
+  — programming language [name][names]
+* `value` (`string`)
+  — code to highlight
+* `options` ([`Options`][api-options], optional)
+  — configuration
 
 ###### Returns
 
@@ -184,10 +184,10 @@ Highlight `value` (code) and guess its programming language.
 
 ###### Parameters
 
-*   `value` (`string`)
-    — code to highlight
-*   `options` ([`AutoOptions`][api-auto-options], optional)
-    — configuration
+* `value` (`string`)
+  — code to highlight
+* `options` ([`AutoOptions`][api-auto-options], optional)
+  — configuration
 
 ###### Returns
 
@@ -240,17 +240,17 @@ Register languages.
 
 ###### Signatures
 
-*   `register(name, grammar)`
-*   `register(grammars)`
+* `register(name, grammar)`
+* `register(grammars)`
 
 ###### Parameters
 
-*   `name` (`string`)
-    — programming language [name][names]
-*   `grammar` ([`LanguageFn`][api-language-fn])
-    — grammar
-*   `grammars` ([`Record<string, LanguageFn>`][api-language-fn], optional)
-    — grammars
+* `name` (`string`)
+  — programming language [name][names]
+* `grammar` ([`LanguageFn`][api-language-fn])
+  — grammar
+* `grammars` ([`Record<string, LanguageFn>`][api-language-fn], optional)
+  — grammars
 
 ###### Returns
 
@@ -282,17 +282,17 @@ Register aliases.
 
 ###### Signatures
 
-*   `registerAlias(aliases)`
-*   `registerAlias(name, alias)`
+* `registerAlias(aliases)`
+* `registerAlias(name, alias)`
 
 ###### Parameters
 
-*   `aliases` (`Record<string, Array<string> | string>`)
-    — map of programming language [names][] to one or more aliases
-*   `name` (`string`)
-    — programming language [name][names]
-*   `alias` (`Array<string> | string`)
-    — one or more aliases for the programming language
+* `aliases` (`Record<string, Array<string> | string>`)
+  — map of programming language [names][] to one or more aliases
+* `name` (`string`)
+  — programming language [name][names]
+* `alias` (`Array<string> | string`)
+  — one or more aliases for the programming language
 
 ###### Returns
 
@@ -322,8 +322,8 @@ Check whether an alias or name is registered.
 
 ###### Parameters
 
-*   `aliasOrlanguage` (`string`)
-    — [name][names] of a language or alias for one
+* `aliasOrlanguage` (`string`)
+  — [name][names] of a language or alias for one
 
 ###### Returns
 
@@ -349,10 +349,10 @@ Configuration for `highlightAuto` (TypeScript type).
 
 ###### Fields
 
-*   `prefix` (`string`, default: `'hljs-'`)
-    — class prefix
-*   `subset` (`Array<string>`, default: all registered languages)
-    — list of allowed languages
+* `prefix` (`string`, default: `'hljs-'`)
+  — class prefix
+* `subset` (`Array<string>`, default: all registered languages)
+  — list of allowed languages
 
 ### `LanguageFn`
 
@@ -370,8 +370,8 @@ Configuration for `highlight` (TypeScript type).
 
 ###### Fields
 
-*   `prefix` (`string`, default: `'hljs-'`)
-    — class prefix
+* `prefix` (`string`, default: `'hljs-'`)
+  — class prefix
 
 ## Examples
 
@@ -474,198 +474,198 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 
 <!--support start-->
 
-*   [ ] `1c` — 1C:Enterprise
-*   [ ] `abnf` — Augmented Backus-Naur Form
-*   [ ] `accesslog` — Apache Access Log
-*   [ ] `actionscript` (`as`) — ActionScript
-*   [ ] `ada` — Ada
-*   [ ] `angelscript` (`asc`) — AngelScript
-*   [ ] `apache` (`apacheconf`) — Apache config
-*   [ ] `applescript` (`osascript`) — AppleScript
-*   [ ] `arcade` — ArcGIS Arcade
-*   [x] `arduino` (`ino`) — Arduino
-*   [ ] `armasm` (`arm`) — ARM Assembly
-*   [ ] `asciidoc` (`adoc`) — AsciiDoc
-*   [ ] `aspectj` — AspectJ
-*   [ ] `autohotkey` (`ahk`) — AutoHotkey
-*   [ ] `autoit` — AutoIt
-*   [ ] `avrasm` — AVR Assembly
-*   [ ] `awk` — Awk
-*   [ ] `axapta` (`x++`) — X++
-*   [x] `bash` (`sh`) — Bash
-*   [ ] `basic` — BASIC
-*   [ ] `bnf` — Backus–Naur Form
-*   [ ] `brainfuck` (`bf`) — Brainfuck
-*   [x] `c` (`h`) — C
-*   [ ] `cal` — C/AL
-*   [ ] `capnproto` (`capnp`) — Cap’n Proto
-*   [ ] `ceylon` — Ceylon
-*   [ ] `clean` (`icl`, `dcl`) — Clean
-*   [ ] `clojure` (`clj`, `edn`) — Clojure
-*   [ ] `clojure-repl` — Clojure REPL
-*   [ ] `cmake` (`cmake.in`) — CMake
-*   [ ] `coffeescript` (`coffee`, `cson`, `iced`) — CoffeeScript
-*   [ ] `coq` — Coq
-*   [ ] `cos` (`cls`) — Caché Object Script
-*   [x] `cpp` (`cc`, `c++`, `h++`, `hpp`, `hh`, `hxx`, `cxx`) — C++
-*   [ ] `crmsh` (`crm`, `pcmk`) — crmsh
-*   [ ] `crystal` (`cr`) — Crystal
-*   [x] `csharp` (`cs`, `c#`) — C#
-*   [ ] `csp` — CSP
-*   [x] `css` — CSS
-*   [ ] `d` — D
-*   [ ] `dart` — Dart
-*   [ ] `delphi` (`dpr`, `dfm`, `pas`, `pascal`) — Delphi
-*   [x] `diff` (`patch`) — Diff
-*   [ ] `django` (`jinja`) — Django
-*   [ ] `dns` (`bind`, `zone`) — DNS Zone
-*   [ ] `dockerfile` (`docker`) — Dockerfile
-*   [ ] `dos` (`bat`, `cmd`) — Batch file (DOS)
-*   [ ] `dsconfig` — undefined
-*   [ ] `dts` — Device Tree
-*   [ ] `dust` (`dst`) — Dust
-*   [ ] `ebnf` — Extended Backus-Naur Form
-*   [ ] `elixir` (`ex`, `exs`) — Elixir
-*   [ ] `elm` — Elm
-*   [ ] `erb` — ERB
-*   [ ] `erlang` (`erl`) — Erlang
-*   [ ] `erlang-repl` — Erlang REPL
-*   [ ] `excel` (`xlsx`, `xls`) — Excel formulae
-*   [ ] `fix` — FIX
-*   [ ] `flix` — Flix
-*   [ ] `fortran` (`f90`, `f95`) — Fortran
-*   [ ] `fsharp` (`fs`, `f#`) — F#
-*   [ ] `gams` (`gms`) — GAMS
-*   [ ] `gauss` (`gss`) — GAUSS
-*   [ ] `gcode` (`nc`) — G-code (ISO 6983)
-*   [ ] `gherkin` (`feature`) — Gherkin
-*   [ ] `glsl` — GLSL
-*   [ ] `gml` — GML
-*   [x] `go` (`golang`) — Go
-*   [ ] `golo` — Golo
-*   [ ] `gradle` — Gradle
-*   [x] `graphql` (`gql`) — GraphQL
-*   [ ] `groovy` — Groovy
-*   [ ] `haml` — HAML
-*   [ ] `handlebars` (`hbs`, `html.hbs`, `html.handlebars`, `htmlbars`) — Handlebars
-*   [ ] `haskell` (`hs`) — Haskell
-*   [ ] `haxe` (`hx`) — Haxe
-*   [ ] `hsp` — HSP
-*   [ ] `http` (`https`) — HTTP
-*   [ ] `hy` (`hylang`) — Hy
-*   [ ] `inform7` (`i7`) — Inform 7
-*   [x] `ini` (`toml`) — TOML, also INI
-*   [ ] `irpf90` — IRPF90
-*   [ ] `isbl` — ISBL
-*   [x] `java` (`jsp`) — Java
-*   [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — JavaScript
-*   [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
-*   [x] `json` — JSON
-*   [ ] `julia` — Julia
-*   [ ] `julia-repl` (`jldoctest`) — Julia REPL
-*   [x] `kotlin` (`kt`, `kts`) — Kotlin
-*   [ ] `lasso` (`ls`, `lassoscript`) — Lasso
-*   [ ] `latex` (`tex`) — LaTeX
-*   [ ] `ldif` — LDIF
-*   [ ] `leaf` — Leaf
-*   [x] `less` — Less
-*   [ ] `lisp` — Lisp
-*   [ ] `livecodeserver` — LiveCode
-*   [ ] `livescript` (`ls`) — LiveScript
-*   [ ] `llvm` — LLVM IR
-*   [ ] `lsl` — LSL (Linden Scripting Language)
-*   [x] `lua` — Lua
-*   [x] `makefile` (`mk`, `mak`, `make`) — Makefile
-*   [x] `markdown` (`md`, `mkdown`, `mkd`) — Markdown
-*   [ ] `mathematica` (`mma`, `wl`) — Mathematica
-*   [ ] `matlab` — Matlab
-*   [ ] `maxima` — Maxima
-*   [ ] `mel` — MEL
-*   [ ] `mercury` (`m`, `moo`) — Mercury
-*   [ ] `mipsasm` (`mips`) — MIPS Assembly
-*   [ ] `mizar` — Mizar
-*   [ ] `mojolicious` — Mojolicious
-*   [ ] `monkey` — Monkey
-*   [ ] `moonscript` (`moon`) — MoonScript
-*   [ ] `n1ql` — N1QL
-*   [ ] `nestedtext` (`nt`) — Nested Text
-*   [ ] `nginx` (`nginxconf`) — Nginx config
-*   [ ] `nim` — Nim
-*   [ ] `nix` (`nixos`) — Nix
-*   [ ] `node-repl` — Node REPL
-*   [ ] `nsis` — NSIS
-*   [x] `objectivec` (`mm`, `objc`, `obj-c`, `obj-c++`, `objective-c++`) — Objective-C
-*   [ ] `ocaml` (`ml`) — OCaml
-*   [ ] `openscad` (`scad`) — OpenSCAD
-*   [ ] `oxygene` — Oxygene
-*   [ ] `parser3` — Parser3
-*   [x] `perl` (`pl`, `pm`) — Perl
-*   [ ] `pf` (`pf.conf`) — Packet Filter config
-*   [ ] `pgsql` (`postgres`, `postgresql`) — PostgreSQL
-*   [x] `php` — undefined
-*   [x] `php-template` — PHP template
-*   [x] `plaintext` (`text`, `txt`) — Plain text
-*   [ ] `pony` — Pony
-*   [ ] `powershell` (`pwsh`, `ps`, `ps1`) — PowerShell
-*   [ ] `processing` (`pde`) — Processing
-*   [ ] `profile` — Python profiler
-*   [ ] `prolog` — Prolog
-*   [ ] `properties` — .properties
-*   [ ] `protobuf` (`proto`) — Protocol Buffers
-*   [ ] `puppet` (`pp`) — Puppet
-*   [ ] `purebasic` (`pb`, `pbi`) — PureBASIC
-*   [x] `python` (`py`, `gyp`, `ipython`) — Python
-*   [x] `python-repl` (`pycon`) — undefined
-*   [ ] `q` (`k`, `kdb`) — Q
-*   [ ] `qml` (`qt`) — QML
-*   [x] `r` — R
-*   [ ] `reasonml` (`re`) — ReasonML
-*   [ ] `rib` — RenderMan RIB
-*   [ ] `roboconf` (`graph`, `instances`) — Roboconf
-*   [ ] `routeros` (`mikrotik`) — MikroTik RouterOS script
-*   [ ] `rsl` — RenderMan RSL
-*   [x] `ruby` (`rb`, `gemspec`, `podspec`, `thor`, `irb`) — Ruby
-*   [ ] `ruleslanguage` — Oracle Rules Language
-*   [x] `rust` (`rs`) — Rust
-*   [ ] `sas` — SAS
-*   [ ] `scala` — Scala
-*   [ ] `scheme` (`scm`) — Scheme
-*   [ ] `scilab` (`sci`) — Scilab
-*   [x] `scss` — SCSS
-*   [x] `shell` (`console`, `shellsession`) — Shell Session
-*   [ ] `smali` — Smali
-*   [ ] `smalltalk` (`st`) — Smalltalk
-*   [ ] `sml` (`ml`) — SML (Standard ML)
-*   [ ] `sqf` — SQF
-*   [x] `sql` — SQL
-*   [ ] `stan` (`stanfuncs`) — Stan
-*   [ ] `stata` (`do`, `ado`) — Stata
-*   [ ] `step21` (`p21`, `step`, `stp`) — STEP Part 21
-*   [ ] `stylus` (`styl`) — Stylus
-*   [ ] `subunit` — SubUnit
-*   [x] `swift` — Swift
-*   [ ] `taggerscript` — Tagger Script
-*   [ ] `tap` — Test Anything Protocol
-*   [ ] `tcl` (`tk`) — Tcl
-*   [ ] `thrift` — Thrift
-*   [ ] `tp` — TP
-*   [ ] `twig` (`craftcms`) — Twig
-*   [x] `typescript` (`ts`, `tsx`, `mts`, `cts`) — TypeScript
-*   [ ] `vala` — Vala
-*   [x] `vbnet` (`vb`) — Visual Basic .NET
-*   [ ] `vbscript` (`vbs`) — VBScript
-*   [ ] `vbscript-html` — VBScript in HTML
-*   [ ] `verilog` (`v`, `sv`, `svh`) — Verilog
-*   [ ] `vhdl` — VHDL
-*   [ ] `vim` — Vim Script
-*   [x] `wasm` — WebAssembly
-*   [ ] `wren` — Wren
-*   [ ] `x86asm` — Intel x86 Assembly
-*   [ ] `xl` (`tao`) — XL
-*   [x] `xml` (`html`, `xhtml`, `rss`, `atom`, `xjb`, `xsd`, `xsl`, `plist`, `wsf`, `svg`) — HTML, XML
-*   [ ] `xquery` (`xpath`, `xq`, `xqm`) — XQuery
-*   [x] `yaml` (`yml`) — YAML
-*   [ ] `zephir` (`zep`) — Zephir
+* [ ] `1c` — 1C:Enterprise
+* [ ] `abnf` — Augmented Backus-Naur Form
+* [ ] `accesslog` — Apache Access Log
+* [ ] `actionscript` (`as`) — ActionScript
+* [ ] `ada` — Ada
+* [ ] `angelscript` (`asc`) — AngelScript
+* [ ] `apache` (`apacheconf`) — Apache config
+* [ ] `applescript` (`osascript`) — AppleScript
+* [ ] `arcade` — ArcGIS Arcade
+* [x] `arduino` (`ino`) — Arduino
+* [ ] `armasm` (`arm`) — ARM Assembly
+* [ ] `asciidoc` (`adoc`) — AsciiDoc
+* [ ] `aspectj` — AspectJ
+* [ ] `autohotkey` (`ahk`) — AutoHotkey
+* [ ] `autoit` — AutoIt
+* [ ] `avrasm` — AVR Assembly
+* [ ] `awk` — Awk
+* [ ] `axapta` (`x++`) — X++
+* [x] `bash` (`sh`) — Bash
+* [ ] `basic` — BASIC
+* [ ] `bnf` — Backus–Naur Form
+* [ ] `brainfuck` (`bf`) — Brainfuck
+* [x] `c` (`h`) — C
+* [ ] `cal` — C/AL
+* [ ] `capnproto` (`capnp`) — Cap’n Proto
+* [ ] `ceylon` — Ceylon
+* [ ] `clean` (`icl`, `dcl`) — Clean
+* [ ] `clojure` (`clj`, `edn`) — Clojure
+* [ ] `clojure-repl` — Clojure REPL
+* [ ] `cmake` (`cmake.in`) — CMake
+* [ ] `coffeescript` (`coffee`, `cson`, `iced`) — CoffeeScript
+* [ ] `coq` — Coq
+* [ ] `cos` (`cls`) — Caché Object Script
+* [x] `cpp` (`cc`, `c++`, `h++`, `hpp`, `hh`, `hxx`, `cxx`) — C++
+* [ ] `crmsh` (`crm`, `pcmk`) — crmsh
+* [ ] `crystal` (`cr`) — Crystal
+* [x] `csharp` (`cs`, `c#`) — C#
+* [ ] `csp` — CSP
+* [x] `css` — CSS
+* [ ] `d` — D
+* [ ] `dart` — Dart
+* [ ] `delphi` (`dpr`, `dfm`, `pas`, `pascal`) — Delphi
+* [x] `diff` (`patch`) — Diff
+* [ ] `django` (`jinja`) — Django
+* [ ] `dns` (`bind`, `zone`) — DNS Zone
+* [ ] `dockerfile` (`docker`) — Dockerfile
+* [ ] `dos` (`bat`, `cmd`) — Batch file (DOS)
+* [ ] `dsconfig` — undefined
+* [ ] `dts` — Device Tree
+* [ ] `dust` (`dst`) — Dust
+* [ ] `ebnf` — Extended Backus-Naur Form
+* [ ] `elixir` (`ex`, `exs`) — Elixir
+* [ ] `elm` — Elm
+* [ ] `erb` — ERB
+* [ ] `erlang` (`erl`) — Erlang
+* [ ] `erlang-repl` — Erlang REPL
+* [ ] `excel` (`xlsx`, `xls`) — Excel formulae
+* [ ] `fix` — FIX
+* [ ] `flix` — Flix
+* [ ] `fortran` (`f90`, `f95`) — Fortran
+* [ ] `fsharp` (`fs`, `f#`) — F#
+* [ ] `gams` (`gms`) — GAMS
+* [ ] `gauss` (`gss`) — GAUSS
+* [ ] `gcode` (`nc`) — G-code (ISO 6983)
+* [ ] `gherkin` (`feature`) — Gherkin
+* [ ] `glsl` — GLSL
+* [ ] `gml` — GML
+* [x] `go` (`golang`) — Go
+* [ ] `golo` — Golo
+* [ ] `gradle` — Gradle
+* [x] `graphql` (`gql`) — GraphQL
+* [ ] `groovy` — Groovy
+* [ ] `haml` — HAML
+* [ ] `handlebars` (`hbs`, `html.hbs`, `html.handlebars`, `htmlbars`) — Handlebars
+* [ ] `haskell` (`hs`) — Haskell
+* [ ] `haxe` (`hx`) — Haxe
+* [ ] `hsp` — HSP
+* [ ] `http` (`https`) — HTTP
+* [ ] `hy` (`hylang`) — Hy
+* [ ] `inform7` (`i7`) — Inform 7
+* [x] `ini` (`toml`) — TOML, also INI
+* [ ] `irpf90` — IRPF90
+* [ ] `isbl` — ISBL
+* [x] `java` (`jsp`) — Java
+* [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — JavaScript
+* [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
+* [x] `json` — JSON
+* [ ] `julia` — Julia
+* [ ] `julia-repl` (`jldoctest`) — Julia REPL
+* [x] `kotlin` (`kt`, `kts`) — Kotlin
+* [ ] `lasso` (`ls`, `lassoscript`) — Lasso
+* [ ] `latex` (`tex`) — LaTeX
+* [ ] `ldif` — LDIF
+* [ ] `leaf` — Leaf
+* [x] `less` — Less
+* [ ] `lisp` — Lisp
+* [ ] `livecodeserver` — LiveCode
+* [ ] `livescript` (`ls`) — LiveScript
+* [ ] `llvm` — LLVM IR
+* [ ] `lsl` — LSL (Linden Scripting Language)
+* [x] `lua` — Lua
+* [x] `makefile` (`mk`, `mak`, `make`) — Makefile
+* [x] `markdown` (`md`, `mkdown`, `mkd`) — Markdown
+* [ ] `mathematica` (`mma`, `wl`) — Mathematica
+* [ ] `matlab` — Matlab
+* [ ] `maxima` — Maxima
+* [ ] `mel` — MEL
+* [ ] `mercury` (`m`, `moo`) — Mercury
+* [ ] `mipsasm` (`mips`) — MIPS Assembly
+* [ ] `mizar` — Mizar
+* [ ] `mojolicious` — Mojolicious
+* [ ] `monkey` — Monkey
+* [ ] `moonscript` (`moon`) — MoonScript
+* [ ] `n1ql` — N1QL
+* [ ] `nestedtext` (`nt`) — Nested Text
+* [ ] `nginx` (`nginxconf`) — Nginx config
+* [ ] `nim` — Nim
+* [ ] `nix` (`nixos`) — Nix
+* [ ] `node-repl` — Node REPL
+* [ ] `nsis` — NSIS
+* [x] `objectivec` (`mm`, `objc`, `obj-c`, `obj-c++`, `objective-c++`) — Objective-C
+* [ ] `ocaml` (`ml`) — OCaml
+* [ ] `openscad` (`scad`) — OpenSCAD
+* [ ] `oxygene` — Oxygene
+* [ ] `parser3` — Parser3
+* [x] `perl` (`pl`, `pm`) — Perl
+* [ ] `pf` (`pf.conf`) — Packet Filter config
+* [ ] `pgsql` (`postgres`, `postgresql`) — PostgreSQL
+* [x] `php` — undefined
+* [x] `php-template` — PHP template
+* [x] `plaintext` (`text`, `txt`) — Plain text
+* [ ] `pony` — Pony
+* [ ] `powershell` (`pwsh`, `ps`, `ps1`) — PowerShell
+* [ ] `processing` (`pde`) — Processing
+* [ ] `profile` — Python profiler
+* [ ] `prolog` — Prolog
+* [ ] `properties` — .properties
+* [ ] `protobuf` (`proto`) — Protocol Buffers
+* [ ] `puppet` (`pp`) — Puppet
+* [ ] `purebasic` (`pb`, `pbi`) — PureBASIC
+* [x] `python` (`py`, `gyp`, `ipython`) — Python
+* [x] `python-repl` (`pycon`) — undefined
+* [ ] `q` (`k`, `kdb`) — Q
+* [ ] `qml` (`qt`) — QML
+* [x] `r` — R
+* [ ] `reasonml` (`re`) — ReasonML
+* [ ] `rib` — RenderMan RIB
+* [ ] `roboconf` (`graph`, `instances`) — Roboconf
+* [ ] `routeros` (`mikrotik`) — MikroTik RouterOS script
+* [ ] `rsl` — RenderMan RSL
+* [x] `ruby` (`rb`, `gemspec`, `podspec`, `thor`, `irb`) — Ruby
+* [ ] `ruleslanguage` — Oracle Rules Language
+* [x] `rust` (`rs`) — Rust
+* [ ] `sas` — SAS
+* [ ] `scala` — Scala
+* [ ] `scheme` (`scm`) — Scheme
+* [ ] `scilab` (`sci`) — Scilab
+* [x] `scss` — SCSS
+* [x] `shell` (`console`, `shellsession`) — Shell Session
+* [ ] `smali` — Smali
+* [ ] `smalltalk` (`st`) — Smalltalk
+* [ ] `sml` (`ml`) — SML (Standard ML)
+* [ ] `sqf` — SQF
+* [x] `sql` — SQL
+* [ ] `stan` (`stanfuncs`) — Stan
+* [ ] `stata` (`do`, `ado`) — Stata
+* [ ] `step21` (`p21`, `step`, `stp`) — STEP Part 21
+* [ ] `stylus` (`styl`) — Stylus
+* [ ] `subunit` — SubUnit
+* [x] `swift` — Swift
+* [ ] `taggerscript` — Tagger Script
+* [ ] `tap` — Test Anything Protocol
+* [ ] `tcl` (`tk`) — Tcl
+* [ ] `thrift` — Thrift
+* [ ] `tp` — TP
+* [ ] `twig` (`craftcms`) — Twig
+* [x] `typescript` (`ts`, `tsx`, `mts`, `cts`) — TypeScript
+* [ ] `vala` — Vala
+* [x] `vbnet` (`vb`) — Visual Basic .NET
+* [ ] `vbscript` (`vbs`) — VBScript
+* [ ] `vbscript-html` — VBScript in HTML
+* [ ] `verilog` (`v`, `sv`, `svh`) — Verilog
+* [ ] `vhdl` — VHDL
+* [ ] `vim` — Vim Script
+* [x] `wasm` — WebAssembly
+* [ ] `wren` — Wren
+* [ ] `x86asm` — Intel x86 Assembly
+* [ ] `xl` (`tao`) — XL
+* [x] `xml` (`html`, `xhtml`, `rss`, `atom`, `xjb`, `xsd`, `xsl`, `plist`, `wsf`, `svg`) — HTML, XML
+* [ ] `xquery` (`xpath`, `xq`, `xqm`) — XQuery
+* [x] `yaml` (`yml`) — YAML
+* [ ] `zephir` (`zep`) — Zephir
 
 <!--support end-->
 
@@ -695,25 +695,25 @@ This package is safe.
 
 ## Related
 
-*   [`refractor`][refractor]
-    — the same as lowlight but with [Prism][]
-*   [`starry-night`][starry-night]
-    — similar but like GitHub and really good
+* [`refractor`][refractor]
+  — the same as lowlight but with [Prism][]
+* [`starry-night`][starry-night]
+  — similar but like GitHub and really good
 
 ## Projects
 
-*   [`emphasize`](https://github.com/wooorm/emphasize)
-    — syntax highlighting in ANSI (for the terminal)
-*   [`react-lowlight`](https://github.com/rexxars/react-lowlight)
-    — syntax highlighter for [React][]
-*   [`react-syntax-highlighter`](https://github.com/conorhastings/react-syntax-highlighter)
-    — [React][] component for syntax highlighting
-*   [`rehype-highlight`](https://github.com/rehypejs/rehype-highlight)
-    — [**rehype**](https://github.com/rehypejs/rehype) plugin to highlight code
-    blocks
-*   [`jstransformer-lowlight`](https://github.com/ai/jstransformer-lowlight)
-    — syntax highlighting for [JSTransformers](https://github.com/jstransformers)
-    and [Pug](https://pugjs.org/language/filters.html)
+* [`emphasize`](https://github.com/wooorm/emphasize)
+  — syntax highlighting in ANSI (for the terminal)
+* [`react-lowlight`](https://github.com/rexxars/react-lowlight)
+  — syntax highlighter for [React][]
+* [`react-syntax-highlighter`](https://github.com/conorhastings/react-syntax-highlighter)
+  — [React][] component for syntax highlighting
+* [`rehype-highlight`](https://github.com/rehypejs/rehype-highlight)
+  — [**rehype**](https://github.com/rehypejs/rehype) plugin to highlight code
+  blocks
+* [`jstransformer-lowlight`](https://github.com/ai/jstransformer-lowlight)
+  — syntax highlighting for [JSTransformers](https://github.com/jstransformers)
+  and [Pug](https://pugjs.org/language/filters.html)
 
 ## Contribute
 

@@ -3,7 +3,7 @@ import chalk from 'chalk'
 import {name as isIdentifier} from 'estree-util-is-identifier-name'
 
 const base = new URL('../node_modules/highlight.js/', import.meta.url)
-const doc = String(await fs.readFile(new URL('lib/index.js', base)))
+const document = String(await fs.readFile(new URL('lib/index.js', base)))
 
 const category = /\/\*.*?Category: (.*?)\r?\n/s
 const register = /hljs\.registerLanguage\('(.+?)'/g
@@ -17,14 +17,14 @@ let uncommon = []
 /** @type {RegExpMatchArray | null} */
 let match
 
-while ((match = register.exec(doc))) all.push(match[1])
+while ((match = register.exec(document))) all.push(match[1])
 
 while (++index < all.length) {
-  const doc = String(
+  const document = String(
     await fs.readFile(new URL('lib/languages/' + all[index] + '.js', base))
   )
 
-  const match = category.exec(doc)
+  const match = category.exec(document)
 
   if (match && match[1].split(/,\s?/).includes('common')) {
     common.push(all[index])

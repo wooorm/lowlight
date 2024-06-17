@@ -55,9 +55,9 @@ export default function support() {
  */
 async function item(name) {
   /** @type {{default: LanguageFn}} */
-  const mod = await import('highlight.js/lib/languages/' + name)
-  const fn = mod.default
-  const language = fn(hljs)
+  const languageModule = await import('highlight.js/lib/languages/' + name)
+  const languageFunction = languageModule.default
+  const language = languageFunction(hljs)
   /** @type {Array<PhrasingContent>} */
   const content = [{type: 'inlineCode', value: name}]
   let index = -1
