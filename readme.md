@@ -492,7 +492,7 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 * [ ] `avrasm` — AVR Assembly
 * [ ] `awk` — Awk
 * [ ] `axapta` (`x++`) — X++
-* [x] `bash` (`sh`) — Bash
+* [x] `bash` (`sh`, `zsh`) — Bash
 * [ ] `basic` — BASIC
 * [ ] `bnf` — Backus–Naur Form
 * [ ] `brainfuck` (`bf`) — Brainfuck
@@ -560,7 +560,7 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 * [x] `java` (`jsp`) — Java
 * [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — JavaScript
 * [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
-* [x] `json` — JSON
+* [x] `json` (`jsonc`) — JSON
 * [ ] `julia` — Julia
 * [ ] `julia-repl` (`jldoctest`) — Julia REPL
 * [x] `kotlin` (`kt`, `kts`) — Kotlin
@@ -677,7 +677,7 @@ If you are in a browser, you can use any `highlight.js` theme.
 For example, to get GitHub Dark from cdnjs:
 
 ```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css">
 ```
 
 ## Compatibility
