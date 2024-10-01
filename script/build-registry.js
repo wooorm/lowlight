@@ -81,7 +81,7 @@ console.log(
 function generate(list, base) {
   return [
     '/**',
-    " * @typedef {import('highlight.js').LanguageFn} LanguageFn",
+    " * @import {LanguageFn} from 'highlight.js'",
     ' */',
     '',
     ...(base ? ["import {grammars as base} from './" + base + ".js'"] : []),

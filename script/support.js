@@ -1,9 +1,6 @@
 /**
- * @typedef {import('highlight.js').LanguageFn} LanguageFn
- *
- * @typedef {import('mdast').ListItem} ListItem
- * @typedef {import('mdast').PhrasingContent} PhrasingContent
- * @typedef {import('mdast').Root} Root
+ * @import {LanguageFn} from 'highlight.js'
+ * @import {ListItem, PhrasingContent, Root} from 'mdast'
  */
 
 import fs from 'node:fs/promises'

@@ -444,9 +444,8 @@ somewhere in your types, as that registers the new fields on the file.
 
 ```js
 /**
- * @typedef {import('hast').Root} Root
- *
- * @typedef {import('lowlight')}
+ * @import {Root} from 'hast'
+ * @import {} from 'lowlight'
  */
 
 import {VFile} from 'vfile'
