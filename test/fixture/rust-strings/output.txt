@@ -1,8 +1,8 @@
 <span class="hljs-string">'a'</span>;
-<span class="hljs-string">'\n'</span>;
-<span class="hljs-string">'\x1A'</span>;
-<span class="hljs-string">'\u12AS'</span>;
-<span class="hljs-string">'\U1234ASDF'</span>;
+<span class="hljs-string">'<span class="hljs-char escape_">\n</span>'</span>;
+<span class="hljs-string">'<span class="hljs-char escape_">\x</span>1A'</span>;
+<span class="hljs-string">'<span class="hljs-char escape_">\u</span>12AS'</span>;
+<span class="hljs-string">'<span class="hljs-char escape_">\U</span>1234ASDF'</span>;
 <span class="hljs-string">b'a'</span>;
 
 <span class="hljs-string">"hello"</span>;

@@ -573,7 +573,7 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 * [ ] `livescript` (`ls`) — LiveScript
 * [ ] `llvm` — LLVM IR
 * [ ] `lsl` — LSL (Linden Scripting Language)
-* [x] `lua` — Lua
+* [x] `lua` (`pluto`) — Lua
 * [x] `makefile` (`mk`, `mak`, `make`) — Makefile
 * [x] `markdown` (`md`, `mkdown`, `mkd`) — Markdown
 * [ ] `mathematica` (`mma`, `wl`) — Mathematica
@@ -676,7 +676,7 @@ If you are in a browser, you can use any `highlight.js` theme.
 For example, to get GitHub Dark from cdnjs:
 
 ```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.0/styles/github-dark.min.css">
 ```
 
 ## Compatibility
