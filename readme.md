@@ -85,6 +85,15 @@ In browsers with [`esm.sh`][esmsh]:
 </script>
 ```
 
+This will however always bring in every language because most CDNs do not support treeshaking. If you would like to only import the "common" languages you can do the following:
+
+```html
+<script type="module">
+  import {createLowlight} from 'https://esm.sh/lowlight@3/lib/index.js'
+  import {grammars as common} from 'https://esm.sh/lowlight@3/lib/common.js'
+</script>
+```
+
 ## Use
 
 ```js
