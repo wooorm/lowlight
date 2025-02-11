@@ -26,7 +26,10 @@
   ],
   "sideEffects": false,
   "type": "module",
-  "exports": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./lib/*": "./lib/*"
+  },
   "files": [
     "lib/",
     "index.d.ts",
