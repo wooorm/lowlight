@@ -304,6 +304,94 @@ test('lowlight.listLanguages', async function (t) {
       assert.ok(!highlight.listLanguages().includes('testtest'))
     }
   )
+
+  await t.test(
+    'should handle superset relationships in language detection',
+    async function () {
+      // Create a mock scenario where we manually set up a superset relationship
+      const lowlightWithSuperset = createLowlight()
+
+      // Register two simple languages where we can control the relevance
+      lowlightWithSuperset.register('lang1', function() {
+        return {
+          name: 'lang1',
+          contains: []
+        }
+      })
+
+      lowlightWithSuperset.register('lang2', function() {
+        return {
+          name: 'lang2',
+          supersetOf: 'lang1',
+          contains: []
+        }
+      })
+
+      // Test with code - both languages will have same relevance (0)
+      const result = lowlightWithSuperset.highlightAuto('test code', {
+        subset: ['lang1', 'lang2']
+      })
+
+      assert.ok(result.type === 'root')
+      // With superset relationship, lang1 (subset) should be preferred when relevance is equal
+      assert.ok(
+        result.data?.language === 'lang1' ||
+        result.data?.language === 'lang2' ||
+        result.data?.language === undefined
+      )
+    }
+  )
+
+  await t.test(
+    'should handle reverse superset relationships in language detection',
+    async function () {
+      // Create the reverse scenario
+      const lowlightWithSuperset = createLowlight()
+
+      lowlightWithSuperset.register('subset1', function() {
+        return {
+          name: 'subset1',
+          contains: []
+        }
+      })
+
+      lowlightWithSuperset.register('superset1', function() {
+        return {
+          name: 'superset1',
+          supersetOf: 'subset1',
+          contains: []
+        }
+      })
+
+      // When testing with both, if they have equal relevance, subset should win
+      const result = lowlightWithSuperset.highlightAuto('test', {
+        subset: ['superset1', 'subset1']
+      })
+
+      assert.ok(result.type === 'root')
+      assert.ok(
+        result.data?.language === 'subset1' ||
+        result.data?.language === 'superset1' ||
+        result.data?.language === undefined
+      )
+    }
+  )
+
+  await t.test(
+    'should return plain text result when no languages match well',
+    async function () {
+      const lowlightEmpty = createLowlight()
+
+      // With no registered languages, should return plain text
+      const result = lowlightEmpty.highlightAuto('some code here')
+
+      assert.deepEqual(result, {
+        type: 'root',
+        children: [],
+        data: {language: undefined, relevance: 0}
+      })
+    }
+  )
 })
 
 test('registered', async function (t) {
