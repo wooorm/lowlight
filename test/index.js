@@ -127,7 +127,7 @@ test('lowlight.highlight', async function (t) {
           {
             type: 'element',
             tagName: 'span',
-            properties: {className: ['hljs-keyword']},
+            properties: {className: ['hljs-type']},
             children: [{type: 'text', value: 'void'}]
           },
           {type: 'text', value: ' '},
@@ -168,10 +168,26 @@ test('lowlight.highlight', async function (t) {
           },
           {type: 'text', value: ';'}
         ],
-        data: {language: 'java', relevance: 6}
+        data: {language: 'java', relevance: 5}
       }
     )
   })
+
+  await t.test(
+    'should preserve text when no sublanguage is detected',
+    async function () {
+      const lowlight = createLowlight({javascript})
+      lowlight.register('embedded', function () {
+        return {contains: [], subLanguage: ['javascript']}
+      })
+
+      assert.deepEqual(lowlight.highlight('embedded', '...'), {
+        type: 'root',
+        children: [{type: 'text', value: '...'}],
+        data: {language: 'embedded', relevance: 0}
+      })
+    }
+  )
 
   await t.test('should support a given custom `prefix`', async function () {
     const result = lowlight.highlight('js', '"use strict";', {
