@@ -519,7 +519,7 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 * [ ] `django` (`jinja`) — Django
 * [ ] `dns` (`bind`, `zone`) — DNS Zone
 * [ ] `dockerfile` (`docker`) — Dockerfile
-* [ ] `dos` (`bat`, `cmd`) — Batch file (DOS)
+* [ ] `dos` (`bat`, `batch`, `cmd`) — Batch file (DOS)
 * [ ] `dsconfig` — undefined
 * [ ] `dts` — Device Tree
 * [ ] `dust` (`dst`) — Dust
@@ -533,6 +533,7 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 * [ ] `fix` — FIX
 * [ ] `flix` — Flix
 * [ ] `fortran` (`f90`, `f95`) — Fortran
+* [ ] `freedesktop` (`desktop`, `systemd`) — FreeDesktop config
 * [ ] `fsharp` (`fs`, `f#`) — F#
 * [ ] `gams` (`gms`) — GAMS
 * [ ] `gauss` (`gss`) — GAUSS
@@ -559,10 +560,10 @@ where `xxx` is the name, such as `'highlight.js/lib/languages/wasm'`.
 * [x] `java` (`jsp`) — Java
 * [x] `javascript` (`js`, `jsx`, `mjs`, `cjs`) — JavaScript
 * [ ] `jboss-cli` (`wildfly-cli`) — JBoss CLI
-* [x] `json` (`jsonc`) — JSON
+* [x] `json` (`jsonc`, `json5`) — JSON
 * [ ] `julia` — Julia
 * [ ] `julia-repl` (`jldoctest`) — Julia REPL
-* [x] `kotlin` (`kt`, `kts`) — Kotlin
+* [x] `kotlin` (`kt`, `kts`, `ktm`, `ktx`) — Kotlin
 * [ ] `lasso` (`ls`, `lassoscript`) — Lasso
 * [ ] `latex` (`tex`) — LaTeX
 * [ ] `ldif` — LDIF
