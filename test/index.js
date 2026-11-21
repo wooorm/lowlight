@@ -213,6 +213,17 @@ test('lowlight.highlightAuto', async function (t) {
     })
   })
 
+  await t.test(
+    'should keep the code as text if nothing matches',
+    async function () {
+      assert.deepEqual(lowlight.highlightAuto('hello world'), {
+        type: 'root',
+        children: [{type: 'text', value: 'hello world'}],
+        data: {language: undefined, relevance: 0}
+      })
+    }
+  )
+
   await t.test('should work', async function () {
     assert.deepEqual(lowlight.highlightAuto('"use strict";'), {
       type: 'root',
